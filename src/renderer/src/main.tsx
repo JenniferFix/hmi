@@ -1,4 +1,5 @@
-import './assets/main.css'
+// import './assets/main.css'
+import '@renderer/assets/globals.css'
 
 import React from 'react'
 import ReactDOM from 'react-dom/client'
