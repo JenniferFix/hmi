@@ -20,7 +20,9 @@ const ScreenPane = () => {
         {data ? (
           data.map((screen) => (
             <Button key={screen.id} className="w-full" variant="link" asChild>
-              <Link to={`/edit/${screen.id}`}>{screen.name}</Link>
+              <Link to={`/edit/$screenId`} params={{ screenId: screen.id.toString() }}>
+                {screen.name}
+              </Link>
             </Button>
           ))
         ) : (
@@ -33,3 +35,5 @@ const ScreenPane = () => {
     </div>
   )
 }
+
+export default ScreenPane
