@@ -37,12 +37,11 @@ const SideMenu = () => {
   return (
     <div className="bg-accent flex flex-col gap-1 py-2 px-2">
       {menuItems.map((item) => (
-        <TooltipProvider>
+        <TooltipProvider key={item.url}>
           <Tooltip>
             <TooltipTrigger asChild>
               <Button
                 aria-label={item.tooltip}
-                key={item.url}
                 size="icon"
                 variant="outline"
                 asChild

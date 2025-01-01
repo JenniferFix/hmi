@@ -14,6 +14,8 @@ function createWindow(): void {
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
+      nodeIntegration: false,
+      contextIsolation: true,
       sandbox: false
     }
   })
@@ -52,10 +54,14 @@ app.whenReady().then(async () => {
 
   // IPC test
   ipcMain.on('ping', () => console.log('pong'))
-  ipcMain.handle('db:execute', execute)
+
+  ipcMain.handle('db:execute', (event, sql, args, method) => {
+    console.log('in main running execute: ', ...args)
+    return execute(event, sql, args, method)
+  })
 
   await initDb()
-  await runMigrate()
+  // await runMigrate()
   createWindow()
 
   app.on('activate', function () {

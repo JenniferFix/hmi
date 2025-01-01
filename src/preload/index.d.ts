@@ -5,7 +5,7 @@ declare global {
   interface Window {
     electron: ElectronAPI
     api: {
-      database: IDatabase
+      execute: (...args: any[]) => Promise<any>
     }
   }
 }

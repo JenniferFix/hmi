@@ -53,6 +53,7 @@ export function close() {
 }
 
 export const execute = async (_e, sql, args, method) => {
+  console.log('trying', sql, args)
   if (!client || !db) throw new Error('Database not initialized')
   // const result = sqlite.prepare(sqlstr)
   try {
@@ -67,7 +68,7 @@ export const execute = async (_e, sql, args, method) => {
 }
 
 export const runMigrate = async () => {
-  if (!db) throw new Error('Database not initialzed')
+  if (!db) throw new Error('Database not initialized')
   migrate(db, {
     migrationsFolder: path.join(__dirname, '../../drizzle')
   })
