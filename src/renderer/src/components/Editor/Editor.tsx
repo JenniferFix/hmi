@@ -9,7 +9,7 @@ import { Outlet } from '@tanstack/react-router'
 
 const Editor = () => {
   return (
-    <ResizablePanelGroup direction="horizontal">
+    <ResizablePanelGroup direction="horizontal" autoSaveId="jahmi-edit-panels">
       <ResizablePanel defaultSize={25} children={<ScreenPane />} />
       <ResizableHandle withHandle />
       <ResizablePanel defaultSize={75} children={<Outlet />} />

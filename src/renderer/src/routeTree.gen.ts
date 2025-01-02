@@ -13,6 +13,7 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as TagsImport } from './routes/tags'
 import { Route as EditImport } from './routes/edit'
+import { Route as ConfigImport } from './routes/config'
 import { Route as IndexImport } from './routes/index'
 import { Route as EditIndexImport } from './routes/edit.index'
 import { Route as EditScreenIdImport } from './routes/edit.$screenId'
@@ -28,6 +29,12 @@ const TagsRoute = TagsImport.update({
 const EditRoute = EditImport.update({
   id: '/edit',
   path: '/edit',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ConfigRoute = ConfigImport.update({
+  id: '/config',
+  path: '/config',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -58,6 +65,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/config': {
+      id: '/config'
+      path: '/config'
+      fullPath: '/config'
+      preLoaderRoute: typeof ConfigImport
       parentRoute: typeof rootRoute
     }
     '/edit': {
@@ -107,6 +121,7 @@ const EditRouteWithChildren = EditRoute._addFileChildren(EditRouteChildren)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/config': typeof ConfigRoute
   '/edit': typeof EditRouteWithChildren
   '/tags': typeof TagsRoute
   '/edit/$screenId': typeof EditScreenIdRoute
@@ -115,6 +130,7 @@ export interface FileRoutesByFullPath {
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/config': typeof ConfigRoute
   '/tags': typeof TagsRoute
   '/edit/$screenId': typeof EditScreenIdRoute
   '/edit': typeof EditIndexRoute
@@ -123,6 +139,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/config': typeof ConfigRoute
   '/edit': typeof EditRouteWithChildren
   '/tags': typeof TagsRoute
   '/edit/$screenId': typeof EditScreenIdRoute
@@ -131,21 +148,30 @@ export interface FileRoutesById {
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/edit' | '/tags' | '/edit/$screenId' | '/edit/'
+  fullPaths: '/' | '/config' | '/edit' | '/tags' | '/edit/$screenId' | '/edit/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/tags' | '/edit/$screenId' | '/edit'
-  id: '__root__' | '/' | '/edit' | '/tags' | '/edit/$screenId' | '/edit/'
+  to: '/' | '/config' | '/tags' | '/edit/$screenId' | '/edit'
+  id:
+    | '__root__'
+    | '/'
+    | '/config'
+    | '/edit'
+    | '/tags'
+    | '/edit/$screenId'
+    | '/edit/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ConfigRoute: typeof ConfigRoute
   EditRoute: typeof EditRouteWithChildren
   TagsRoute: typeof TagsRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ConfigRoute: ConfigRoute,
   EditRoute: EditRouteWithChildren,
   TagsRoute: TagsRoute,
 }
@@ -161,12 +187,16 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/config",
         "/edit",
         "/tags"
       ]
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/config": {
+      "filePath": "config.tsx"
     },
     "/edit": {
       "filePath": "edit.tsx",

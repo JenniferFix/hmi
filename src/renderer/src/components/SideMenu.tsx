@@ -6,7 +6,7 @@ import {
   TooltipTrigger,
   TooltipProvider
 } from '@renderer/components/ui/tooltip'
-import { HomeIcon, FilePenLineIcon, TagIcon } from 'lucide-react'
+import { HomeIcon, FilePenLineIcon, TagIcon, SettingsIcon } from 'lucide-react'
 import { Link } from '@tanstack/react-router'
 
 type MenuItem = {
@@ -35,26 +35,36 @@ const menuItems: MenuItem[] = [
 
 const SideMenu = () => {
   return (
-    <div className="bg-accent flex flex-col gap-1 py-2 px-2">
-      {menuItems.map((item) => (
-        <TooltipProvider key={item.url}>
+    <div className="bg-accent flex flex-col py-2 px-2 justify-between">
+      <div className="flex flex-col gap-1">
+        {menuItems.map((item) => (
+          <TooltipProvider key={item.url}>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button aria-label={item.tooltip} size="icon" variant="outline" asChild>
+                  <Link to={item.url}>{item.icon}</Link>
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>{item.tooltip}</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        ))}
+      </div>
+      <div>
+        <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
-              <Button
-                aria-label={item.tooltip}
-                size="icon"
-                variant="outline"
-                asChild
-              >
-                <Link to={item.url}>{item.icon}</Link>
+              <Button size="icon" variant="outline">
+                <Link to="/config">
+                  <SettingsIcon />
+                </Link>
               </Button>
             </TooltipTrigger>
-            <TooltipContent>
-              <p>{item.tooltip}</p>
-            </TooltipContent>
           </Tooltip>
         </TooltipProvider>
-      ))}
+      </div>
     </div>
   )
 }
