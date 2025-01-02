@@ -26,7 +26,7 @@ export async function initialize() {
       url: `file:${dbPath}`
     })
     db = drizzle(client, { schema })
-    console.log('initdb', dbPath)
+    console.log('Initialized Database at: ', dbPath)
   } catch (error) {
     console.error('Failed to initialize db', error)
     throw error
@@ -45,14 +45,27 @@ export function close() {
     throw error
   }
 }
+function toDrizzleResult(row: Record<string, any>)
+function toDrizzleResult(rows: Record<string, any> | Array<Record<string, any>>) {
+  if (!rows) {
+    return []
+  }
+  if (Array.isArray(rows)) {
+    return rows.map((row) => {
+      return Object.keys(row).map((key) => row[key])
+    })
+  } else {
+    return Object.keys(rows).map((key) => rows[key])
+  }
+}
 
 export const execute = async (_e, sql, args, method) => {
-  console.log('trying', sql, args)
   if (!client || !db) throw new Error('Database not initialized')
   // const result = sqlite.prepare(sqlstr)
   try {
     const result = await client.execute({ sql, args })
-    return result.rows
+    // return result.rows
+    return toDrizzleResult(result.rows)
   } catch (error) {
     console.error('Execute error:', error, sql, args)
     throw error
@@ -67,4 +80,3 @@ export const runMigrate = async () => {
     migrationsFolder: path.join(__dirname, '../../drizzle')
   })
 }
-

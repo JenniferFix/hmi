@@ -18,6 +18,8 @@ function createWindow(): void {
     }
   })
 
+  mainWindow.webContents.openDevTools()
+
   mainWindow.on('ready-to-show', () => {
     mainWindow.show()
   })
@@ -50,11 +52,7 @@ app.whenReady().then(async () => {
     optimizer.watchWindowShortcuts(window)
   })
 
-  // IPC test
-  ipcMain.on('ping', () => console.log('pong'))
-
   ipcMain.handle('db:execute', (event, sql, args, method) => {
-    console.log('in main running execute: ', ...args)
     return execute(event, sql, args, method)
   })
 
