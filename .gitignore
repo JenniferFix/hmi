@@ -1,6 +1,10 @@
-node_modules
+node_modules/
 dist
 out
 .DS_Store
 *.log*
- drizzle
+drizzle/
+
+build/
+
+out/

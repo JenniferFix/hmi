@@ -1,9 +1,9 @@
+import './assets/globals.css'
 import React from 'react'
-import '@renderer/assets/globals.css'
-import { RouterProvider, createRouter, createHashHistory } from '@tanstack/react-router'
-import { routeTree } from './routeTree.gen'
 import ReactDOM from 'react-dom/client'
+import { routeTree } from './routeTree.gen'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { RouterProvider, createRouter, createHashHistory } from '@tanstack/react-router'
 
 const router = createRouter({ routeTree, history: createHashHistory() })
 const queryClient = new QueryClient()

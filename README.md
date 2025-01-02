@@ -1,4 +1,4 @@
-# hmi
+# drizztest
 
 An Electron application with React and TypeScript
 

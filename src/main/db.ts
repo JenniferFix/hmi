@@ -1,7 +1,4 @@
-// import { drizzle } from 'drizzle-orm/better-sqlite3'
 import { drizzle } from 'drizzle-orm/libsql'
-import Database from 'better-sqlite3'
-// import { migrate } from 'drizzle-orm/better-sqlite3/migrator'
 import { migrate } from 'drizzle-orm/libsql/migrator'
 import * as schema from '../db/schema'
 import fs from 'fs'
@@ -25,14 +22,11 @@ export function getDB() {
 
 export async function initialize() {
   try {
-    // sqlite = new Database(dbPath, { verbose: console.log })
-    // sqlite.pragma('journal_mode = WAL')
-    // sqlite.pragma('foreign_keys = ON')
     client = createClient({
       url: `file:${dbPath}`
     })
     db = drizzle(client, { schema })
-    console.log('initdb')
+    console.log('initdb', dbPath)
   } catch (error) {
     console.error('Failed to initialize db', error)
     throw error
@@ -73,3 +67,4 @@ export const runMigrate = async () => {
     migrationsFolder: path.join(__dirname, '../../drizzle')
   })
 }
+

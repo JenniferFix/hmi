@@ -14,8 +14,6 @@ function createWindow(): void {
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
-      nodeIntegration: false,
-      contextIsolation: true,
       sandbox: false
     }
   })
@@ -61,7 +59,8 @@ app.whenReady().then(async () => {
   })
 
   await initDb()
-  // await runMigrate()
+  await runMigrate()
+
   createWindow()
 
   app.on('activate', function () {

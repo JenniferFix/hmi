@@ -21,3 +21,4 @@ export const screens = sqliteTable('screens', {
 
 export type Screen = typeof screens.$inferSelect
 export type InsertScreen = typeof screens.$inferInsert
+
