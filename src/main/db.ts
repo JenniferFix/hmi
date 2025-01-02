@@ -1,6 +1,6 @@
 import { drizzle } from 'drizzle-orm/libsql'
 import { migrate } from 'drizzle-orm/libsql/migrator'
-import * as schema from '../db/schema'
+import * as schema from '../db'
 import fs from 'fs'
 import { app } from 'electron'
 import path from 'path'

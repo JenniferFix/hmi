@@ -14,6 +14,9 @@
     "paths": {
       "@renderer/*": [
         "src/renderer/src/*"
+      ],
+      "@dbschemas/*": [
+        "src/db/*"
       ]
     }
   }
