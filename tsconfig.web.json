@@ -12,12 +12,10 @@
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
-      "@renderer/*": [
-        "src/renderer/src/*"
-      ],
-      "@db/*": [
-        "/src/db/*"
-      ]
+      "@renderer/*": [ "src/renderer/src/*" ],
+      "$/*": [ "*" ],
+      "@/*": [ "src/*" ],
+      "@db/*": [ "src/db/*" ]
     }
   }
 }

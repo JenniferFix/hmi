@@ -4,7 +4,9 @@
     "electron.vite.config.*",
     "src/main/**/*",
     "src/preload/**/*",
-    "src/db/**/*"
+    "src/db/**/*",
+    "src/*",
+    "drizzle.config"
   ],
   "compilerOptions": {
     "composite": true,
@@ -13,9 +15,9 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@db/*": [
-        "/src/db/*"
-      ]
+      "$/*": [ "*" ],
+      "@/*": [ "src/*" ],
+      "@db/*": [ "src/db/*" ]
     }
   }
 }

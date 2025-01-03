@@ -35,6 +35,7 @@ type FormValues = z.infer<typeof formSchema>
 const ScreenPane = () => {
   const insertScreen = useInsertScreen()
   const { isError, isLoading, data, error } = useGetScreens()
+  const [open, setOpen] = React.useState(false)
 
   const nameForm = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -45,6 +46,7 @@ const ScreenPane = () => {
 
   const handleAddScreen = (data: FormValues) => {
     insertScreen.mutate({ name: data.name ? data.name : 'New Screen' })
+    setOpen(false)
   }
 
   if (isLoading) return <div>Loading</div>
@@ -55,7 +57,7 @@ const ScreenPane = () => {
       <div>
         {data ? (
           data.map((screen) => (
-            <Button key={screen.id} className="w-full" variant="link" asChild>
+            <Button key={screen.id} className="w-full justify-start" variant="link" asChild>
               <Link to={`/edit/$screenId`} params={{ screenId: screen.id.toString() }}>
                 {screen.name}
               </Link>
@@ -65,17 +67,18 @@ const ScreenPane = () => {
           <div>no data</div>
         )}
       </div>
-      <Dialog>
-        <Form {...nameForm}>
-          <form onSubmit={nameForm.handleSubmit(handleAddScreen)}>
-            <DialogTrigger asChild>
-              <Button variant="outline" className="w-full text-lg">
-                Add
-              </Button>
-            </DialogTrigger>
-            <DialogContent>
+      <Dialog open={open} onOpenChange={(value) => setOpen(value)}>
+        <DialogTrigger asChild>
+          <Button variant="outline" className="w-full text-lg">
+            Add
+          </Button>
+        </DialogTrigger>
+        <DialogContent>
+          <Form {...nameForm}>
+            <form onSubmit={nameForm.handleSubmit(handleAddScreen)}>
               <DialogHeader>
                 <DialogTitle>Enter name</DialogTitle>
+                <DialogDescription>Enter the name of the screen</DialogDescription>
               </DialogHeader>
               <FormField
                 control={nameForm.control}
@@ -90,13 +93,11 @@ const ScreenPane = () => {
                 )}
               />
               <DialogFooter>
-                <DialogClose asChild>
-                  <Button type="submit">Submit</Button>
-                </DialogClose>
+                <Button type="submit">Submit</Button>
               </DialogFooter>
-            </DialogContent>
-          </form>
-        </Form>
+            </form>
+          </Form>
+        </DialogContent>
       </Dialog>
     </div>
   )
