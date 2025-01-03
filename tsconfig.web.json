@@ -15,8 +15,8 @@
       "@renderer/*": [
         "src/renderer/src/*"
       ],
-      "@dbschemas/*": [
-        "src/db/*"
+      "@db/*": [
+        "/src/db/*"
       ]
     }
   }

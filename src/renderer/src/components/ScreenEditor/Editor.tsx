@@ -4,7 +4,7 @@ import {
   ResizablePanel,
   ResizableHandle
 } from '@renderer/components/ui/resizable'
-import ScreenPane from '@renderer/components/Editor/ScreenSelectorPane'
+import ScreenPane from '@renderer/components/ScreenEditor/ScreenSelectorPane'
 import { Outlet } from '@tanstack/react-router'
 
 const Editor = () => {

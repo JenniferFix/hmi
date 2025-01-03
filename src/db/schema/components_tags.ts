@@ -6,8 +6,8 @@ import { tags } from './tags'
 export const components_tags = sqliteTable(
   'components_tags',
   {
-    component_id: text('component_id'),
-    tag_id: text('tag_id')
+    component_id: text('component_id').notNull(),
+    tag_id: text('tag_id').notNull()
   },
   (table) => {
     return {

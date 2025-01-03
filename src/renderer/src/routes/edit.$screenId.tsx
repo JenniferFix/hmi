@@ -1,10 +1,10 @@
 import { createFileRoute } from '@tanstack/react-router'
-import Screen from '@renderer/components/Common/Screen'
+import ScreenEditor from '@renderer/components/ScreenEditor/ScreenEditor'
 
 export const Route = createFileRoute('/edit/$screenId')({
   component: RouteComponent
 })
 
 function RouteComponent() {
-  return <Screen screenId={Route.useParams().screenId} />
+  return <ScreenEditor screenId={Route.useParams().screenId} />
 }

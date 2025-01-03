@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient, queryOptions } from '@tanstack/react-query'
 import { database } from '@renderer/db'
-import { screens, type Screen, type InsertScreen } from '../../../db/screens'
+import { screens, type Screen, type InsertScreen } from '../../../db/schema/screens'
 
 export function useGetScreens() {
   return useQuery({
