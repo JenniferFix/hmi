@@ -6,7 +6,16 @@ import {
   TooltipTrigger,
   TooltipProvider
 } from '@renderer/components/ui/tooltip'
-import { HomeIcon, FilePenLineIcon, TagIcon, SettingsIcon } from 'lucide-react'
+import {
+  HomeIcon,
+  FilePenLineIcon,
+  TagIcon,
+  SettingsIcon,
+  FilesIcon,
+  MonitorIcon,
+  SquareCodeIcon,
+  CodeSquareIcon
+} from 'lucide-react'
 import { Link } from '@tanstack/react-router'
 
 type MenuItem = {
@@ -30,6 +39,11 @@ const menuItems: MenuItem[] = [
     tooltip: 'Edit Tags',
     icon: <TagIcon />,
     url: '/tags'
+  },
+  {
+    tooltip: 'Code',
+    icon: <CodeSquareIcon />,
+    url: '/code'
   }
 ]
 

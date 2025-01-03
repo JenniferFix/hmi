@@ -53,20 +53,7 @@ const ScreenPane = () => {
   if (isError) return <div>{error.message}</div>
 
   return (
-    <div className="flex flex-col justify-between h-full p-2 pb-4">
-      <div>
-        {data ? (
-          data.map((screen) => (
-            <Button key={screen.id} className="w-full justify-start" variant="link" asChild>
-              <Link to={`/edit/$screenId`} params={{ screenId: screen.id.toString() }}>
-                {screen.name}
-              </Link>
-            </Button>
-          ))
-        ) : (
-          <div>no data</div>
-        )}
-      </div>
+    <div className="flex flex-col h-full p-2 pb-4">
       <Dialog open={open} onOpenChange={(value) => setOpen(value)}>
         <DialogTrigger asChild>
           <Button variant="outline" className="w-full text-lg">
@@ -99,6 +86,19 @@ const ScreenPane = () => {
           </Form>
         </DialogContent>
       </Dialog>
+      <div>
+        {data ? (
+          data.map((screen) => (
+            <Button key={screen.id} className="w-full justify-start" variant="link" asChild>
+              <Link to={`/edit/$screenId`} params={{ screenId: screen.id.toString() }}>
+                {screen.name}
+              </Link>
+            </Button>
+          ))
+        ) : (
+          <div>no data</div>
+        )}
+      </div>
     </div>
   )
 }

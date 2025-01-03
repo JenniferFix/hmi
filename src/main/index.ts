@@ -3,12 +3,22 @@ import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 import { initialize as initDb, close as closeDb, execute, runMigrate } from './db'
+import windowStateKeeper from 'electron-window-state'
 
 function createWindow(): void {
+  const windowState = windowStateKeeper({
+    defaultWidth: 800,
+    defaultHeight: 600,
+    maximize: false,
+    fullScreen: false
+  })
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 900,
-    height: 670,
+    x: windowState.x,
+    y: windowState.y,
+    width: windowState.width,
+    height: windowState.height,
+    fullscreen: windowState.isFullScreen,
     show: false,
     autoHideMenuBar: true,
     ...(process.platform === 'linux' ? { icon } : {}),

@@ -49,10 +49,10 @@ const NameDialog = ({ children, callback }: { children: React.ReactNode; callbac
         <form onSubmit={nameForm.handleSubmit(onFormSubmit)}>
           <DialogTrigger asChild>{children}</DialogTrigger>
           <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Please enter a name:</DialogTitle>
-              <DialogDescription>This will be the name for the thing</DialogDescription>
-            </DialogHeader>
+            {/* <DialogHeader> */}
+            {/*   <DialogTitle>Please enter a name:</DialogTitle> */}
+            {/*   <DialogDescription>This will be the name for the thing</DialogDescription> */}
+            {/* </DialogHeader> */}
             {/* <FormField */}
             {/*   control={nameForm.control} */}
             {/*   name="name" */}
