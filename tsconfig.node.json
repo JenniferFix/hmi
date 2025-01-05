@@ -9,6 +9,7 @@
     "drizzle.config"
   ],
   "compilerOptions": {
+    "moduleResolution": "bundler",
     "composite": true,
     "types": [
       "electron-vite/node"

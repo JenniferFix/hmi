@@ -5,6 +5,11 @@ import { TanStackRouterVite } from '@tanstack/router-plugin/vite'
 
 export default defineConfig({
   main: {
+    resolve: {
+      alias: {
+        '@db': resolve('src/db')
+      }
+    },
     plugins: [externalizeDepsPlugin()]
   },
   preload: {
@@ -13,7 +18,8 @@ export default defineConfig({
   renderer: {
     resolve: {
       alias: {
-        '@renderer': resolve('src/renderer/src')
+        '@renderer': resolve('src/renderer/src'),
+        '@db': resolve('src/db')
       }
     },
     plugins: [react(), TanStackRouterVite()]

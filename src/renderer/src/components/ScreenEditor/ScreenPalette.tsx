@@ -25,6 +25,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
 import { Input } from '@renderer/components/ui/input'
+import PaletteOutline from './PaletteOutline'
 
 const formSchema = z.object({
   name: z.string()
@@ -32,7 +33,7 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>
 
-const ScreenPane = () => {
+const ScreenPalette = () => {
   const insertScreen = useInsertScreen()
   const { isError, isLoading, data, error } = useGetScreens()
   const [open, setOpen] = React.useState(false)
@@ -56,7 +57,7 @@ const ScreenPane = () => {
     <div className="flex flex-col h-full p-2 pb-4">
       <Dialog open={open} onOpenChange={(value) => setOpen(value)}>
         <DialogTrigger asChild>
-          <Button variant="outline" className="w-full text-lg">
+          <Button size="sm" variant="outline" className="w-full text-sm">
             Add
           </Button>
         </DialogTrigger>
@@ -86,7 +87,7 @@ const ScreenPane = () => {
           </Form>
         </DialogContent>
       </Dialog>
-      <div>
+      <div className="pt-2">
         {data ? (
           data.map((screen) => (
             <Button key={screen.id} className="w-full justify-start" variant="link" asChild>
@@ -103,4 +104,10 @@ const ScreenPane = () => {
   )
 }
 
-export default ScreenPane
+const WrappedScreenPalette = () => (
+  <PaletteOutline title="Screens">
+    <ScreenPalette />
+  </PaletteOutline>
+)
+
+export default WrappedScreenPalette

@@ -1,6 +1,11 @@
-export { component_types } from './component_types'
-export { components } from './components'
-export { components_tags } from './components_tags'
-export { controllers } from './controllers'
-export { screens } from './screens'
-export { tags } from './tags'
+export { componentTemplate, componentTemplateRelations } from './componenttemplate'
+export {
+  componentPropertyTemplate,
+  componentPropertyTemplateRelations
+} from './componentpropertytemplate'
+export { componentProperyValue, componentPropertyValueRelations } from './componentpropertyvalue'
+export { component, componentRelations } from './component'
+export { componentsTags, componentsTagsRelations } from './componentstags'
+export { controller, controllerRelations } from './controller'
+export { screen, screenRelations } from './screen'
+export { tag, tagRelations } from './tag'

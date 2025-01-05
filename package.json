@@ -1,10 +1,10 @@
 {
-  "name": "drizztest",
-  "version": "1.0.0",
-  "description": "An Electron application with React and TypeScript",
+  "name": "jahmi",
+  "version": "0.0.1",
+  "description": "Just Another HMI - Create HMI panels for use with Allen Bradley PLCs",
   "main": "./out/main/index.js",
-  "author": "example.com",
-  "homepage": "https://electron-vite.org",
+  "author": "Jennifer Fix",
+  "homepage": "https://jenniferfix.ca",
   "scripts": {
     "format": "prettier --write .",
     "lint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
@@ -20,7 +20,7 @@
     "build:mac": "electron-vite build && electron-builder --mac",
     "build:linux": "electron-vite build && electron-builder --linux",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "cross-env DB_MIGRATING=true tsx src/db/migrate.ts",
+    "db:migrate": "drizzle-kit migrate",
     "db:seed": "cross-env DB_SEEDING=true tsx src/db/seed.ts"
   },
   "dependencies": {
