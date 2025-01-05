@@ -4,6 +4,7 @@ import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 import { initialize as initDb, close as closeDb, execute, runMigrate } from './db'
 import windowStateKeeper from 'electron-window-state'
+import { startNodeRed } from './nodeRedService'
 
 function createWindow(): void {
   const windowState = windowStateKeeper({
@@ -24,6 +25,9 @@ function createWindow(): void {
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
+      webviewTag: true,
+      nodeIntegration: true,
+      contextIsolation: false,
       sandbox: false
     }
   })
@@ -68,6 +72,9 @@ app.whenReady().then(async () => {
 
   await initDb()
   await runMigrate()
+
+  await startNodeRed()
+  console.log('Node RED started')
 
   createWindow()
 

@@ -41,9 +41,9 @@ const menuItems: MenuItem[] = [
     url: '/tags'
   },
   {
-    tooltip: 'Code',
+    tooltip: 'Node-RED',
     icon: <CodeSquareIcon />,
-    url: '/code'
+    url: '/nodered'
   }
 ]
 
