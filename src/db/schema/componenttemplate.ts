@@ -1,7 +1,7 @@
 import { sql, relations } from 'drizzle-orm'
 import { text, sqliteTable } from 'drizzle-orm/sqlite-core'
 import { v4 as uuidv4 } from 'uuid'
-import { componentPropertyTemplate } from './componentpropertytemplate'
+import { propertyTemplate } from './propertytemplate'
 
 /*
  * the generic components that will be used. These will show up in the component palette
@@ -24,7 +24,7 @@ export const componentTemplate = sqliteTable('componentTemplate', {
 })
 
 export const componentTemplateRelations = relations(componentTemplate, ({ many }) => ({
-  componentProperties: many(componentPropertyTemplate)
+  componentProperties: many(propertyTemplate)
 }))
 
 export type ComponentType = typeof componentTemplate.$inferSelect

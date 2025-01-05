@@ -1,9 +1,9 @@
 export { componentTemplate, componentTemplateRelations } from './componenttemplate'
 export {
-  componentPropertyTemplate,
-  componentPropertyTemplateRelations
-} from './componentpropertytemplate'
-export { componentProperyValue, componentPropertyValueRelations } from './componentpropertyvalue'
+  propertyTemplate as componentPropertyTemplate,
+  propertyTemplateRelations as componentPropertyTemplateRelations
+} from './propertytemplate'
+export { property, propertyRelations } from './property'
 export { component, componentRelations } from './component'
 export { componentsTags, componentsTagsRelations } from './componentstags'
 export { controller, controllerRelations } from './controller'

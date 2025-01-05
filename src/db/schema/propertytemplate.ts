@@ -7,7 +7,7 @@ import { dataType } from './datatype'
 /*
  * The property template attached to the component template
  */
-export const componentPropertyTemplate = sqliteTable('componentPropertyTemplate', {
+export const propertyTemplate = sqliteTable('componentPropertyTemplate', {
   id: text('id')
     .primaryKey()
     .$defaultFn(() => uuidv4()),
@@ -29,19 +29,16 @@ export const componentPropertyTemplate = sqliteTable('componentPropertyTemplate'
   default: blob('default')
 })
 
-export const componentPropertyTemplateRelations = relations(
-  componentPropertyTemplate,
-  ({ one }) => ({
-    componentTemplate: one(componentTemplate, {
-      fields: [componentPropertyTemplate.componentTemplateId],
-      references: [componentTemplate.id]
-    }),
-    dataType: one(dataType, {
-      fields: [componentPropertyTemplate.dataTypeId],
-      references: [dataType.id]
-    })
+export const propertyTemplateRelations = relations(propertyTemplate, ({ one }) => ({
+  componentTemplate: one(componentTemplate, {
+    fields: [propertyTemplate.componentTemplateId],
+    references: [componentTemplate.id]
+  }),
+  dataType: one(dataType, {
+    fields: [propertyTemplate.dataTypeId],
+    references: [dataType.id]
   })
-)
+}))
 
-export type ComponentType = typeof componentPropertyTemplate.$inferSelect
-export type InsertComponentType = typeof componentPropertyTemplate.$inferInsert
+export type ComponentType = typeof propertyTemplate.$inferSelect
+export type InsertComponentType = typeof propertyTemplate.$inferInsert

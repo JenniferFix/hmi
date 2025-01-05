@@ -2,12 +2,12 @@ import { sql, relations } from 'drizzle-orm'
 import { blob, text, sqliteTable } from 'drizzle-orm/sqlite-core'
 import { v4 as uuidv4 } from 'uuid'
 import { component } from './component'
-import { componentPropertyTemplate } from './componentpropertytemplate'
+import { propertyTemplate } from './propertytemplate'
 
 /*
  * the set values of each components properties
  */
-export const componentProperyValue = sqliteTable('componentPropertyValue', {
+export const property = sqliteTable('property', {
   id: text('id')
     .primaryKey()
     .$defaultFn(() => uuidv4()),
@@ -23,20 +23,20 @@ export const componentProperyValue = sqliteTable('componentPropertyValue', {
     .references(() => component.id),
   componentPropertyTemplateId: text('componentPropertyTemplateId')
     .notNull()
-    .references(() => componentPropertyTemplate.id),
+    .references(() => propertyTemplate.id),
   data: blob('data')
 })
 
-export const componentPropertyValueRelations = relations(componentProperyValue, ({ one }) => ({
+export const propertyRelations = relations(property, ({ one }) => ({
   component: one(component, {
-    fields: [componentProperyValue.componentId],
+    fields: [property.componentId],
     references: [component.id]
   }),
-  componentPropertyTemplate: one(componentPropertyTemplate, {
-    fields: [componentProperyValue.componentPropertyTemplateId],
-    references: [componentPropertyTemplate.id]
+  componentPropertyTemplate: one(propertyTemplate, {
+    fields: [property.componentPropertyTemplateId],
+    references: [propertyTemplate.id]
   })
 }))
 
-export type ComponentType = typeof componentProperyValue.$inferSelect
-export type InsertComponentType = typeof componentProperyValue.$inferInsert
+export type ComponentType = typeof property.$inferSelect
+export type InsertComponentType = typeof property.$inferInsert
