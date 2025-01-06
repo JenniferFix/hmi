@@ -3,5 +3,5 @@ import datatypes from './data/datatype.json'
 import { dataType } from '@/db/schema'
 
 export default async function seed(db: DBType) {
-  await db.insert(dataType).values(datatypes)
+  await db.insert(dataType).values(datatypes).returning()
 }

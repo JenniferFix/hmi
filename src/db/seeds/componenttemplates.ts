@@ -8,7 +8,7 @@ export default async function seed(db: DBType) {
     components.map(async (component) => {
       const [insertedComponentTemplate] = await db
         .insert(schema.componentTemplate)
-        .values({ ...components })
+        .values({ ...component })
         .returning()
       await Promise.all(
         component.properties.map(async (propertyTemplate) => {

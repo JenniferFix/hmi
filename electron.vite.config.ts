@@ -7,6 +7,7 @@ export default defineConfig({
   main: {
     resolve: {
       alias: {
+        '@': resolve('src'),
         '@db': resolve('src/db')
       }
     },

@@ -21,7 +21,7 @@
     "build:linux": "electron-vite build && electron-builder --linux",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
-    "db:seed": "cross-env DB_SEEDING=true tsx src/db/seed.ts"
+    "db:seed": "cross-env DB_SEEDING=true electron-vite dev"
   },
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.1",

@@ -11,22 +11,52 @@
   },
   {
     "name": "SINT",
-    "description": "Short integer (8-bits)",
+    "description": "1-byte integer (-128 to 127)",
     "typescriptType": "number"
   },
   {
     "name": "INT",
-    "description": "Integer (16-bits)",
+    "description": "2-byte integer (-32,768 to 32,767)",
     "typescriptType": "number"
   },
   {
     "name": "DINT",
-    "description": "Double integer (32-bits)",
+    "description": "4-byte integer (-2,147,483,648 to 2,147,483,647)",
+    "typescriptType": "number"
+  },
+  {
+    "name": "LINT",
+    "description": "8-byte integer (-9,223,372,036,854,775,808 to 9,223,372,036,854,775,807)",
+    "typescriptType": "number"
+  },
+  {
+    "name": "USINT",
+    "description": "1-byte unsigned integer (0 to 255)",
+    "typescriptType": "number"
+  },
+  {
+    "name": "UINT",
+    "description": "2-byte unsigned integer (0 to 65,635)",
+    "typescriptType": "number"
+  },
+  {
+    "name": "UDINT",
+    "description": "4-byte unsigned double integer (0 to 4,294,967,295)",
+    "typescriptType": "number"
+  },
+  {
+    "name": "ULINT",
+    "description": "8-byte unsigned long integer (0 to 18,446,744,073,709,551,615)",
     "typescriptType": "number"
   },
   {
     "name": "REAL",
-    "description": "Floating-point number (32-bits)",
+    "description": "4-byte floating point number",
+    "typescriptType": "float"
+  },
+  {
+    "name": "LREAL",
+    "description": "8-byte floating point number",
     "typescriptType": "float"
   }
 ]

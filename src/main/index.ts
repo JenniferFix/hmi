@@ -5,6 +5,8 @@ import icon from '../../resources/icon.png?asset'
 import { initialize as initDb, close as closeDb, execute, runMigrate } from './db'
 import windowStateKeeper from 'electron-window-state'
 import { startNodeRed } from './nodeRedService'
+import env from '@/env'
+import { seedDb } from '../db/seed'
 
 function createWindow(): void {
   const windowState = windowStateKeeper({
@@ -57,7 +59,7 @@ function createWindow(): void {
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(async () => {
   // Set app user model id for windows
-  electronApp.setAppUserModelId('com.electron')
+  electronApp.setAppUserModelId('ca.jenniferfix.jahmi')
 
   // Default open or close DevTools by F12 in development
   // and ignore CommandOrControl + R in production.
@@ -71,8 +73,14 @@ app.whenReady().then(async () => {
   })
 
   await initDb()
+  console.log('db initialized')
   await runMigrate()
-
+  if (env.DB_SEEDING) {
+    console.log('seeding')
+    await seedDb()
+    app.quit()
+    return
+  }
   await startNodeRed()
   console.log('Node RED started')
 

@@ -6,32 +6,62 @@
       {
         "name": "value",
         "description": "The text to display",
-        "dataType": "string",
+        "dataType": "STRING",
         "default": ""
       },
       {
         "name": "font",
         "description": "The Font Family String",
-        "dataType": "string",
+        "dataType": "STRING",
         "default": "sans"
       },
       {
         "name": "fontSize",
         "description": "Size of text",
-        "dataType": "integer",
+        "dataType": "UINT",
         "default": "12"
       },
       {
         "name": "color",
         "description": "Foreground colour",
-        "dataType": "string",
+        "dataType": "STRING",
         "default": "sans"
       },
       {
         "name": "background",
         "description": "Background colour",
-        "dataType": "string",
+        "dataType": "STRING",
         "default": "sans"
+      }
+    ]
+  },
+  {
+    "name": "Image",
+    "description": "Display an image",
+    "properties": [
+      {
+        "name": "type",
+        "description": "PNG | SVG",
+        "dataType": "STRING",
+        "default": ""
+      },
+      {
+        "name": "url",
+        "description": "Location of the image",
+        "dataType": "STRING",
+        "default": ""
+      },
+      {
+        "name": "width",
+        "description": "Image width",
+        "dataType": "STRING",
+        "default": ""
+      },
+      {
+        "name": "height",
+        "description": "Image height",
+        "dataType": "STRING",
+        "default": ""
       }
     ]
   }
