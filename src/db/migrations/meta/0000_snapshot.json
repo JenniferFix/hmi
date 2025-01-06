@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "89d7f071-2720-49b6-9429-8aa7eadab9c7",
+  "id": "c2c2c98f-6846-439c-bbbd-4713cdc2b682",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "component": {
@@ -120,182 +120,6 @@
           "tableTo": "screen",
           "columnsFrom": [
             "screenId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "checkConstraints": {}
-    },
-    "componentPropertyTemplate": {
-      "name": "componentPropertyTemplate",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "text",
-          "primaryKey": true,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "createdAt": {
-          "name": "createdAt",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false,
-          "default": "CURRENT_TIMESTAMP"
-        },
-        "updatedAt": {
-          "name": "updatedAt",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false,
-          "default": "CURRENT_TIMESTAMP"
-        },
-        "name": {
-          "name": "name",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "description": {
-          "name": "description",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "componentTemplateId": {
-          "name": "componentTemplateId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "dataTypeId": {
-          "name": "dataTypeId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "default": {
-          "name": "default",
-          "type": "blob",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "componentPropertyTemplate_componentTemplateId_componentTemplate_id_fk": {
-          "name": "componentPropertyTemplate_componentTemplateId_componentTemplate_id_fk",
-          "tableFrom": "componentPropertyTemplate",
-          "tableTo": "componentTemplate",
-          "columnsFrom": [
-            "componentTemplateId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        },
-        "componentPropertyTemplate_dataTypeId_dataType_id_fk": {
-          "name": "componentPropertyTemplate_dataTypeId_dataType_id_fk",
-          "tableFrom": "componentPropertyTemplate",
-          "tableTo": "dataType",
-          "columnsFrom": [
-            "dataTypeId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "checkConstraints": {}
-    },
-    "componentPropertyValue": {
-      "name": "componentPropertyValue",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "text",
-          "primaryKey": true,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "createdAt": {
-          "name": "createdAt",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false,
-          "default": "CURRENT_TIMESTAMP"
-        },
-        "updatedAt": {
-          "name": "updatedAt",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false,
-          "default": "CURRENT_TIMESTAMP"
-        },
-        "componentId": {
-          "name": "componentId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "componentPropertyTemplateId": {
-          "name": "componentPropertyTemplateId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "data": {
-          "name": "data",
-          "type": "blob",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "componentPropertyValue_componentId_component_id_fk": {
-          "name": "componentPropertyValue_componentId_component_id_fk",
-          "tableFrom": "componentPropertyValue",
-          "tableTo": "component",
-          "columnsFrom": [
-            "componentId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        },
-        "componentPropertyValue_componentPropertyTemplateId_componentPropertyTemplate_id_fk": {
-          "name": "componentPropertyValue_componentPropertyTemplateId_componentPropertyTemplate_id_fk",
-          "tableFrom": "componentPropertyValue",
-          "tableTo": "componentPropertyTemplate",
-          "columnsFrom": [
-            "componentPropertyTemplateId"
           ],
           "columnsTo": [
             "id"
@@ -547,8 +371,192 @@
           "autoincrement": false
         }
       },
-      "indexes": {},
+      "indexes": {
+        "nameIndex": {
+          "name": "nameIndex",
+          "columns": [
+            "name"
+          ],
+          "isUnique": false
+        }
+      },
       "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "property": {
+      "name": "property",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "componentId": {
+          "name": "componentId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "propertyTemplateId": {
+          "name": "propertyTemplateId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "data": {
+          "name": "data",
+          "type": "blob",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "property_componentId_component_id_fk": {
+          "name": "property_componentId_component_id_fk",
+          "tableFrom": "property",
+          "tableTo": "component",
+          "columnsFrom": [
+            "componentId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "property_propertyTemplateId_propertyTemplate_id_fk": {
+          "name": "property_propertyTemplateId_propertyTemplate_id_fk",
+          "tableFrom": "property",
+          "tableTo": "propertyTemplate",
+          "columnsFrom": [
+            "propertyTemplateId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "propertyTemplate": {
+      "name": "propertyTemplate",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "componentTemplateId": {
+          "name": "componentTemplateId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "dataTypeId": {
+          "name": "dataTypeId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "default": {
+          "name": "default",
+          "type": "blob",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "propertyTemplate_componentTemplateId_componentTemplate_id_fk": {
+          "name": "propertyTemplate_componentTemplateId_componentTemplate_id_fk",
+          "tableFrom": "propertyTemplate",
+          "tableTo": "componentTemplate",
+          "columnsFrom": [
+            "componentTemplateId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "propertyTemplate_dataTypeId_dataType_id_fk": {
+          "name": "propertyTemplate_dataTypeId_dataType_id_fk",
+          "tableFrom": "propertyTemplate",
+          "tableTo": "dataType",
+          "columnsFrom": [
+            "dataTypeId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
       "checkConstraints": {}

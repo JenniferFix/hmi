@@ -10,7 +10,9 @@ const dbPath = import.meta.env.DEV ? 'sqlite.db' : path.join(app.getPath('userDa
 
 fs.mkdirSync(path.dirname(dbPath), { recursive: true })
 
-let db: ReturnType<typeof drizzle<typeof schema>> | null = null
+export type DBType = ReturnType<typeof drizzle<typeof schema>>
+
+let db: DBType | null = null
 // let sqlite: Database.Database | null = null
 let client: ReturnType<typeof createClient> | null = null
 // let client: any | null = null
@@ -20,12 +22,17 @@ export function getDB() {
   return db
 }
 
+export function getClient() {
+  if (!client) throw new Error('Database not initialized')
+  return client
+}
+
 export async function initialize() {
   try {
     client = createClient({
       url: `file:${dbPath}`
     })
-    db = drizzle(client, { schema })
+    db = drizzle(client, { schema, logger: true })
     console.log('Initialized Database at: ', dbPath)
   } catch (error) {
     console.error('Failed to initialize db', error)

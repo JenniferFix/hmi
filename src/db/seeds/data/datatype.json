@@ -1,0 +1,32 @@
+[
+  {
+    "name": "BOOL",
+    "description": "boolean (1-bit)",
+    "typescriptType": "boolean"
+  },
+  {
+    "name": "STRING",
+    "description": "String of text",
+    "typescriptType": "string"
+  },
+  {
+    "name": "SINT",
+    "description": "Short integer (8-bits)",
+    "typescriptType": "number"
+  },
+  {
+    "name": "INT",
+    "description": "Integer (16-bits)",
+    "typescriptType": "number"
+  },
+  {
+    "name": "DINT",
+    "description": "Double integer (32-bits)",
+    "typescriptType": "number"
+  },
+  {
+    "name": "REAL",
+    "description": "Floating-point number (32-bits)",
+    "typescriptType": "float"
+  }
+]

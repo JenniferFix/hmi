@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Text",
+    "description": "Displays Text",
+    "properties": [
+      {
+        "name": "value",
+        "description": "The text to display",
+        "dataType": "string",
+        "default": ""
+      },
+      {
+        "name": "font",
+        "description": "The Font Family String",
+        "dataType": "string",
+        "default": "sans"
+      },
+      {
+        "name": "fontSize",
+        "description": "Size of text",
+        "dataType": "integer",
+        "default": "12"
+      },
+      {
+        "name": "color",
+        "description": "Foreground colour",
+        "dataType": "string",
+        "default": "sans"
+      },
+      {
+        "name": "background",
+        "description": "Background colour",
+        "dataType": "string",
+        "default": "sans"
+      }
+    ]
+  }
+]

@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { componentTemplate } from './componenttemplate'
 import { screen } from './screen'
 import { componentsTags } from './componentstags'
+import { property } from './property'
 
 /*
  * This is the local instance of a specific component type
@@ -35,7 +36,7 @@ export const component = sqliteTable('component', {
 })
 
 export const componentRelations = relations(component, ({ one, many }) => ({
-  componentTemplate: one(componentTemplate, {
+  template: one(componentTemplate, {
     fields: [component.componentTemplateId],
     references: [componentTemplate.id]
   }),
@@ -43,7 +44,8 @@ export const componentRelations = relations(component, ({ one, many }) => ({
     fields: [component.screenId],
     references: [screen.id]
   }),
-  componentsTags: many(componentsTags)
+  componentsTags: many(componentsTags),
+  properties: many(property)
 }))
 
 export type Component = typeof component.$inferSelect

@@ -24,7 +24,7 @@ export const componentTemplate = sqliteTable('componentTemplate', {
 })
 
 export const componentTemplateRelations = relations(componentTemplate, ({ many }) => ({
-  componentProperties: many(propertyTemplate)
+  properties: many(propertyTemplate)
 }))
 
 export type ComponentType = typeof componentTemplate.$inferSelect

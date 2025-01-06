@@ -7,7 +7,7 @@ import { dataType } from './datatype'
 /*
  * The property template attached to the component template
  */
-export const propertyTemplate = sqliteTable('componentPropertyTemplate', {
+export const propertyTemplate = sqliteTable('propertyTemplate', {
   id: text('id')
     .primaryKey()
     .$defaultFn(() => uuidv4()),

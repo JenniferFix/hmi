@@ -21,7 +21,7 @@ export const property = sqliteTable('property', {
   componentId: text('componentId')
     .notNull()
     .references(() => component.id),
-  componentPropertyTemplateId: text('componentPropertyTemplateId')
+  propertyTemplateId: text('propertyTemplateId')
     .notNull()
     .references(() => propertyTemplate.id),
   data: blob('data')
@@ -32,8 +32,8 @@ export const propertyRelations = relations(property, ({ one }) => ({
     fields: [property.componentId],
     references: [component.id]
   }),
-  componentPropertyTemplate: one(propertyTemplate, {
-    fields: [property.componentPropertyTemplateId],
+  propertyTemplate: one(propertyTemplate, {
+    fields: [property.propertyTemplateId],
     references: [propertyTemplate.id]
   })
 }))

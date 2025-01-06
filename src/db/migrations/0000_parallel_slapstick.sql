@@ -15,30 +15,6 @@ CREATE TABLE `component` (
 	FOREIGN KEY (`screenId`) REFERENCES `screen`(`id`) ON UPDATE no action ON DELETE no action
 );
 --> statement-breakpoint
-CREATE TABLE `componentPropertyTemplate` (
-	`id` text PRIMARY KEY NOT NULL,
-	`createdAt` text DEFAULT CURRENT_TIMESTAMP NOT NULL,
-	`updatedAt` text DEFAULT CURRENT_TIMESTAMP NOT NULL,
-	`name` text,
-	`description` text,
-	`componentTemplateId` text NOT NULL,
-	`dataTypeId` text NOT NULL,
-	`default` blob,
-	FOREIGN KEY (`componentTemplateId`) REFERENCES `componentTemplate`(`id`) ON UPDATE no action ON DELETE no action,
-	FOREIGN KEY (`dataTypeId`) REFERENCES `dataType`(`id`) ON UPDATE no action ON DELETE no action
-);
---> statement-breakpoint
-CREATE TABLE `componentPropertyValue` (
-	`id` text PRIMARY KEY NOT NULL,
-	`createdAt` text DEFAULT CURRENT_TIMESTAMP NOT NULL,
-	`updatedAt` text DEFAULT CURRENT_TIMESTAMP NOT NULL,
-	`componentId` text NOT NULL,
-	`componentPropertyTemplateId` text NOT NULL,
-	`data` blob,
-	FOREIGN KEY (`componentId`) REFERENCES `component`(`id`) ON UPDATE no action ON DELETE no action,
-	FOREIGN KEY (`componentPropertyTemplateId`) REFERENCES `componentPropertyTemplate`(`id`) ON UPDATE no action ON DELETE no action
-);
---> statement-breakpoint
 CREATE TABLE `componentsTags` (
 	`componentId` text NOT NULL,
 	`tagId` text NOT NULL,
@@ -75,6 +51,31 @@ CREATE TABLE `dataType` (
 	`name` text,
 	`description` text,
 	`typescriptType` text
+);
+--> statement-breakpoint
+CREATE INDEX `nameIndex` ON `dataType` (`name`);--> statement-breakpoint
+CREATE TABLE `property` (
+	`id` text PRIMARY KEY NOT NULL,
+	`createdAt` text DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	`updatedAt` text DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	`componentId` text NOT NULL,
+	`propertyTemplateId` text NOT NULL,
+	`data` blob,
+	FOREIGN KEY (`componentId`) REFERENCES `component`(`id`) ON UPDATE no action ON DELETE no action,
+	FOREIGN KEY (`propertyTemplateId`) REFERENCES `propertyTemplate`(`id`) ON UPDATE no action ON DELETE no action
+);
+--> statement-breakpoint
+CREATE TABLE `propertyTemplate` (
+	`id` text PRIMARY KEY NOT NULL,
+	`createdAt` text DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	`updatedAt` text DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	`name` text,
+	`description` text,
+	`componentTemplateId` text NOT NULL,
+	`dataTypeId` text NOT NULL,
+	`default` blob,
+	FOREIGN KEY (`componentTemplateId`) REFERENCES `componentTemplate`(`id`) ON UPDATE no action ON DELETE no action,
+	FOREIGN KEY (`dataTypeId`) REFERENCES `dataType`(`id`) ON UPDATE no action ON DELETE no action
 );
 --> statement-breakpoint
 CREATE TABLE `screen` (
