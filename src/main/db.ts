@@ -52,33 +52,22 @@ export function close() {
     throw error
   }
 }
-function toDrizzleResult(row: Record<string, any>)
-function toDrizzleResult(rows: Record<string, any> | Array<Record<string, any>>) {
-  if (!rows) {
-    return []
-  }
-  if (Array.isArray(rows)) {
-    return rows.map((row) => {
-      return Object.keys(row).map((key) => row[key])
-    })
-  } else {
-    return Object.keys(rows).map((key) => rows[key])
-  }
-}
 
 export const execute = async (_e, sql, args, method) => {
   if (!client || !db) throw new Error('Database not initialized')
-  // const result = sqlite.prepare(sqlstr)
   try {
     const result = await client.execute({ sql, args })
-    // return result.rows
-    return toDrizzleResult(result.rows)
+    if (method === 'get') {
+      return Object.keys(result.rows[0]).map((key) => result.rows[0][key])
+    } else if (method === 'all') {
+      return result.rows.map((row) => {
+        return Object.keys(row).map((key) => row[key])
+      })
+    }
   } catch (error) {
     console.error('Execute error:', error, sql, args)
     throw error
   }
-  // const ret = result[method](...params)
-  // return toDrizzleResult(ret)
 }
 
 export const runMigrate = async () => {

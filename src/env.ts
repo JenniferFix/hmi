@@ -17,7 +17,7 @@ const EnvSchema = z.object({
   // DB_PASSWORD: z.string(),
   // DB_NAME: z.string(),
   // DB_PORT: z.coerce.number(),
-  DATABASE_URL: z.string(),
+  // DATABASE_URL: z.string(),
   DB_MIGRATING: stringBoolean,
   DB_SEEDING: stringBoolean
 })
@@ -28,6 +28,7 @@ expand(config())
 
 try {
   EnvSchema.parse(process.env)
+  // EnvSchema.parse(import.meta.env)
 } catch (error) {
   if (error instanceof ZodError) {
     let message = 'Missing required values in .env:\n'
