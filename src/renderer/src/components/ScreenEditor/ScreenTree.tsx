@@ -1,0 +1,43 @@
+import React from 'react'
+import { Tree, type NodeRendererProps } from 'react-arborist'
+import { FolderIcon, FolderOpenIcon, MonitorIcon, Monitor, Puzzle } from 'lucide-react'
+import useResizeObserver from 'use-resize-observer'
+
+type NodeType = {
+  id: string
+  name: string
+  children?: NodeType[]
+}
+
+function Node({ node, style, dragHandle }: NodeRendererProps<NodeType>) {
+  return (
+    <div style={style} ref={dragHandle}>
+      {node.isInternal ? <Monitor style={{ display: 'inline' }} size={16} /> : <Puzzle size={16} />}
+      {node.data.name}
+    </div>
+  )
+}
+const ScreenTree = () => {
+  const { ref, width, height } = useResizeObserver()
+
+  const data: NodeType[] = [
+    { id: '1', name: 'Application' },
+    {
+      id: '2',
+      name: 'Screen Title',
+      children: [
+        { id: 'c1', name: 'Component1' },
+        { id: 'c2', name: 'Component2' }
+      ]
+    }
+  ]
+  return (
+    <div className="absolute inset-0" ref={ref}>
+      <Tree initialData={data} width={width} height={height}>
+        {Node}
+      </Tree>
+    </div>
+  )
+}
+
+export default ScreenTree

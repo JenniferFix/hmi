@@ -20,7 +20,7 @@ export function useGetScreen({ id }: { id: string }) {
       // const result = await window.api.database.query('SELECT * from screens WHERE id=?', [id])
       // if (!result.success) throw new Error(result.error)
       const result = await database.query.screen.findFirst({
-        where: (screens, { eq }) => eq(screens.id, id),
+        where: (screen, { eq }) => eq(screen.id, id),
         with: {
           components: true
         }
