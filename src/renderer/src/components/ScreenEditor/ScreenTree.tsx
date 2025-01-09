@@ -11,9 +11,13 @@ type NodeType = {
 
 function Node({ node, style, dragHandle }: NodeRendererProps<NodeType>) {
   return (
-    <div style={style} ref={dragHandle}>
-      {node.isInternal ? <Monitor style={{ display: 'inline' }} size={16} /> : <Puzzle size={16} />}
-      {node.data.name}
+    <div style={style} ref={dragHandle} className="text-lg">
+      {node.isInternal ? (
+        <Monitor size={16} className="inline" />
+      ) : (
+        <Puzzle size={16} className="inline" />
+      )}
+      &nbsp;{node.data.name}
     </div>
   )
 }

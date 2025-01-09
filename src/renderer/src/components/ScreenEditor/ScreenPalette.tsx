@@ -25,7 +25,8 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
 import { Input } from '@renderer/components/ui/input'
-import PaletteOutline from './PaletteOutline'
+import PaletteWrap from './PaletteWrap'
+import { ScrollArea } from '@renderer/components/ui/scroll-area'
 
 const formSchema = z.object({
   name: z.string()
@@ -54,10 +55,10 @@ const ScreenPalette = () => {
   if (isError) return <div>{error.message}</div>
 
   return (
-    <div className="flex flex-col h-full p-2 pb-4">
+    <div className="flex flex-col flex-1 h-full p-2 pb-4 gap-2">
       <Dialog open={open} onOpenChange={(value) => setOpen(value)}>
         <DialogTrigger asChild>
-          <Button size="sm" variant="outline" className="w-full text-sm">
+          <Button size="sm" variant="outline" className="w-full text-sm shrink-0">
             Add
           </Button>
         </DialogTrigger>
@@ -87,27 +88,29 @@ const ScreenPalette = () => {
           </Form>
         </DialogContent>
       </Dialog>
-      <div className="pt-2">
+      <ScrollArea className="flex-1">
         {data ? (
           data.map((screen) => (
-            <Button key={screen.id} className="w-full justify-start" variant="link" asChild>
-              <Link to={`/edit/$screenId`} params={{ screenId: screen.id.toString() }}>
-                {screen.name}
-              </Link>
-            </Button>
+            <div key={screen.id}>
+              <Button className="w-full justify-start" variant="link" asChild>
+                <Link to={`/edit/$screenId`} params={{ screenId: screen.id.toString() }}>
+                  {screen.name}
+                </Link>
+              </Button>
+            </div>
           ))
         ) : (
           <div>no data</div>
         )}
-      </div>
+      </ScrollArea>
     </div>
   )
 }
 
 const WrappedScreenPalette = () => (
-  <PaletteOutline title="Screens">
+  <PaletteWrap title="Screens">
     <ScreenPalette />
-  </PaletteOutline>
+  </PaletteWrap>
 )
 
 export default WrappedScreenPalette

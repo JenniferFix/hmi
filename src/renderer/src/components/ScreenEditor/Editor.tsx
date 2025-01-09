@@ -6,7 +6,7 @@ import {
 } from '@renderer/components/ui/resizable'
 import { Outlet } from '@tanstack/react-router'
 import SidePanel from './SidePanel'
-import ComponentTemplatePane from './ComponentPalette'
+import ComponentPalette from './ComponentPalette'
 import ScreenPalette from '@renderer/components/ScreenEditor/ScreenPalette'
 import ScreenTree from './ScreenTree'
 import PropertiesPanel from './PropertiesPanel'
@@ -16,7 +16,7 @@ const Editor = () => {
     <ResizablePanelGroup direction="horizontal" autoSaveId="jahmi-edit-panels">
       <ResizablePanel
         defaultSize={15}
-        children={<SidePanel panels={[<ScreenPalette />, <ComponentTemplatePane />]} />}
+        children={<SidePanel panels={[<ScreenPalette />, <ComponentPalette />]} />}
       />
       <ResizableHandle withHandle />
       <ResizablePanel defaultSize={60} className="relative">

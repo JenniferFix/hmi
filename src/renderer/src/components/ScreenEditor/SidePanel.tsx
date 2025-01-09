@@ -12,7 +12,7 @@ const SidePanel = ({ panels }: { panels?: React.ReactNode[] }) => {
         panels.map((panel, idx) => (
           <React.Fragment key={'panel' + idx.toString()}>
             <ResizablePanel className="relative">{panel}</ResizablePanel>
-            {idx < panels.length - 1 && <ResizableHandle withHandle />}
+            {idx < panels.length - 1 && <ResizableHandle />}
           </React.Fragment>
         ))}
     </ResizablePanelGroup>
