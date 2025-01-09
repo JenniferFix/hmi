@@ -6,11 +6,13 @@ const PaletteOutline = ({ title, children }: { title: string; children: React.Re
     //
     console.log('e', e)
     console.log('data', data)
+    data.node.style.pointerEvents = 'none'
   }
   const handleDragEnd = (e, data) => {
     //
     console.log('e', e)
     console.log('data', data)
+    data.node.style.pointerEvents = 'auto'
   }
 
   return (
