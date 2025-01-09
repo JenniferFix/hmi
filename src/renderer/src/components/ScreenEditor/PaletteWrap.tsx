@@ -5,12 +5,12 @@ const PaletteOutline = ({ title, children }: { title: string; children: React.Re
   const handleDragStart: DraggableEventHandler = (e, data) => {
     //
     console.log('e', e)
-    console.log('data', data.node)
+    console.log('data', data)
   }
   const handleDragEnd: DraggableEventHandler = (e, data) => {
     //
     console.log('e', e)
-    console.log('data', data.node)
+    console.log('data', data)
   }
 
   return (
