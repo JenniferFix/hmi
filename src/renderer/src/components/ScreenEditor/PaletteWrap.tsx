@@ -1,5 +1,5 @@
 import React from 'react'
-import Draggable from 'react-draggable'
+import Draggable,{DraggableEventHandler} from 'react-draggable'
 
 const PaletteOutline = ({ title, children }: { title: string; children: React.ReactNode }) => {
   const handleDragStart = (e, data) => {
@@ -8,7 +8,7 @@ const PaletteOutline = ({ title, children }: { title: string; children: React.Re
     console.log('data', data)
     data.node.style.pointerEvents = 'none'
   }
-  const handleDragEnd = (e, data) => {
+  const handleDragEnd = (e, data): DraggableEventHandler => {
     //
     console.log('e', e)
     console.log('data', data)
