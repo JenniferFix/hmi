@@ -5,14 +5,12 @@ const PaletteOutline = ({ title, children }: { title: string; children: React.Re
   const handleDragStart: DraggableEventHandler = (e, data) => {
     //
     console.log('e', e)
-    console.log('data', data)
-    data.node.style.pointerEvents = 'none'
+    console.log('data', data.node)
   }
   const handleDragEnd: DraggableEventHandler = (e, data) => {
     //
     console.log('e', e)
-    console.log('data', data)
-    data.node.style.pointerEvents = 'auto'
+    console.log('data', data.node)
   }
 
   return (
