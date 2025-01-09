@@ -6,7 +6,7 @@ const PaletteOutline = ({ title, children }: { title: string; children: React.Re
     //
     console.log('e', e)
     console.log('data', data)
-    data.node?.style.pointerEvents = 'none'
+    data.node.style.pointerEvents = 'none'
   }
   const handleDragEnd: DraggableEventHandler = (e, data) => {
     //
