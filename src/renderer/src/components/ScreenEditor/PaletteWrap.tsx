@@ -7,7 +7,7 @@ const PaletteOutline = ({ title, children }: { title: string; children: React.Re
     console.log('e', e)
     console.log('data', data)
   }
-  const handleDragEnd = () => {
+  const handleDragEnd = (e, data) => {
     //
     console.log('e', e)
     console.log('data', data)
