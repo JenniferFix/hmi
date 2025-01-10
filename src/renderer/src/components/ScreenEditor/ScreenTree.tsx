@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React from 'react'
 import { Tree, type NodeRendererProps } from 'react-arborist'
 import { FolderIcon, FolderOpenIcon, MonitorIcon, Monitor, Puzzle } from 'lucide-react'
@@ -9,15 +10,18 @@ type NodeType = {
   children?: NodeType[]
 }
 
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 function Node({ node, style, dragHandle }: NodeRendererProps<NodeType>) {
   return (
-    <div style={style} ref={dragHandle} className="text-lg">
-      {node.isInternal ? (
-        <Monitor size={16} className="inline" />
-      ) : (
-        <Puzzle size={16} className="inline" />
-      )}
-      &nbsp;{node.data.name}
+    <div style={style} ref={dragHandle} className="text-md">
+      <span className="inline-block whitespace-nowrap">
+        {node.isInternal ? (
+          <Monitor size={16} className="inline" />
+        ) : (
+          <Puzzle size={16} className="inline" />
+        )}
+        &nbsp;{node.data.name}
+      </span>
     </div>
   )
 }
