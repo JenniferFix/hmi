@@ -6,6 +6,15 @@ import {
 } from '@renderer/components/ui/resizable'
 
 const SidePanel = ({ panels }: { panels?: React.ReactNode[] }) => {
+  const handleDragOver = (e: React.DragEvent<HTMLElement>) => {
+    e.preventDefault()
+    e.dataTransfer.dropEffect = 'move'
+  }
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault()
+  }
+
   return (
     <ResizablePanelGroup direction="vertical">
       {panels &&

@@ -8,7 +8,7 @@ const PaletteOutline = ({ title, children }: { title: string; children: React.Re
     //console.log('e', e)
     //console.log('data', data)
     if (data && data.node) {
-      data.node.style.pointerEvents = "none"
+      data.node.style.pointerEvents = 'none'
     }
   }
   const handleDragEnd: DraggableEventHandler = (e, data) => {
@@ -16,12 +16,17 @@ const PaletteOutline = ({ title, children }: { title: string; children: React.Re
     //console.log('e', e)
     //console.log('data', data)
     if (data && data.node) {
-      data.node.style.pointerEvents = "auto"
+      data.node.style.pointerEvents = 'auto'
     }
   }
 
   return (
-    <Draggable handle=".draggable-handle" onStart={handleDragStart} onStop={handleDragEnd()} nodeRef={ref}>
+    <Draggable
+      handle=".draggable-handle"
+      onStart={handleDragStart}
+      onStop={handleDragEnd}
+      nodeRef={ref}
+    >
       <div ref={ref} className="absolute inset-0 flex flex-col border border-muted-50">
         <div className="draggable-handle bg-muted p-1 pl-3 shrink-0 text-sm font-semibold">
           {title}
