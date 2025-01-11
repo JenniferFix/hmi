@@ -5,6 +5,7 @@ import { routeTree } from './routeTree.gen'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { RouterProvider, createRouter, createHashHistory } from '@tanstack/react-router'
 import { ThemeProvider } from '@renderer/components/theme-provider'
+import { TooltipProvider } from '@renderer/components/ui/tooltip'
 
 const router = createRouter({ routeTree, history: createHashHistory() })
 const queryClient = new QueryClient()
@@ -19,7 +20,9 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <ThemeProvider defaultTheme="dark" storageKey="jahmi-ui-theme">
-        <RouterProvider router={router} />
+        <TooltipProvider>
+          <RouterProvider router={router} />
+        </TooltipProvider>
       </ThemeProvider>
     </QueryClientProvider>
   </React.StrictMode>
