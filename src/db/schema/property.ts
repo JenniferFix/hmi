@@ -1,7 +1,7 @@
 import { sql, relations } from 'drizzle-orm'
 import { blob, text, sqliteTable } from 'drizzle-orm/sqlite-core'
 import { v4 as uuidv4 } from 'uuid'
-import { component } from './component'
+import { widget } from './widgets'
 import { propertyTemplate } from './propertytemplate'
 
 /*
@@ -20,7 +20,7 @@ export const property = sqliteTable('property', {
     .$onUpdate(() => sql`CURRENT_TIMESTAMP`),
   componentId: text('componentId')
     .notNull()
-    .references(() => component.id),
+    .references(() => widget.id),
   propertyTemplateId: text('propertyTemplateId')
     .notNull()
     .references(() => propertyTemplate.id),
@@ -28,9 +28,9 @@ export const property = sqliteTable('property', {
 })
 
 export const propertyRelations = relations(property, ({ one }) => ({
-  component: one(component, {
+  component: one(widget, {
     fields: [property.componentId],
-    references: [component.id]
+    references: [widget.id]
   }),
   propertyTemplate: one(propertyTemplate, {
     fields: [property.propertyTemplateId],
@@ -38,5 +38,5 @@ export const propertyRelations = relations(property, ({ one }) => ({
   })
 }))
 
-export type ComponentType = typeof property.$inferSelect
-export type InsertComponentType = typeof property.$inferInsert
+export type PropertyType = typeof property.$inferSelect
+export type InsertPropertyType = typeof property.$inferInsert

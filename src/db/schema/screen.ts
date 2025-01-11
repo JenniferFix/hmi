@@ -1,7 +1,7 @@
 import { sql, relations } from 'drizzle-orm'
 import { text, sqliteTable } from 'drizzle-orm/sqlite-core'
 import { v4 as uuidv4 } from 'uuid'
-import { component } from './component'
+import { widget } from './widgets'
 
 /*
  * the basic screen object. there is a lot to be added in terms of properties
@@ -27,7 +27,7 @@ export const screen = sqliteTable('screen', {
 })
 
 export const screenRelations = relations(screen, ({ many }) => ({
-  components: many(component)
+  components: many(widget)
 }))
 
 export type Screen = typeof screen.$inferSelect

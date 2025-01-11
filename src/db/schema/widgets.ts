@@ -9,7 +9,7 @@ import { property } from './property'
 /*
  * This is the local instance of a specific component type
  */
-export const component = sqliteTable('component', {
+export const widget = sqliteTable('widget', {
   id: text('id')
     .primaryKey()
     .$defaultFn(() => uuidv4()),
@@ -35,18 +35,18 @@ export const component = sqliteTable('component', {
   rotation: real('rotation').default(0)
 })
 
-export const componentRelations = relations(component, ({ one, many }) => ({
+export const widgetRelations = relations(widget, ({ one, many }) => ({
   template: one(componentTemplate, {
-    fields: [component.componentTemplateId],
+    fields: [widget.componentTemplateId],
     references: [componentTemplate.id]
   }),
   screen: one(screen, {
-    fields: [component.screenId],
+    fields: [widget.screenId],
     references: [screen.id]
   }),
   componentsTags: many(componentsTags),
   properties: many(property)
 }))
 
-export type Component = typeof component.$inferSelect
-export type InsertComponent = typeof component.$inferInsert
+export type Widget = typeof widget.$inferSelect
+export type InsertWidget = typeof widget.$inferInsert

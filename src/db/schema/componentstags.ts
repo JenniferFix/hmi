@@ -1,6 +1,6 @@
 import { relations } from 'drizzle-orm'
 import { text, sqliteTable, foreignKey, primaryKey } from 'drizzle-orm/sqlite-core'
-import { component } from './component'
+import { widget } from './widgets'
 import { tag } from './tag'
 
 /*
@@ -11,7 +11,7 @@ export const componentsTags = sqliteTable(
   {
     componentId: text('componentId')
       .notNull()
-      .references(() => component.id),
+      .references(() => widget.id),
     tagId: text('tagId')
       .notNull()
       .references(() => tag.id)
@@ -22,9 +22,9 @@ export const componentsTags = sqliteTable(
 )
 
 export const componentsTagsRelations = relations(componentsTags, ({ one }) => ({
-  component: one(component, {
+  component: one(widget, {
     fields: [componentsTags.componentId],
-    references: [component.id]
+    references: [widget.id]
   }),
   tag: one(tag, {
     fields: [componentsTags.tagId],

@@ -1,7 +1,7 @@
 export { componentTemplate, componentTemplateRelations } from './componenttemplate'
 export { propertyTemplate, propertyTemplateRelations } from './propertytemplate'
 export { property, propertyRelations } from './property'
-export { component, componentRelations } from './component'
+export { widget, widgetRelations } from './widgets'
 export { componentsTags, componentsTagsRelations } from './componentstags'
 export { controller, controllerRelations } from './controller'
 export { screen, screenRelations } from './screen'
