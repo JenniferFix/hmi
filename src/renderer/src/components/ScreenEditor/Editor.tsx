@@ -6,7 +6,7 @@ import {
 } from '@renderer/components/ui/resizable'
 import { Outlet } from '@tanstack/react-router'
 import SidePanel from './SidePanel'
-import ComponentPalette from './ComponentPalette'
+import ComponentPalette from './WidgetPalette'
 import ScreenPalette from '@renderer/components/ScreenEditor/ScreenPalette'
 import ScreenTree from './ScreenTree'
 import PropertiesPanel from './PropertiesPanel'

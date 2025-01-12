@@ -29,5 +29,5 @@ export const controllerRelations = relations(controller, ({ many }) => ({
   tags: many(tag)
 }))
 
-export type Controller = typeof controller.$inferSelect
-export type InsertController = typeof controller.$inferInsert
+export type ControllerType = typeof controller.$inferSelect
+export type InsertControllerType = typeof controller.$inferInsert

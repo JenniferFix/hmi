@@ -1,16 +1,37 @@
 import React from 'react'
-import Draggable from 'react-draggable'
 
 const PaletteOutline = ({ title, children }: { title: string; children: React.ReactNode }) => {
+  const ref = React.useRef(null)
+  const handleDragStart: React.DragEventHandler<HTMLDivElement> = (e) => {
+    e.preventDefault()
+    //
+    console.log('e', e)
+    //console.log('data', data)
+    // if (data && data.node) {
+    // data.node.style.pointerEvents = 'none'
+    // }
+  }
+  const handleDragEnd: React.DragEventHandler<HTMLDivElement> = (e) => {
+    e.preventDefault()
+    console.log('e', e)
+    //console.log('data', data)
+    // if (data && data.node) {
+    //   data.node.style.pointerEvents = 'auto'
+    // }
+  }
+
   return (
-    <Draggable handle=".draggable-handle">
-      <div className="absolute inset-0 flex flex-col border border-muted-50">
-        <div className="draggable-handle bg-muted p-1 pl-3 shrink-0 text-sm font-semibold">
-          {title}
-        </div>
-        <div className="flex-1 min-h-0">{children}</div>
+    <div className="absolute inset-0 flex flex-col border border-muted-50">
+      <div
+        draggable
+        onDragStart={handleDragStart}
+        onDragEnd={handleDragEnd}
+        className="bg-muted p-1 pl-3 shrink-0 text-sm font-semibold"
+      >
+        {title}
       </div>
-    </Draggable>
+      <div className="flex-1 min-h-0">{children}</div>
+    </div>
   )
 }
 

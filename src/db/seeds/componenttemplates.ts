@@ -1,13 +1,13 @@
 import { type DBType } from '@/main/db'
-import components from './data/componenttemplate.json'
+import widgets from './data/widgettemplate.json'
 import * as schema from '../schema'
 import { eq } from 'drizzle-orm'
 
 export default async function seed(db: DBType) {
   await Promise.all(
-    components.map(async (component) => {
-      const [insertedComponentTemplate] = await db
-        .insert(schema.componentTemplate)
+    widgets.map(async (component) => {
+      const [insertedWidgetTemplate] = await db
+        .insert(schema.widgetTemplate)
         .values({ ...component })
         .returning()
       await Promise.all(
@@ -19,7 +19,7 @@ export default async function seed(db: DBType) {
             throw new Error(`No data type found with this name: ${propertyTemplate.dataType}`)
           await db.insert(schema.propertyTemplate).values({
             ...propertyTemplate,
-            componentTemplateId: insertedComponentTemplate.id,
+            widgetTemplateId: insertedWidgetTemplate.id,
             dataTypeId: foundDataType.id
           })
         })

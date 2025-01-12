@@ -3,10 +3,10 @@ import { text, sqliteTable } from 'drizzle-orm/sqlite-core'
 import { v4 as uuidv4 } from 'uuid'
 import { controller } from './controller'
 import { dataType } from './datatype'
-import { componentsTags } from './componentstags'
+import { widgetsTags } from './widgetstags'
 
 /*
- * the tags for the controller. each controller can only have one tag
+ * the tags for the controller. each tag can only have one controller
  *
  */
 export const tag = sqliteTable('tag', {
@@ -37,8 +37,8 @@ export const tagRelations = relations(tag, ({ one, many }) => ({
     fields: [tag.dataTypeId],
     references: [dataType.id]
   }),
-  componentsTags: many(componentsTags)
+  widgetsTags: many(widgetsTags)
 }))
 
-export type Tag = typeof tag.$inferSelect
-export type InsertTag = typeof tag.$inferInsert
+export type TagType = typeof tag.$inferSelect
+export type InsertTagType = typeof tag.$inferInsert

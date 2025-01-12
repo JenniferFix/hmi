@@ -8,7 +8,7 @@ import { propertyTemplate } from './propertytemplate'
  * this will be seeded to begin the dataabase with defaults but custom components
  * can be added afterwards
  */
-export const componentTemplate = sqliteTable('componentTemplate', {
+export const widgetTemplate = sqliteTable('widgetTemplate', {
   id: text('id')
     .primaryKey()
     .$defaultFn(() => uuidv4()),
@@ -23,9 +23,9 @@ export const componentTemplate = sqliteTable('componentTemplate', {
   description: text('description')
 })
 
-export const componentTemplateRelations = relations(componentTemplate, ({ many }) => ({
+export const widgetTemplateRelations = relations(widgetTemplate, ({ many }) => ({
   properties: many(propertyTemplate)
 }))
 
-export type ComponentType = typeof componentTemplate.$inferSelect
-export type InsertComponentType = typeof componentTemplate.$inferInsert
+export type WidgetTemplateType = typeof widgetTemplate.$inferSelect
+export type InsertWidgetTemplateType = typeof widgetTemplate.$inferInsert

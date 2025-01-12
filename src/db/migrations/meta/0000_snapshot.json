@@ -1,243 +1,9 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "c2c2c98f-6846-439c-bbbd-4713cdc2b682",
+  "id": "909bea4d-2d45-4653-898f-172a0512630d",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
-    "component": {
-      "name": "component",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "text",
-          "primaryKey": true,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "createdAt": {
-          "name": "createdAt",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false,
-          "default": "CURRENT_TIMESTAMP"
-        },
-        "updatedAt": {
-          "name": "updatedAt",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false,
-          "default": "CURRENT_TIMESTAMP"
-        },
-        "name": {
-          "name": "name",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "description": {
-          "name": "description",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "componentTemplateId": {
-          "name": "componentTemplateId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "screenId": {
-          "name": "screenId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "xPos": {
-          "name": "xPos",
-          "type": "real",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false,
-          "default": 0
-        },
-        "yPos": {
-          "name": "yPos",
-          "type": "real",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false,
-          "default": 0
-        },
-        "xScale": {
-          "name": "xScale",
-          "type": "real",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false,
-          "default": 0
-        },
-        "yScale": {
-          "name": "yScale",
-          "type": "real",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false,
-          "default": 0
-        },
-        "rotation": {
-          "name": "rotation",
-          "type": "real",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false,
-          "default": 0
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "component_componentTemplateId_componentTemplate_id_fk": {
-          "name": "component_componentTemplateId_componentTemplate_id_fk",
-          "tableFrom": "component",
-          "tableTo": "componentTemplate",
-          "columnsFrom": [
-            "componentTemplateId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        },
-        "component_screenId_screen_id_fk": {
-          "name": "component_screenId_screen_id_fk",
-          "tableFrom": "component",
-          "tableTo": "screen",
-          "columnsFrom": [
-            "screenId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "checkConstraints": {}
-    },
-    "componentsTags": {
-      "name": "componentsTags",
-      "columns": {
-        "componentId": {
-          "name": "componentId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "tagId": {
-          "name": "tagId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "componentsTags_componentId_component_id_fk": {
-          "name": "componentsTags_componentId_component_id_fk",
-          "tableFrom": "componentsTags",
-          "tableTo": "component",
-          "columnsFrom": [
-            "componentId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        },
-        "componentsTags_tagId_tag_id_fk": {
-          "name": "componentsTags_tagId_tag_id_fk",
-          "tableFrom": "componentsTags",
-          "tableTo": "tag",
-          "columnsFrom": [
-            "tagId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {
-        "componentsTags_componentId_tagId_pk": {
-          "columns": [
-            "componentId",
-            "tagId"
-          ],
-          "name": "componentsTags_componentId_tagId_pk"
-        }
-      },
-      "uniqueConstraints": {},
-      "checkConstraints": {}
-    },
-    "componentTemplate": {
-      "name": "componentTemplate",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "text",
-          "primaryKey": true,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "createdAt": {
-          "name": "createdAt",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false,
-          "default": "CURRENT_TIMESTAMP"
-        },
-        "updatedAt": {
-          "name": "updatedAt",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false,
-          "default": "CURRENT_TIMESTAMP"
-        },
-        "name": {
-          "name": "name",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "description": {
-          "name": "description",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {},
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "checkConstraints": {}
-    },
     "controller": {
       "name": "controller",
       "columns": {
@@ -411,8 +177,8 @@
           "autoincrement": false,
           "default": "CURRENT_TIMESTAMP"
         },
-        "componentId": {
-          "name": "componentId",
+        "widgetId": {
+          "name": "widgetId",
           "type": "text",
           "primaryKey": false,
           "notNull": true,
@@ -435,12 +201,12 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "property_componentId_component_id_fk": {
-          "name": "property_componentId_component_id_fk",
+        "property_widgetId_widget_id_fk": {
+          "name": "property_widgetId_widget_id_fk",
           "tableFrom": "property",
-          "tableTo": "component",
+          "tableTo": "widget",
           "columnsFrom": [
-            "componentId"
+            "widgetId"
           ],
           "columnsTo": [
             "id"
@@ -506,8 +272,8 @@
           "notNull": false,
           "autoincrement": false
         },
-        "componentTemplateId": {
-          "name": "componentTemplateId",
+        "widgetTemplateId": {
+          "name": "widgetTemplateId",
           "type": "text",
           "primaryKey": false,
           "notNull": true,
@@ -530,12 +296,12 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "propertyTemplate_componentTemplateId_componentTemplate_id_fk": {
-          "name": "propertyTemplate_componentTemplateId_componentTemplate_id_fk",
+        "propertyTemplate_widgetTemplateId_widgetTemplate_id_fk": {
+          "name": "propertyTemplate_widgetTemplateId_widgetTemplate_id_fk",
           "tableFrom": "propertyTemplate",
-          "tableTo": "componentTemplate",
+          "tableTo": "widgetTemplate",
           "columnsFrom": [
-            "componentTemplateId"
+            "widgetTemplateId"
           ],
           "columnsTo": [
             "id"
@@ -694,6 +460,240 @@
         }
       },
       "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "widget": {
+      "name": "widget",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "widgetTemplateId": {
+          "name": "widgetTemplateId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "screenId": {
+          "name": "screenId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "xPos": {
+          "name": "xPos",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": 0
+        },
+        "yPos": {
+          "name": "yPos",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": 0
+        },
+        "xScale": {
+          "name": "xScale",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": 0
+        },
+        "yScale": {
+          "name": "yScale",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": 0
+        },
+        "rotation": {
+          "name": "rotation",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": 0
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "widget_widgetTemplateId_widgetTemplate_id_fk": {
+          "name": "widget_widgetTemplateId_widgetTemplate_id_fk",
+          "tableFrom": "widget",
+          "tableTo": "widgetTemplate",
+          "columnsFrom": [
+            "widgetTemplateId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "widget_screenId_screen_id_fk": {
+          "name": "widget_screenId_screen_id_fk",
+          "tableFrom": "widget",
+          "tableTo": "screen",
+          "columnsFrom": [
+            "screenId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "widgetTemplate": {
+      "name": "widgetTemplate",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "widgetsTags": {
+      "name": "widgetsTags",
+      "columns": {
+        "widgetId": {
+          "name": "widgetId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "tagId": {
+          "name": "tagId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "widgetsTags_widgetId_widget_id_fk": {
+          "name": "widgetsTags_widgetId_widget_id_fk",
+          "tableFrom": "widgetsTags",
+          "tableTo": "widget",
+          "columnsFrom": [
+            "widgetId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "widgetsTags_tagId_tag_id_fk": {
+          "name": "widgetsTags_tagId_tag_id_fk",
+          "tableFrom": "widgetsTags",
+          "tableTo": "tag",
+          "columnsFrom": [
+            "tagId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "widgetsTags_widgetId_tagId_pk": {
+          "columns": [
+            "widgetId",
+            "tagId"
+          ],
+          "name": "widgetsTags_widgetId_tagId_pk"
+        }
+      },
       "uniqueConstraints": {},
       "checkConstraints": {}
     }

@@ -27,5 +27,5 @@ export const dataType = sqliteTable(
   })
 )
 
-export type ComponentType = typeof dataType.$inferSelect
-export type InsertComponentType = typeof dataType.$inferInsert
+export type DataTypeType = typeof dataType.$inferSelect
+export type InsertDataTypeType = typeof dataType.$inferInsert

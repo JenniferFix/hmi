@@ -1,7 +1,6 @@
 import { useQuery, useMutation, useQueryClient, queryOptions } from '@tanstack/react-query'
 import { database } from '@renderer/db'
-import { screen, type ScreenType, type InsertScreenType } from '@db/schema/screen'
-import { widget } from '$/src/db/schema'
+import { screen, type InsertScreenType } from '@db/schema/screen'
 
 export function useGetScreens() {
   return useQuery({
@@ -30,7 +29,7 @@ export function useGetScreen({ id }: { id: string }) {
   })
 }
 
-export function useInsertScreen() {
+export function useAddWidgetToScreen() {
   const queryClient = useQueryClient()
 
   const mutationFn = async (data: InsertScreenType) => {

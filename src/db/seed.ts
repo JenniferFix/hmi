@@ -23,9 +23,9 @@ export async function seedDb() {
   for (const table of [
     schema.property,
     schema.propertyTemplate,
-    schema.component,
-    schema.componentTemplate,
-    schema.componentsTags,
+    schema.widget,
+    schema.widgetTemplate,
+    schema.widgetsTags,
     schema.controller,
     schema.screen,
     schema.tag,

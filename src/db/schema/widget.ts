@@ -1,15 +1,15 @@
 import { sql, relations } from 'drizzle-orm'
 import { text, real, sqliteTable } from 'drizzle-orm/sqlite-core'
 import { v4 as uuidv4 } from 'uuid'
-import { componentTemplate } from './componenttemplate'
+import { widgetTemplate } from './widgettemplate'
 import { screen } from './screen'
-import { componentsTags } from './componentstags'
+import { widgetsTags } from './widgetstags'
 import { property } from './property'
 
 /*
- * This is the local instance of a specific component type
+ * This is the local instance of a specific widget type
  */
-export const component = sqliteTable('component', {
+export const widget = sqliteTable('widget', {
   id: text('id')
     .primaryKey()
     .$defaultFn(() => uuidv4()),
@@ -22,9 +22,9 @@ export const component = sqliteTable('component', {
     .$onUpdate(() => sql`CURRENT_TIMESTAMP`),
   name: text('name'),
   description: text('description'),
-  componentTemplateId: text('componentTemplateId')
+  widgetTemplateId: text('widgetTemplateId')
     .notNull()
-    .references(() => componentTemplate.id),
+    .references(() => widgetTemplate.id),
   screenId: text('screenId')
     .notNull()
     .references(() => screen.id),
@@ -35,18 +35,18 @@ export const component = sqliteTable('component', {
   rotation: real('rotation').default(0)
 })
 
-export const componentRelations = relations(component, ({ one, many }) => ({
-  template: one(componentTemplate, {
-    fields: [component.componentTemplateId],
-    references: [componentTemplate.id]
+export const widgetRelations = relations(widget, ({ one, many }) => ({
+  template: one(widgetTemplate, {
+    fields: [widget.widgetTemplateId],
+    references: [widgetTemplate.id]
   }),
   screen: one(screen, {
-    fields: [component.screenId],
+    fields: [widget.screenId],
     references: [screen.id]
   }),
-  componentsTags: many(componentsTags),
+  widgetsTags: many(widgetsTags),
   properties: many(property)
 }))
 
-export type Component = typeof component.$inferSelect
-export type InsertComponent = typeof component.$inferInsert
+export type WidgetType = typeof widget.$inferSelect
+export type InsertWidgetType = typeof widget.$inferInsert

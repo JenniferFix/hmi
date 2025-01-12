@@ -1,7 +1,7 @@
 import { sql, relations } from 'drizzle-orm'
 import { blob, text, sqliteTable } from 'drizzle-orm/sqlite-core'
 import { v4 as uuidv4 } from 'uuid'
-import { componentTemplate } from './componenttemplate'
+import { widgetTemplate } from './widgettemplate'
 import { dataType } from './datatype'
 
 /*
@@ -20,9 +20,9 @@ export const propertyTemplate = sqliteTable('propertyTemplate', {
     .$onUpdate(() => sql`CURRENT_TIMESTAMP`),
   name: text('name'),
   description: text('description'),
-  componentTemplateId: text('componentTemplateId')
+  widgetTemplateId: text('widgetTemplateId')
     .notNull()
-    .references(() => componentTemplate.id),
+    .references(() => widgetTemplate.id),
   dataTypeId: text('dataTypeId')
     .notNull()
     .references(() => dataType.id),
@@ -30,9 +30,9 @@ export const propertyTemplate = sqliteTable('propertyTemplate', {
 })
 
 export const propertyTemplateRelations = relations(propertyTemplate, ({ one }) => ({
-  componentTemplate: one(componentTemplate, {
-    fields: [propertyTemplate.componentTemplateId],
-    references: [componentTemplate.id]
+  widgetTemplate: one(widgetTemplate, {
+    fields: [propertyTemplate.widgetTemplateId],
+    references: [widgetTemplate.id]
   }),
   dataType: one(dataType, {
     fields: [propertyTemplate.dataTypeId],
@@ -40,5 +40,5 @@ export const propertyTemplateRelations = relations(propertyTemplate, ({ one }) =
   })
 }))
 
-export type ComponentType = typeof propertyTemplate.$inferSelect
-export type InsertComponentType = typeof propertyTemplate.$inferInsert
+export type PropertyTemplateType = typeof propertyTemplate.$inferSelect
+export type InsertPropertyTemplateType = typeof propertyTemplate.$inferInsert

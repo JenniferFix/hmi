@@ -1,36 +1,3 @@
-CREATE TABLE `component` (
-	`id` text PRIMARY KEY NOT NULL,
-	`createdAt` text DEFAULT CURRENT_TIMESTAMP NOT NULL,
-	`updatedAt` text DEFAULT CURRENT_TIMESTAMP NOT NULL,
-	`name` text,
-	`description` text,
-	`componentTemplateId` text NOT NULL,
-	`screenId` text NOT NULL,
-	`xPos` real DEFAULT 0,
-	`yPos` real DEFAULT 0,
-	`xScale` real DEFAULT 0,
-	`yScale` real DEFAULT 0,
-	`rotation` real DEFAULT 0,
-	FOREIGN KEY (`componentTemplateId`) REFERENCES `componentTemplate`(`id`) ON UPDATE no action ON DELETE no action,
-	FOREIGN KEY (`screenId`) REFERENCES `screen`(`id`) ON UPDATE no action ON DELETE no action
-);
---> statement-breakpoint
-CREATE TABLE `componentsTags` (
-	`componentId` text NOT NULL,
-	`tagId` text NOT NULL,
-	PRIMARY KEY(`componentId`, `tagId`),
-	FOREIGN KEY (`componentId`) REFERENCES `component`(`id`) ON UPDATE no action ON DELETE no action,
-	FOREIGN KEY (`tagId`) REFERENCES `tag`(`id`) ON UPDATE no action ON DELETE no action
-);
---> statement-breakpoint
-CREATE TABLE `componentTemplate` (
-	`id` text PRIMARY KEY NOT NULL,
-	`createdAt` text DEFAULT CURRENT_TIMESTAMP NOT NULL,
-	`updatedAt` text DEFAULT CURRENT_TIMESTAMP NOT NULL,
-	`name` text,
-	`description` text
-);
---> statement-breakpoint
 CREATE TABLE `controller` (
 	`id` text PRIMARY KEY NOT NULL,
 	`createdAt` text DEFAULT CURRENT_TIMESTAMP NOT NULL,
@@ -58,10 +25,10 @@ CREATE TABLE `property` (
 	`id` text PRIMARY KEY NOT NULL,
 	`createdAt` text DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	`updatedAt` text DEFAULT CURRENT_TIMESTAMP NOT NULL,
-	`componentId` text NOT NULL,
+	`widgetId` text NOT NULL,
 	`propertyTemplateId` text NOT NULL,
 	`data` blob,
-	FOREIGN KEY (`componentId`) REFERENCES `component`(`id`) ON UPDATE no action ON DELETE no action,
+	FOREIGN KEY (`widgetId`) REFERENCES `widget`(`id`) ON UPDATE no action ON DELETE no action,
 	FOREIGN KEY (`propertyTemplateId`) REFERENCES `propertyTemplate`(`id`) ON UPDATE no action ON DELETE no action
 );
 --> statement-breakpoint
@@ -71,10 +38,10 @@ CREATE TABLE `propertyTemplate` (
 	`updatedAt` text DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	`name` text,
 	`description` text,
-	`componentTemplateId` text NOT NULL,
+	`widgetTemplateId` text NOT NULL,
 	`dataTypeId` text NOT NULL,
 	`default` blob,
-	FOREIGN KEY (`componentTemplateId`) REFERENCES `componentTemplate`(`id`) ON UPDATE no action ON DELETE no action,
+	FOREIGN KEY (`widgetTemplateId`) REFERENCES `widgetTemplate`(`id`) ON UPDATE no action ON DELETE no action,
 	FOREIGN KEY (`dataTypeId`) REFERENCES `dataType`(`id`) ON UPDATE no action ON DELETE no action
 );
 --> statement-breakpoint
@@ -96,4 +63,37 @@ CREATE TABLE `tag` (
 	`value` text,
 	FOREIGN KEY (`controller.id`) REFERENCES `controller`(`id`) ON UPDATE no action ON DELETE no action,
 	FOREIGN KEY (`dataTypeId`) REFERENCES `dataType`(`id`) ON UPDATE no action ON DELETE no action
+);
+--> statement-breakpoint
+CREATE TABLE `widget` (
+	`id` text PRIMARY KEY NOT NULL,
+	`createdAt` text DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	`updatedAt` text DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	`name` text,
+	`description` text,
+	`widgetTemplateId` text NOT NULL,
+	`screenId` text NOT NULL,
+	`xPos` real DEFAULT 0,
+	`yPos` real DEFAULT 0,
+	`xScale` real DEFAULT 0,
+	`yScale` real DEFAULT 0,
+	`rotation` real DEFAULT 0,
+	FOREIGN KEY (`widgetTemplateId`) REFERENCES `widgetTemplate`(`id`) ON UPDATE no action ON DELETE no action,
+	FOREIGN KEY (`screenId`) REFERENCES `screen`(`id`) ON UPDATE no action ON DELETE no action
+);
+--> statement-breakpoint
+CREATE TABLE `widgetTemplate` (
+	`id` text PRIMARY KEY NOT NULL,
+	`createdAt` text DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	`updatedAt` text DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	`name` text,
+	`description` text
+);
+--> statement-breakpoint
+CREATE TABLE `widgetsTags` (
+	`widgetId` text NOT NULL,
+	`tagId` text NOT NULL,
+	PRIMARY KEY(`widgetId`, `tagId`),
+	FOREIGN KEY (`widgetId`) REFERENCES `widget`(`id`) ON UPDATE no action ON DELETE no action,
+	FOREIGN KEY (`tagId`) REFERENCES `tag`(`id`) ON UPDATE no action ON DELETE no action
 );
