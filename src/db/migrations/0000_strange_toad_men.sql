@@ -36,7 +36,7 @@ CREATE TABLE `propertyTemplate` (
 	`id` text PRIMARY KEY NOT NULL,
 	`createdAt` text DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	`updatedAt` text DEFAULT CURRENT_TIMESTAMP NOT NULL,
-	`name` text,
+	`name` text NOT NULL,
 	`description` text,
 	`widgetTemplateId` text NOT NULL,
 	`dataTypeId` text NOT NULL,

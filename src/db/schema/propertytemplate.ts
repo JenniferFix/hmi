@@ -18,7 +18,7 @@ export const propertyTemplate = sqliteTable('propertyTemplate', {
     .notNull()
     .default(sql`CURRENT_TIMESTAMP`)
     .$onUpdate(() => sql`CURRENT_TIMESTAMP`),
-  name: text('name'),
+  name: text('name').notNull(),
   description: text('description'),
   widgetTemplateId: text('widgetTemplateId')
     .notNull()

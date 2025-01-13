@@ -2,8 +2,10 @@ import React from 'react'
 import { useGetScreen } from '@renderer/hooks/usescreensqueries'
 import { useGetScreenWidgets, useAddWidgetToScreen } from '@renderer/hooks/usewidgetqueries'
 import Widget from '@renderer/components/ScreenEditor/Widget'
+import { useEditorStore } from '@renderer/store'
 
 const Screen = ({ screenId }: { screenId: string }) => {
+  const clearSelectedWidgets = useEditorStore((state) => state.clearSelection)
   const {
     data: screenData,
     isLoading: screenIsLoading,
@@ -40,8 +42,18 @@ const Screen = ({ screenId }: { screenId: string }) => {
 
     addWidget.mutate({ screenId, widgetTemplateId: dropData.id, xPos: x, yPos: y })
   }
+
+  const handleClick: React.MouseEventHandler<HTMLElement> = (e) => {
+    clearSelectedWidgets()
+  }
+
   return (
-    <div className="absolute inset-0 bg-purple-50" onDragOver={handleDragOver} onDrop={handleDrop}>
+    <div
+      className="absolute inset-0"
+      onDragOver={handleDragOver}
+      onDrop={handleDrop}
+      onClick={handleClick}
+    >
       {widgetData && widgetData.map((widget) => <Widget widgetId={widget.id} key={widget.id} />)}
     </div>
   )

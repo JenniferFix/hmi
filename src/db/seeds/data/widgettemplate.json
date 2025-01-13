@@ -7,7 +7,7 @@
         "name": "value",
         "description": "The text to display",
         "dataType": "STRING",
-        "default": ""
+        "default": "Text Widget"
       },
       {
         "name": "font",

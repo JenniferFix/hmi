@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Image = () => {
+const Image = ({ widgetId }: { widgetId: string }) => {
   return <div>Image</div>
 }
 
