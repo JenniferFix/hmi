@@ -58,10 +58,10 @@ CREATE TABLE `tag` (
 	`createdAt` text DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	`updatedAt` text DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	`name` text DEFAULT '' NOT NULL,
-	`controller.id` text,
+	`controllerId` text,
 	`dataTypeId` text NOT NULL,
 	`value` text,
-	FOREIGN KEY (`controller.id`) REFERENCES `controller`(`id`) ON UPDATE no action ON DELETE no action,
+	FOREIGN KEY (`controllerId`) REFERENCES `controller`(`id`) ON UPDATE no action ON DELETE no action,
 	FOREIGN KEY (`dataTypeId`) REFERENCES `dataType`(`id`) ON UPDATE no action ON DELETE no action
 );
 --> statement-breakpoint

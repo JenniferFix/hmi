@@ -4,14 +4,10 @@ import PaletteWrap from './PaletteWrap'
 import { ScrollArea } from '@renderer/components/ui/scroll-area'
 import { TypeOutline, Image } from 'lucide-react'
 import { Button } from '@renderer/components/ui/button'
-import {
-  Tooltip,
-  TooltipProvider,
-  TooltipTrigger,
-  TooltipContent
-} from '@renderer/components/ui/tooltip'
+import { Tooltip, TooltipTrigger, TooltipContent } from '@renderer/components/ui/tooltip'
+import { type WidgetType } from '$/src/db/schema/widget'
 
-type DragData = {
+export type DragData = {
   type: string
   id: string
   name: string
@@ -22,21 +18,19 @@ const WidgetPalette = () => {
   if (isLoading) return <div>Loading...</div>
   if (isError) return <div>Error: {error.message}</div>
 
-  console.log('widgets', data)
-
-  const handleDragStart = (e: React.DragEvent<HTMLElement>, data) => {
-    const dragData = {
+  const handleDragStart = (e: React.DragEvent<HTMLElement>, widget: WidgetType) => {
+    const dragData: DragData = {
       type: 'widget',
-      id: 'widget.id',
-      name: 'widget.name'
+      id: widget.id,
+      name: widget.name || ''
     }
-    console.log('widget onDragStart', e)
-    e.dataTransfer.setData('text/plain', 'id')
-    e.dataTransfer.dropEffect = 'move'
+    e.dataTransfer.setData('text/plain', widget.id)
+    e.dataTransfer.setData('application/json', JSON.stringify(dragData))
+    // console.log('widget onDragStart', e)
   }
 
   const handleDragEnd: React.DragEventHandler<HTMLElement> = (e) => {
-    console.log('widget onDragEnd', e)
+    // console.log('widget onDragEnd', e)
   }
 
   const getIcon = (widgetName: string): React.ReactNode | null => {
@@ -61,7 +55,7 @@ const WidgetPalette = () => {
                   variant="outline"
                   size="sm"
                   draggable
-                  onDragStart={(e) => handleDragStart(e, widget)}
+                  onDragStart={(e) => handleDragStart(e, widget as WidgetType)}
                   onDragEnd={handleDragEnd}
                 >
                   {getIcon(widget.name || '')}
@@ -78,7 +72,7 @@ const WidgetPalette = () => {
 
 const WrappedWidgetPalette = () => {
   return (
-    <PaletteWrap title="Components">
+    <PaletteWrap title="Widgets">
       <WidgetPalette />
     </PaletteWrap>
   )

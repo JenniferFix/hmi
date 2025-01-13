@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "909bea4d-2d45-4653-898f-172a0512630d",
+  "id": "ee5392e3-2ff7-4294-901d-91b617e5a3e6",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "controller": {
@@ -408,8 +408,8 @@
           "autoincrement": false,
           "default": "''"
         },
-        "controller.id": {
-          "name": "controller.id",
+        "controllerId": {
+          "name": "controllerId",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
@@ -432,12 +432,12 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "tag_controller.id_controller_id_fk": {
-          "name": "tag_controller.id_controller_id_fk",
+        "tag_controllerId_controller_id_fk": {
+          "name": "tag_controllerId_controller_id_fk",
           "tableFrom": "tag",
           "tableTo": "controller",
           "columnsFrom": [
-            "controller.id"
+            "controllerId"
           ],
           "columnsTo": [
             "id"

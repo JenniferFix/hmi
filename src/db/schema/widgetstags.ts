@@ -1,5 +1,5 @@
 import { relations } from 'drizzle-orm'
-import { text, sqliteTable, foreignKey, primaryKey } from 'drizzle-orm/sqlite-core'
+import { text, sqliteTable, primaryKey } from 'drizzle-orm/sqlite-core'
 import { widget } from './widget'
 import { tag } from './tag'
 
