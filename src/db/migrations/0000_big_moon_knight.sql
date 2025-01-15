@@ -78,6 +78,7 @@ CREATE TABLE `widget` (
 	`xScale` real DEFAULT 0,
 	`yScale` real DEFAULT 0,
 	`rotation` real DEFAULT 0,
+	`visible` integer DEFAULT 1,
 	FOREIGN KEY (`widgetTemplateId`) REFERENCES `widgetTemplate`(`id`) ON UPDATE no action ON DELETE no action,
 	FOREIGN KEY (`screenId`) REFERENCES `screen`(`id`) ON UPDATE no action ON DELETE no action
 );

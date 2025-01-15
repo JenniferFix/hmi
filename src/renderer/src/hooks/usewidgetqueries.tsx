@@ -23,7 +23,7 @@ export function useGetWidget({ id }: { id: string }) {
       const result = await database.query.widget.findFirst({
         where: (widget, { eq }) => eq(widget.id, id),
         with: {
-          template: { with: { properties: true } },
+          template: { with: { properties: { with: { dataType: true } } } },
           properties: true
         }
       })

@@ -22,25 +22,28 @@ const Text = ({ widgetId }: { widgetId: string }) => {
   }
 
   const props = data.template.properties.reduce((acc, curr) => {
-    const a = acc
-    a[curr.name] = {
-      id: curr.id,
-      default: curr.default,
-      name: curr.name,
-      description: curr.description
+    acc = { ...acc }
+    acc[curr.name] = {
+      ...curr
     }
-    return a
+    return acc
   }, {})
 
-  const getProperty = (prop: string) => {
-    // TODO: Finish getting the props
-    // Just use the defautl value for now
-    return props[prop].default
+  const templateId = (propName: string) => {
+    const [found] = data.template.properties.filter((p) => p.name === propName)
+    return found.id
+  }
+
+  const getProperty = (propName: string) => {
+    const [val] = data.properties.filter((p) => p.propertyTemplateId === templateId(propName))
+    if (val?.data) return val.data
+    return props[propName].default
   }
 
   const getText = () => {}
 
   return <div>{getProperty('value')}</div>
+  // return <div>tempText</div>
 }
 
 export default Text

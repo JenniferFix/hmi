@@ -19,6 +19,10 @@ async function resetTable(db: DBType, table: Table) {
  * must be done in the correct order due to foreign key references
  * delete in reverse order of seeding
  */
+
+/*
+ * Deleting
+ */
 export async function seedDb() {
   for (const table of [
     schema.property,
@@ -34,8 +38,12 @@ export async function seedDb() {
     await resetTable(getDB(), table)
   }
 
+  /*
+   * Seeding
+   */
   await seeds.datatypes(getDB())
   await seeds.componenttemplates(getDB())
+  await seeds.screens(getDB())
 
   getClient().close()
 }

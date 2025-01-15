@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Test-Big Screen",
+    "description": "Big Screen Created by data seeding",
+    "widgets": [
+      {
+        "templateName": "Text",
+        "name": "Test Text Name",
+        "description": "Just a test box description",
+        "xPos": 150,
+        "yPos": 420,
+        "props": [
+          {
+            "propName": "value",
+            "data": "Test Text Widget"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Test-Small Screen",
+    "description": "Small Screen Created by data seeding",
+    "widgets": []
+  }
+]

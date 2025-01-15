@@ -30,7 +30,7 @@ const PaletteOutline = ({ title, children }: { title: string; children: React.Re
       >
         {title}
       </div>
-      <div className="flex-1 min-h-0">{children}</div>
+      <div className="relative flex-1 min-h-0">{children}</div>
     </div>
   )
 }

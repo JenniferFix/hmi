@@ -58,6 +58,9 @@ export const execute = async (_e, sql, args, method) => {
   try {
     const result = await client.execute({ sql, args })
     if (method === 'get') {
+      if (result.rows.length === 0 || !result.rows[0]) {
+        return {}
+      }
       return Object.keys(result.rows[0]).map((key) => result.rows[0][key])
     } else if (method === 'all') {
       return result.rows.map((row) => {

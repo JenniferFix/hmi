@@ -25,13 +25,13 @@
         "name": "color",
         "description": "Foreground colour",
         "dataType": "STRING",
-        "default": "sans"
+        "default": "black"
       },
       {
         "name": "background",
         "description": "Background colour",
         "dataType": "STRING",
-        "default": "sans"
+        "default": "transparent"
       }
     ]
   },

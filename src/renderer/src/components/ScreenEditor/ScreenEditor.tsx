@@ -6,6 +6,7 @@ import { useEditorStore } from '@renderer/store'
 
 const Screen = ({ screenId }: { screenId: string }) => {
   const clearSelectedWidgets = useEditorStore((state) => state.clearSelection)
+  const setSelected = useEditorStore((state) => state.setSelected)
   const {
     data: screenData,
     isLoading: screenIsLoading,
@@ -30,8 +31,9 @@ const Screen = ({ screenId }: { screenId: string }) => {
 
   const handleDragOver: React.DragEventHandler<HTMLElement> = (e) => {
     // console.log('dragOver', e)
+    e.dataTransfer.dropEffect = 'move'
   }
-  const handleDrop: React.DragEventHandler<HTMLElement> = (e) => {
+  const handleDrop: React.DragEventHandler<HTMLElement> = async (e) => {
     e.preventDefault()
     const dropData = JSON.parse(e.dataTransfer.getData('application/json'))
     console.log('drop', e)
@@ -40,7 +42,13 @@ const Screen = ({ screenId }: { screenId: string }) => {
     const x = e.clientX - rect.left
     const y = e.clientY - rect.top
 
-    addWidget.mutate({ screenId, widgetTemplateId: dropData.id, xPos: x, yPos: y })
+    const newWidget = await addWidget.mutateAsync({
+      screenId,
+      widgetTemplateId: dropData.id,
+      xPos: x,
+      yPos: y
+    })
+    setSelected(newWidget.id)
   }
 
   const handleClick: React.MouseEventHandler<HTMLElement> = (e) => {

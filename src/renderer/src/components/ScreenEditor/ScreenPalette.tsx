@@ -93,7 +93,11 @@ const ScreenPalette = () => {
           data.map((screen) => (
             <div key={screen.id}>
               <Button className="w-full justify-start" variant="link" asChild>
-                <Link to={`/edit/$screenId`} params={{ screenId: screen.id.toString() }}>
+                <Link
+                  to={`/edit/$screenId`}
+                  params={{ screenId: screen.id.toString() }}
+                  activeProps={{ className: 'bg-muted' }}
+                >
                   {screen.name}
                 </Link>
               </Button>

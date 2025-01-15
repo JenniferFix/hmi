@@ -1,5 +1,5 @@
 import { sql, relations } from 'drizzle-orm'
-import { text, real, sqliteTable } from 'drizzle-orm/sqlite-core'
+import { integer, text, real, sqliteTable } from 'drizzle-orm/sqlite-core'
 import { v4 as uuidv4 } from 'uuid'
 import { widgetTemplate } from './widgettemplate'
 import { screen } from './screen'
@@ -32,7 +32,8 @@ export const widget = sqliteTable('widget', {
   yPos: real('yPos').default(0),
   xScale: real('xScale').default(0),
   yScale: real('yScale').default(0),
-  rotation: real('rotation').default(0)
+  rotation: real('rotation').default(0),
+  visible: integer('visible').default(1)
 })
 
 export const widgetRelations = relations(widget, ({ one, many }) => ({

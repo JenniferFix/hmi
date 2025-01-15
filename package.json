@@ -26,6 +26,7 @@
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.1",
     "@electron-toolkit/utils": "^3.0.0",
+    "@fontsource/noto-sans": "^5.1.1",
     "@hookform/resolvers": "^3.9.1",
     "@libsql/client": "^0.14.0",
     "@radix-ui/react-dialog": "^1.1.4",

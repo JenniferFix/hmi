@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { RouterProvider, createRouter, createHashHistory } from '@tanstack/react-router'
 import { ThemeProvider } from '@renderer/components/theme-provider'
 import { TooltipProvider } from '@renderer/components/ui/tooltip'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 const router = createRouter({ routeTree, history: createHashHistory() })
 const queryClient = new QueryClient()
@@ -22,6 +23,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
       <ThemeProvider defaultTheme="dark" storageKey="jahmi-ui-theme">
         <TooltipProvider>
           <RouterProvider router={router} />
+          <ReactQueryDevtools initialIsOpen={false} />
         </TooltipProvider>
       </ThemeProvider>
     </QueryClientProvider>

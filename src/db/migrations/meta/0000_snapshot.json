@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "453553c9-61fa-4969-b826-8429ae918764",
+  "id": "f75b632a-30f6-4f2f-aa1d-e0aa3e1784e0",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "controller": {
@@ -556,6 +556,14 @@
           "notNull": false,
           "autoincrement": false,
           "default": 0
+        },
+        "visible": {
+          "name": "visible",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": 1
         }
       },
       "indexes": {},

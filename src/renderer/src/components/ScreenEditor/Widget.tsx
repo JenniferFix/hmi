@@ -33,11 +33,25 @@ const Widget = ({ widgetId }: { widgetId: string }) => {
     }
   }
 
+  const props = data.template.properties.reduce((acc, curr) => {
+    acc = { ...acc }
+    acc[curr.name] = {
+      ...curr
+    }
+    return acc
+  }, {})
+
+  const getProperty = (propName: string, propertyTemplateId: string) => {
+    const [val] = data.properties.filter((p) => p.propertyTemplateId === propertyTemplateId)
+    if (val?.data) return val.data
+    return props[propName].default
+  }
+
   return (
     <div
       key={data.id}
       data-widgetid={data.id}
-      className={cn('hover:cursor-default select-none', isSelected ? 'outline outline-muted' : '')}
+      className={cn('hover:cursor-default select-none', isSelected ? 'outline outline-accent' : '')}
       style={{
         position: 'fixed',
         transform: `translate(${data.xPos}px, ${data.yPos}px)`

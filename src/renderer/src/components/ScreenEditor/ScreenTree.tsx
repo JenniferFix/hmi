@@ -1,8 +1,11 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React from 'react'
 import { Tree, type NodeRendererProps } from 'react-arborist'
 import { FolderIcon, FolderOpenIcon, MonitorIcon, Monitor, Puzzle } from 'lucide-react'
 import useResizeObserver from 'use-resize-observer'
+import { useParams } from '@tanstack/react-router'
+import { useGetScreenWidgets } from '@renderer/hooks/usewidgetqueries'
+import { useGetScreen } from '@renderer/hooks/usescreensqueries'
+import PaletteWrap from './PaletteWrap'
 
 type NodeType = {
   id: string
@@ -10,7 +13,6 @@ type NodeType = {
   children?: NodeType[]
 }
 
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 function Node({ node, style, dragHandle }: NodeRendererProps<NodeType>) {
   return (
     <div style={style} ref={dragHandle} className="text-md">
@@ -25,10 +27,33 @@ function Node({ node, style, dragHandle }: NodeRendererProps<NodeType>) {
     </div>
   )
 }
-const ScreenTree = () => {
-  const { ref, width, height } = useResizeObserver()
 
-  const data: NodeType[] = [
+const ScreenTree = ({ screenId }: { screenId: string }) => {
+  const { ref, width, height } = useResizeObserver()
+  const {
+    data: screenData,
+    isLoading: screenIsLoading,
+    isError: screenIsError,
+    error: screenError
+  } = useGetScreen({ id: screenId })
+  const {
+    data: widgetData,
+    isLoading: widgetIsLoading,
+    isError: widgetIsError,
+    error: widgetError
+  } = useGetScreenWidgets({ screenId })
+  if (widgetIsLoading || screenIsLoading) return <div>Loading</div>
+  if (widgetIsError || screenIsError)
+    return (
+      <div>
+        Error{widgetError?.message}
+        {screenError?.message}
+      </div>
+    )
+  // if (!widgetData) throw new Error('No Widget Data')
+  // if (!screenData) throw new Error('No Screen Data')
+
+  const nodedata: NodeType[] = [
     { id: '1', name: 'Application' },
     {
       id: '2',
@@ -41,11 +66,20 @@ const ScreenTree = () => {
   ]
   return (
     <div className="absolute inset-0" ref={ref}>
-      <Tree initialData={data} width={width} height={height}>
+      <Tree initialData={nodedata} width={width} height={height}>
         {Node}
       </Tree>
     </div>
   )
 }
 
-export default ScreenTree
+const WrappedScreenTree = () => {
+  const params = useParams({ strict: false })
+  return (
+    <PaletteWrap title="Treeview">
+      <ScreenTree screenId={params?.screenId || ''} />
+    </PaletteWrap>
+  )
+}
+
+export default WrappedScreenTree
