@@ -2,12 +2,16 @@
   "name": "@fixtech/hmi",
   "version": "1.0.0",
   "description": "An application to build HMI clients for use with Allen Bradley PLCs",
+  "author": "Jennifer Fix",
+  "homepage": "https://jenniferfix.ca",
   "main": "index.js",
   "scripts": {
     "electron:dev": "pnpm -F @fixtech/hmi-electron run dev",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "hmi",
+    "plc"
+  ],
   "license": "MIT"
 }
