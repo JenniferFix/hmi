@@ -1,34 +1,13 @@
-# drizztest
+# Jennifer's HMI
 
-An Electron application with React and TypeScript
+The intention is to create an editor that will allow the creation of small PC based HMI applications.
 
-## Recommended IDE Setup
+Initially allow connections to Allen Bradley PLCs through Ethernet/IP
 
-- [VSCode](https://code.visualstudio.com/) + [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) + [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+Use Node-RED to script actions based on events like changing tag information and user input.
 
-## Project Setup
+---
 
-### Install
+## Technology
 
-```bash
-$ pnpm install
-```
-
-### Development
-
-```bash
-$ pnpm dev
-```
-
-### Build
-
-```bash
-# For windows
-$ pnpm build:win
-
-# For macOS
-$ pnpm build:mac
-
-# For Linux
-$ pnpm build:linux
-```
+Typescript, Electron, React, Tanstack Router, Tanstack Query, SQLite, Drizzle
