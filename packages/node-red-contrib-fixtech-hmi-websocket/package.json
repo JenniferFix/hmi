@@ -11,7 +11,13 @@
   "license": "MIT",
   "node-red": {
     "nodes": {
-      "widget": "widget.ts"
+      "widget": "widget.js"
     }
+  },
+  "engines": {
+    "node": ">=18.2.0"
+  },
+  "dependencies": {
+    "@types/node-red": "^1.3.5"
   }
 }
