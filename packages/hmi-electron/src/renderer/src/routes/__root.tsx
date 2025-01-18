@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Outlet, createRootRoute } from '@tanstack/react-router'
+import { Outlet, createRootRoute, ErrorComponentProps } from '@tanstack/react-router'
 import SideMenu from '@renderer/components/SideMenu'
 
 export const Route = createRootRoute({
@@ -10,7 +10,7 @@ export const Route = createRootRoute({
 function RootComponent() {
   return (
     <React.Fragment>
-      <div className={`absolute inset-0 flex font-noto`}>
+      <div className={`fixed inset-0 flex font-noto`}>
         <SideMenu />
         <Outlet />
       </div>
@@ -18,11 +18,11 @@ function RootComponent() {
   )
 }
 
-function ErrorComponent({ error, reset }) {
+function ErrorComponent({ error, reset }: ErrorComponentProps) {
   return (
     <React.Fragment>
       <div>Error!!!</div>
-      <div>{error}</div>
+      <div>{error.message}</div>
       <button onClick={() => reset()}>Reset Error</button>
     </React.Fragment>
   )

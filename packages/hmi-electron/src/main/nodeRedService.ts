@@ -12,6 +12,7 @@ export async function startNodeRed() {
     httpNodeRoot: '/api',
     userDir,
     flowFile: 'flows.json',
+
     // editorTheme: {
     //   header: {
     //     title: 'JAHMI NODE RED'

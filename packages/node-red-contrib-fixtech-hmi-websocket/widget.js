@@ -1,4 +1,4 @@
-export default function (RED) {
+module.exports = function (RED) {
   function WidgetNode(config) {
     RED.nodes.createNode(this, config);
     var node = this;
@@ -8,4 +8,4 @@ export default function (RED) {
     });
   }
   RED.nodes.registerType("widget", WidgetNode);
-}
+};

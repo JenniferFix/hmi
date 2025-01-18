@@ -1,0 +1,29 @@
+<script type="text/javascript">
+  RED.nodes.registerType("widget", {
+    category: "hmi",
+    color: "#a6bbcf",
+    defaults: {
+      name: { value: "" },
+    },
+    inputs: 1,
+    outputs: 1,
+    icon: "file.svg",
+    label: function () {
+      return this.name || "widget";
+    },
+  });
+</script>
+
+<script type="text/html" data-template-name="widget">
+  <div class="form-row">
+    <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+    <input type="text" id="node-input-name" placeholder="Name" />
+  </div>
+</script>
+
+<script type="text/html" data-help-name="widget">
+  <p>
+    A simple node that converts the message payloads into all lower-case
+    characters
+  </p>
+</script>
