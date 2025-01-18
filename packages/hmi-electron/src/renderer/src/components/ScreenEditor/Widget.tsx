@@ -1,9 +1,10 @@
-import React from 'react'
+import * as React from 'react'
 import { useGetWidget } from '@renderer/hooks/usewidgetqueries'
 import Text from '@renderer/components/ScreenEditor/defaultwidgets/Text'
 import Image from '@renderer/components/ScreenEditor/defaultwidgets/Image'
 import { useEditorStore } from '@renderer/store'
 import { cn } from '@renderer/lib/utils'
+import WidgetContextMenu from './WidgetContextMenu'
 
 const Widget = ({ widgetId }: { widgetId: string }) => {
   const { data, isLoading, isError, error } = useGetWidget({ id: widgetId })
@@ -48,19 +49,24 @@ const Widget = ({ widgetId }: { widgetId: string }) => {
   }
 
   return (
-    <div
-      key={data.id}
-      data-widgetid={data.id}
-      className={cn('hover:cursor-default select-none', isSelected ? 'outline outline-accent' : '')}
-      style={{
-        position: 'fixed',
-        transform: `translate(${data.xPos}px, ${data.yPos}px)`
-      }}
-      onClick={handleClick}
-    >
-      {data.template.name === 'Text' && <Text widgetId={widgetId} />}
-      {data.template.name === 'Image' && <Image widgetId={widgetId} />}
-    </div>
+    <WidgetContextMenu widgetId={widgetId}>
+      <div
+        key={data.id}
+        data-widgetid={data.id}
+        className={cn(
+          'hover:cursor-default select-none',
+          isSelected ? 'outline outline-accent' : ''
+        )}
+        style={{
+          position: 'fixed',
+          transform: `translate(${data.xPos}px, ${data.yPos}px)`
+        }}
+        onClick={handleClick}
+      >
+        {data.template.name === 'Text' && <Text widgetId={widgetId} />}
+        {data.template.name === 'Image' && <Image widgetId={widgetId} />}
+      </div>
+    </WidgetContextMenu>
   )
 }
 

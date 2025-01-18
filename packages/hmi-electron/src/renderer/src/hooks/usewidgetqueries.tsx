@@ -1,6 +1,7 @@
 import { useQuery, useMutation, useQueryClient, queryOptions } from '@tanstack/react-query'
 import { database } from '@renderer/db'
 import { widget, type InsertWidgetType } from '@db/schema/widget'
+import { eq } from 'drizzle-orm'
 
 export function useGetScreenWidgets({ screenId }: { screenId: string }) {
   return useQuery({
@@ -48,6 +49,22 @@ export function useAddWidgetToScreen() {
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ['screens', data.screenId] })
       queryClient.invalidateQueries({ queryKey: ['screenwidgets', data.screenId] })
+    }
+  })
+}
+
+export function useDeleteWidget() {
+  const queryClient = useQueryClient()
+
+  const mutationFn = async ({ widgetId }: { widgetId: string }) => {
+    await database.delete(widget).where(eq(widget.id, widgetId))
+  }
+
+  return useMutation({
+    mutationFn,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['screenwidgets'] })
+      queryClient.invalidateQueries({ queryKey: ['widgets'] })
     }
   })
 }
