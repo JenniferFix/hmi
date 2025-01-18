@@ -33,22 +33,50 @@ const Screen = ({ screenId }: { screenId: string }) => {
     // console.log('dragOver', e)
     e.dataTransfer.dropEffect = 'move'
   }
-  const handleDrop: React.DragEventHandler<HTMLElement> = async (e) => {
+  const validImageTypes: string[] = [
+    'image/png',
+    'image/jpeg',
+    'image/jpg',
+    'image/gif',
+    'image/svg+xml'
+  ]
+
+  const handleDrop: React.DragEventHandler<HTMLElement> = async (e: React.DragEvent) => {
     e.preventDefault()
-    const dropData = JSON.parse(e.dataTransfer.getData('application/json'))
     console.log('drop', e)
+    console.log('items:', e.dataTransfer.items)
+    console.log('items.length', e.dataTransfer.items.length)
+    console.log('types.length', e.dataTransfer.types.length)
+    console.log('files', e.dataTransfer.files)
 
-    const rect = e.currentTarget.getBoundingClientRect()
-    const x = e.clientX - rect.left
-    const y = e.clientY - rect.top
+    Array.from(e.dataTransfer.items).forEach(async (item) => {
+      console.log('item:', item.kind, item.type)
+      // handle files
+      if (item.kind === 'file') {
+        console.log('file:', item.getAsFile())
+        const file = item.getAsFile()
+        console.log('file type', file?.type)
+      }
+      if (item.kind === 'string') {
+        //
+        if (item.type === 'application/json') {
+          const jsondata = e.dataTransfer.getData('application/json')
+          const dropData = JSON.parse(jsondata)
 
-    const newWidget = await addWidget.mutateAsync({
-      screenId,
-      widgetTemplateId: dropData.id,
-      xPos: x,
-      yPos: y
+          const rect = e.currentTarget.getBoundingClientRect()
+          const x = e.clientX - rect.left
+          const y = e.clientY - rect.top
+
+          const newWidget = await addWidget.mutateAsync({
+            screenId,
+            widgetTemplateId: dropData.id,
+            xPos: x,
+            yPos: y
+          })
+          setSelected(newWidget.id)
+        }
+      }
     })
-    setSelected(newWidget.id)
   }
 
   const handleClick: React.MouseEventHandler<HTMLElement> = (e) => {
