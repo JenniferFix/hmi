@@ -50,13 +50,15 @@ const menuItems: MenuItem[] = [
 const SideMenu = () => {
   return (
     <div className="bg-accent flex flex-col py-2 px-2 justify-between">
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col gap-2">
         {menuItems.map((item) => (
           <TooltipProvider key={item.url}>
             <Tooltip>
               <TooltipTrigger asChild>
                 <Button aria-label={item.tooltip} size="icon" variant="outline" asChild>
-                  <Link to={item.url}>{item.icon}</Link>
+                  <Link to={item.url} activeProps={{ className: 'outline outline-1 bg-muted' }}>
+                    {item.icon}
+                  </Link>
                 </Button>
               </TooltipTrigger>
               <TooltipContent>
