@@ -1,5 +1,5 @@
 <script type="text/javascript">
-  RED.nodes.registerType("widget", {
+  RED.nodes.registerType("widgetstate", {
     category: "hmi",
     color: "#a6bbcf",
     defaults: {
@@ -9,21 +9,21 @@
     outputs: 1,
     icon: "file.svg",
     label: function () {
-      return this.name || "widget";
+      return this.name || "widgetstate";
     },
   });
 </script>
 
-<script type="text/html" data-template-name="widget">
+<script type="text/html" data-template-name="widgetstate">
   <div class="form-row">
     <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
     <input type="text" id="node-input-name" placeholder="Name" />
   </div>
 </script>
 
-<script type="text/html" data-help-name="widget">
+<script type="text/html" data-help-name="widgetstate">
   <p>
-    A simple node that converts the message payloads into all lower-case
-    characters
+    Goal is to set the properties of the selected widget programmaticlly through
+    node-red
   </p>
 </script>
