@@ -7,28 +7,18 @@ import {
   NodeMessage,
 } from "node-red";
 import { RED } from "../../globals";
-import { type NodeConfig } from "../../types";
 
-interface WidgetNodeDef extends NodeDef {
+interface TagNodeDef extends NodeDef {
   name: string;
   // Add any custom properties from config here if needed
 }
 
-interface WidgetNode extends Node {
+interface TagNode extends Node {
   // on(event: "input", ca-llback: (msg: NodeMessageInFlow, send: (msg:NodeMessageInFlow)=>void, done: () => void) => void): void;
 }
 
-export const config: NodeConfig = {
-  category: "hmi",
-  color: "#a6bbcf",
-  inputs: 1,
-  outputs: 1,
-  icon: "file.svg",
-  label: "wigetstate",
-};
-
 export default function (RED: NodeAPI) {
-  function WidgetNode(this: WidgetNode, config: WidgetNodeDef) {
+  function TagNode(this: TagNode, config: TagNodeDef) {
     RED.nodes.createNode(this, config);
 
     this.on("input", (msg: NodeMessageInFlow, send, done) => {
@@ -43,5 +33,5 @@ export default function (RED: NodeAPI) {
       }
     });
   }
-  RED.nodes.registerType("widgetstate", WidgetNode);
+  RED.nodes.registerType("tagstate", TagNode);
 }

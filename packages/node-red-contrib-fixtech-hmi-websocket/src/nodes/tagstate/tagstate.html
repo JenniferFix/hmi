@@ -1,0 +1,29 @@
+<script type="text/javascript">
+  RED.nodes.registerType("tagstate", {
+    category: "hmi",
+    color: "#a6bbcf",
+    defaults: {
+      name: { value: "" },
+    },
+    inputs: 1,
+    outputs: 1,
+    icon: "file.svg",
+    label: function () {
+      return this.name || "tagstate";
+    },
+  });
+</script>
+
+<script type="text/html" data-template-name="tagstate">
+  <div class="form-row">
+    <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+    <input type="text" id="node-input-name" placeholder="Name" />
+  </div>
+</script>
+
+<script type="text/html" data-help-name="tagstate">
+  <p>
+    Goal is to set the properties of the selected widget programmaticlly through
+    node-red
+  </p>
+</script>

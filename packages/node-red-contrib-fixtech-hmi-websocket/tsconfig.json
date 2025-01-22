@@ -1,19 +1,22 @@
 {
   "compilerOptions": {
     "target": "ES2020",
-    "module": "ES2020",
+    "module": "ESNext",
     "moduleResolution": "bundler",
-    "lib": ["es2018"],
+    "lib": ["ES2020"],
     "declaration": true,
     "sourceMap": true,
     "outDir": "./dist",
     "rootDir": "./src",
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "allowJs": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "paths": {
+      "@": ["./src/*"]
+    }
   },
   "include": ["./src/**/*"],
   "exclude": ["node_modules", "dist"]
