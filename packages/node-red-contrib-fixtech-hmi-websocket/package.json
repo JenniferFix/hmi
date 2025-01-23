@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "./dist/index.js",
-  "type": "module",
+  "author": "Jennifer Fix",
+  "homepage": "https://fixtech.ca",
+  "license": "MIT",
+  "keywords": [],
   "scripts": {
     "dev": "rolldown -c rolldown.config.ts --watch",
     "build": "rolldown -c rolldown.config.ts",
@@ -11,9 +14,6 @@
     "lint": "eslint ./src --ext .ts",
     "clean": "pnpm rimraf dist"
   },
-  "keywords": [],
-  "author": "",
-  "license": "MIT",
   "node-red": {
     "nodes": {
       "all": "./dist/index.js"

@@ -7,13 +7,7 @@ import { NodeType } from "./src/consts";
 function nodeRedEditorPlugin() {
   return {
     name: "node-red-html",
-    async generateBundle() {
-      const editorTs = join(__dirname, "src", "editor.ts");
-      // const editorContent = readFileSync(editorTs, "utf-8");
-      // console.log(editorContent);
-      // const editorResult = await this.transform(editorContent, editorTs);
-      // console.log(editorResult);
-
+    async generateBundle(options, bundle) {
       const htmlContent = Object.values(NodeType)
         .map((nodeType) => {
           const editorPath = join(
@@ -30,12 +24,10 @@ function nodeRedEditorPlugin() {
             nodeType,
             "help.html",
           );
-
           const editorContent = readFileSync(editorPath, "utf-8");
           const helpContent = readFileSync(helpPath, "utf-8");
 
-          return `
-<script type="text/html" data-template-name="${nodeType}">
+          return `<script type="text/html" data-template-name="${nodeType}">
 ${editorContent}
 </script>
 <script type="text/html" data-help-name="${nodeType}">
@@ -44,18 +36,16 @@ ${helpContent}
         })
         .join("\n");
 
-      // const editorJs = await this.emitFile({
-      //   type: "chunk",
-      //   id: "src/editor.ts",
-      //   name: "editor",
-      // });
+      const jsContent = `<script type="text/javascript">
+${bundle["editor.js"].code || ""}
+</script>`;
 
-      // const outContent = editorJs + "\n" + htmlContent;
+      const fullOutput = jsContent + "\n" + htmlContent;
 
       this.emitFile({
         type: "asset",
         fileName: "index.html",
-        source: htmlContent,
+        source: fullOutput,
       });
     },
   };
@@ -71,15 +61,15 @@ export default defineConfig([
       exports: "default",
     },
     external: ["node-red"],
-    plugins: [nodeRedEditorPlugin()],
   },
   {
     input: "src/editor.ts",
-    platform: "browser",
+    platform: "node",
     output: {
       dir: "dist",
-      format: "iife",
+      format: "cjs",
       sourcemap: true,
     },
+    plugins: [nodeRedEditorPlugin()],
   },
 ]);
