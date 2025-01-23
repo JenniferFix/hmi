@@ -2,21 +2,22 @@
   "name": "@fixtech/node-red-contrib-fixtech-hmi-websocket",
   "version": "1.0.0",
   "description": "",
-  "main": "./dist/index.js",
+  "main": "./dist/index.cjs",
   "author": "Jennifer Fix",
   "homepage": "https://fixtech.ca",
+  "type": "module",
   "license": "MIT",
   "keywords": [],
   "scripts": {
-    "dev": "rolldown -c rolldown.config.ts --watch",
-    "build": "rolldown -c rolldown.config.ts",
+    "dev": "rolldown -c rolldown.config.mts --watch",
+    "build": "rolldown -c rolldown.config.mts",
     "type-check": "tsc --noEmit",
     "lint": "eslint ./src --ext .ts",
     "clean": "pnpm rimraf dist"
   },
   "node-red": {
     "nodes": {
-      "all": "./dist/index.js"
+      "all": "./dist/index.cjs"
     }
   },
   "engines": {

@@ -1,4 +1,5 @@
 import { NodeAPI } from "node-red";
+import type { Node, NodeDef } from "node-red";
 
 import { NodeType } from "./consts";
 import { setRED } from "./globals";
@@ -14,6 +15,7 @@ export default async (RED: NodeAPI): Promise<void> => {
   setRED(RED);
 
   let type: NodeType;
+  console.log(widgetNode);
   for (type in nodes) {
     RED.nodes.registerType(type, nodes[type]);
   }

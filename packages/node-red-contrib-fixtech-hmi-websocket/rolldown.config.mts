@@ -1,7 +1,10 @@
 import { defineConfig } from "rolldown";
-import { readFileSync } from "fs";
-import { join } from "path";
-import { NodeType } from "./src/consts";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+import { fileURLToPath } from "node:url";
+import { NodeType } from "./src/consts.js";
+
+const __dirname = fileURLToPath(new URL(".", import.meta.url));
 
 // Plugin to combine HTML files for Node-RED
 function nodeRedEditorPlugin() {
@@ -15,14 +18,14 @@ function nodeRedEditorPlugin() {
             "src",
             "nodes",
             nodeType,
-            "editor.html",
+            "editor.html"
           );
           const helpPath = join(
             __dirname,
             "src",
             "nodes",
             nodeType,
-            "help.html",
+            "help.html"
           );
           const editorContent = readFileSync(editorPath, "utf-8");
           const helpContent = readFileSync(helpPath, "utf-8");
@@ -37,7 +40,7 @@ ${helpContent}
         .join("\n");
 
       const jsContent = `<script type="text/javascript">
-${bundle["editor.js"].code || ""}
+${bundle["editor.cjs"].code || ""}
 </script>`;
 
       const fullOutput = jsContent + "\n" + htmlContent;
@@ -57,8 +60,9 @@ export default defineConfig([
     output: {
       dir: "dist",
       format: "cjs",
+      entryFileNames: "[name].cjs",
       sourcemap: true,
-      exports: "default",
+      exports: "auto",
     },
     external: ["node-red"],
   },
@@ -66,7 +70,9 @@ export default defineConfig([
     input: "src/editor.ts",
     platform: "node",
     output: {
+      entryFileNames: "[name].cjs",
       dir: "dist",
+      exports: "auto",
       format: "cjs",
       sourcemap: true,
     },
