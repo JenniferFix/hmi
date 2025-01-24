@@ -13,7 +13,8 @@
     "build": "rolldown -c rolldown.config.mts",
     "type-check": "tsc --noEmit",
     "lint": "eslint ./src --ext .ts",
-    "clean": "pnpm rimraf dist"
+    "cleandist": "pnpm rimraf dist",
+    "clean": "pnpm rimraf dist && pnpm rimraf node_modules"
   },
   "node-red": {
     "nodes": {

@@ -11,9 +11,12 @@ const WidgetStateEditor: EditorNodeDef<WidgetStateEditorNodeProperties> = {
   color: "#cc11ff",
   inputs: 1,
   outputs: 0,
-  label: "WidgetState",
-
+  label: function () {
+    return this.name || "widgetstate";
+  },
+  paletteLabel: "Widget State",
   defaults: {
+    name: { value: "" },
     server: { value: "" },
     widgetId: { value: "" },
   },

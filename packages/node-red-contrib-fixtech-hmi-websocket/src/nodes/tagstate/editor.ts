@@ -14,6 +14,7 @@ const TagStateEditor: EditorNodeDef<TagStateEditorNodeProperties> = {
   label: "TagState",
 
   defaults: {
+    name: { value: "" },
     server: { value: "" },
     widgetId: { value: "" },
   },

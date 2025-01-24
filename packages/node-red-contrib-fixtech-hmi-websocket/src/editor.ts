@@ -6,5 +6,6 @@ import TagStateEditor from "./nodes/tagstate/editor";
 
 declare const RED: EditorRED;
 
+console.log("testing----------------------------");
 RED.nodes.registerType(NodeType.WidgetState, WidgetStateEditor);
 RED.nodes.registerType(NodeType.TagState, TagStateEditor);

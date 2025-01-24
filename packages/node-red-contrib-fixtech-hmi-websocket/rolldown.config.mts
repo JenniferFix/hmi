@@ -18,14 +18,14 @@ function nodeRedEditorPlugin() {
             "src",
             "nodes",
             nodeType,
-            "editor.html"
+            "editor.html",
           );
           const helpPath = join(
             __dirname,
             "src",
             "nodes",
             nodeType,
-            "help.html"
+            "help.html",
           );
           const editorContent = readFileSync(editorPath, "utf-8");
           const helpContent = readFileSync(helpPath, "utf-8");
@@ -64,18 +64,19 @@ export default defineConfig([
       sourcemap: true,
       exports: "auto",
     },
-    external: ["node-red"],
   },
   {
     input: "src/editor.ts",
-    platform: "node",
+    platform: "browser",
     output: {
       entryFileNames: "[name].cjs",
       dir: "dist",
       exports: "auto",
-      format: "cjs",
+      format: "esm",
       sourcemap: true,
+      name: "nodeRedEditor",
     },
+    external: ["node-red"],
     plugins: [nodeRedEditorPlugin()],
   },
 ]);
