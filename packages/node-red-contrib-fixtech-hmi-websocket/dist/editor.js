@@ -1,4 +1,3 @@
-<script type="text/javascript">
 "use strict";
 
 //#region src/consts.ts
@@ -51,31 +50,3 @@ RED.nodes.registerType(NodeType.TagState, editor_default);
 
 //#endregion
 //# sourceMappingURL=editor.js.map
-</script>
-<script type="text/html" data-template-name="widgetstate">
-<div class="form-row">
-  <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
-  <input type="text" id="node-input-name" placeholder="Name" />
-</div>
-
-</script>
-<script type="text/html" data-help-name="widgetstate">
-<p>
-  Goal is to set the properties of the selected widget programmaticlly through
-  node-red
-</p>
-
-</script>
-<script type="text/html" data-template-name="tagstate">
-<div class="form-row">
-  <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
-  <input type="text" id="node-input-name" placeholder="Name" />
-</div>
-
-</script>
-<script type="text/html" data-help-name="tagstate">
-<p>
-  This node will eventually have the state or state change of the tag selected
-</p>
-
-</script>

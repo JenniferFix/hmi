@@ -59,7 +59,11 @@ const nodes = {
 var src_default = async (RED$1) => {
 	setRED(RED$1);
 	let type;
-	for (type in nodes) RED$1.nodes.registerType(type, nodes[type]);
+	console.log(widgetstate_default);
+	for (type in nodes) {
+		console.log("registering type", type, nodes[type]);
+		RED$1.nodes.registerType(type, nodes[type]);
+	}
 };
 
 //#endregion
