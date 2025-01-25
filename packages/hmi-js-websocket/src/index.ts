@@ -1,11 +1,12 @@
 import WebSocket from "ws";
 
+let websocket: WebSocket;
 /*
  * createConnection
  */
 
 export function createConnection(url: string) {
-  return new WebSocket(url);
+  websocket = new WebSocket(url);
 }
 
 /*
@@ -19,3 +20,14 @@ disconnect
 export function disconnect(ws: WebSocket) {
   ws.close();
 }
+
+/*
+subscribe
+*/
+
+/*
+unsubscribe
+*/
+export const ws = () => {
+  return websocket;
+};
