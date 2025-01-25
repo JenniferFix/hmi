@@ -9,8 +9,8 @@ interface TagStateEditorNodeProperties extends EditorNodeProperties {
 const TagStateEditor: EditorNodeDef<TagStateEditorNodeProperties> = {
   category: "HMI",
   color: "#9966ff",
-  inputs: 1,
-  outputs: 0,
+  inputs: 0,
+  outputs: 1,
   label: "TagState",
 
   defaults: {
