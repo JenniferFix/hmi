@@ -14,9 +14,7 @@ export default async (RED: NodeAPI): Promise<void> => {
   setRED(RED);
 
   let type: NodeType;
-  console.log(widgetNode);
   for (type in nodes) {
-    console.log("registering type", type, nodes[type]);
     RED.nodes.registerType(type, nodes[type]);
   }
 };

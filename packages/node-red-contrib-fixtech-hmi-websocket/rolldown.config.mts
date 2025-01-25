@@ -60,7 +60,6 @@ export default defineConfig([
     output: {
       dir: "dist",
       format: "cjs",
-      // entryFileNames: "[name].cjs",
       sourcemap: true,
       exports: "auto",
     },
