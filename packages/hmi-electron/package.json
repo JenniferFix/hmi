@@ -7,6 +7,7 @@
   "homepage": "https://jenniferfix.ca",
   "license": "MIT",
   "scripts": {
+    "cleandist": "pnpm rimraf out",
     "format": "prettier --write .",
     "lint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
     "typecheck:node": "tsc --noEmit -p tsconfig.node.json --composite false",

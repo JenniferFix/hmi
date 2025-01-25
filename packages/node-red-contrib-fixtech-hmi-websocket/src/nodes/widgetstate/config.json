@@ -1,0 +1,8 @@
+{
+  "category": "hmi",
+  "color": "#a6bbcf",
+  "defaults": {},
+  "inputs": 1,
+  "outputs": 1,
+  "icon": "file.svg"
+}

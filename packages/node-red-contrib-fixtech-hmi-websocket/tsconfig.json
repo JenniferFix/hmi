@@ -1,17 +1,23 @@
 {
   "compilerOptions": {
-    "target": "es2018",
-    "module": "commonjs",
     "lib": ["es2018"],
+    "target": "es2018",
+    "module": "CommonJS",
+    "moduleResolution": "node",
     "declaration": true,
     "sourceMap": true,
     "outDir": "./dist",
-    "rootDir": "./",
+    "rootDir": "./src",
+    "baseUrl": ".",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "allowJs": true,
+    "forceConsistentCasingInFileNames": true,
+    "paths": {
+      "@": ["./src/*"]
+    }
   },
-  "include": ["*.ts"],
+  "include": ["./src/**/*"],
   "exclude": ["node_modules", "dist"]
 }

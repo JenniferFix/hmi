@@ -7,12 +7,21 @@
   "main": "index.js",
   "scripts": {
     "electron:dev": "pnpm -F @fixtech/hmi-electron run dev",
+    "node-red-hmi-websocket:dev": "pnpm -F @fixtech/node-red-contrib-fixtech-hmi-websocket run dev",
+    "dev": "concurrently \"pnpm run node-red-hmi-websocket:dev\" \"pnpm run electron:dev\"",
+    "devr": "pnpm -r dev",
     "all:update": "pnpm -r update -i -L",
-    "clean": "find ./ -name node_modules -type d -exec rm -rf {} +"
+    "cleandist": "pnpm -r cleandist",
+    "clean": "find ./ -name node_modules -type d -exec pnpm rimraf {} +",
+    "crossclean": ""
   },
   "keywords": [
     "hmi",
     "plc"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "rimraf": "^6.0.1",
+    "concurrently": "^9.1.2"
+  }
 }
