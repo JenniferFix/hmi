@@ -18,14 +18,14 @@ function nodeRedEditorPlugin() {
             "src",
             "nodes",
             nodeType,
-            "editor.html"
+            "editor.html",
           );
           const helpPath = join(
             __dirname,
             "src",
             "nodes",
             nodeType,
-            "help.html"
+            "help.html",
           );
           const editorContent = readFileSync(editorPath, "utf-8");
           const helpContent = readFileSync(helpPath, "utf-8");
@@ -60,7 +60,7 @@ export default defineConfig([
     output: {
       dir: "dist",
       format: "cjs",
-      entryFileNames: "[name].cjs",
+      // entryFileNames: "[name].cjs",
       sourcemap: true,
       exports: "auto",
     },
@@ -71,7 +71,7 @@ export default defineConfig([
     output: {
       dir: "dist",
       exports: "auto",
-      format: "cjs",
+      format: "iife",
       sourcemap: true,
       name: "nodeRedEditor",
     },

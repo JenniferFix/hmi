@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
-    "module": "ESNext",
-    "moduleResolution": "bundler",
-    "lib": ["ES2020"],
+    "lib": ["es2018"],
+    "target": "es2018",
+    "module": "CommonJS",
+    "moduleResolution": "node",
     "declaration": true,
     "sourceMap": true,
     "outDir": "./dist",
