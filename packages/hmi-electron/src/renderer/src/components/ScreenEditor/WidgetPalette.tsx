@@ -6,12 +6,7 @@ import { TypeOutline, Image } from 'lucide-react'
 import { Button } from '@renderer/components/ui/button'
 import { Tooltip, TooltipTrigger, TooltipContent } from '@renderer/components/ui/tooltip'
 import { type WidgetType } from '$/src/db/schema/widget'
-
-export type DragData = {
-  type: string
-  id: string
-  name: string
-}
+import { EditDragData } from '@renderer/types'
 
 const WidgetPalette = () => {
   const { data, isLoading, isError, error } = useGetComponentTemplates()
@@ -19,8 +14,8 @@ const WidgetPalette = () => {
   if (isError) return <div>Error: {error.message}</div>
 
   const handleDragStart = (e: React.DragEvent<HTMLElement>, widget: WidgetType) => {
-    const dragData: DragData = {
-      type: 'widget',
+    const dragData: EditDragData = {
+      type: 'widgetTemplate',
       id: widget.id,
       name: widget.name || ''
     }

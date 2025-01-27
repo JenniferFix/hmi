@@ -5,6 +5,7 @@ import Image from '@renderer/components/ScreenEditor/defaultwidgets/Image'
 import { useEditorStore } from '@renderer/store'
 import { cn } from '@renderer/lib/utils'
 import WidgetContextMenu from './WidgetContextMenu'
+import { EditDragData } from '@renderer/types'
 
 const Widget = ({ widgetId }: { widgetId: string }) => {
   const { data, isLoading, isError, error } = useGetWidget({ id: widgetId })
@@ -47,6 +48,26 @@ const Widget = ({ widgetId }: { widgetId: string }) => {
     if (val?.data) return val.data
     return props[propName].default
   }
+  const handleDragStart = (e: React.DragEvent<HTMLElement>, widgetId: string) => {
+    const rect = e.currentTarget.getBoundingClientRect()
+    const xOffset = e.clientX - rect.left
+    const yOffset = e.clientY - rect.top
+
+    const dragData: EditDragData = {
+      type: 'widget',
+      id: widgetId,
+      xOffset,
+      yOffset
+    }
+    e.dataTransfer.effectAllowed = 'copyMove'
+    e.dataTransfer.setData('text/plain', widgetId)
+    e.dataTransfer.setData('application/json', JSON.stringify(dragData))
+    // console.log('widget onDragStart', e)
+  }
+
+  const handleDragEnd: React.DragEventHandler<HTMLElement> = (e) => {
+    // console.log('widget onDragEnd', e)
+  }
 
   return (
     <WidgetContextMenu widgetId={widgetId}>
@@ -54,14 +75,17 @@ const Widget = ({ widgetId }: { widgetId: string }) => {
         key={data.id}
         data-widgetid={data.id}
         className={cn(
-          'hover:cursor-default select-none',
-          isSelected ? 'outline outline-accent' : ''
+          'hover:cursor-default select-none hover:bg-accent',
+          isSelected ? 'outline outline-1 outline-foreground' : ''
         )}
         style={{
           position: 'fixed',
           transform: `translate(${data.xPos}px, ${data.yPos}px)`
         }}
         onClick={handleClick}
+        draggable
+        onDragStart={(e) => handleDragStart(e, widgetId)}
+        onDragEnd={handleDragEnd}
       >
         {data.template.name === 'Text' && <Text widgetId={widgetId} />}
         {data.template.name === 'Image' && <Image widgetId={widgetId} />}

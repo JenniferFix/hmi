@@ -1,7 +1,8 @@
 import { useQuery, useMutation, useQueryClient, queryOptions } from '@tanstack/react-query'
 import { database } from '@renderer/db'
-import { widget, type InsertWidgetType } from '@db/schema/widget'
+import { widget, type InsertWidgetType, type WidgetType } from '@db/schema/widget'
 import { eq } from 'drizzle-orm'
+import { InsertWidget } from '@renderer/types'
 
 export function useGetScreenWidgets({ screenId }: { screenId: string }) {
   return useQuery({
@@ -49,6 +50,26 @@ export function useAddWidgetToScreen() {
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ['screens', data.screenId] })
       queryClient.invalidateQueries({ queryKey: ['screenwidgets', data.screenId] })
+    }
+  })
+}
+
+export function useUpdateWidget() {
+  const queryClient = useQueryClient()
+
+  const mutationFn = async (data: InsertWidget) => {
+    const result = await database
+      .update(widget)
+      .set({ ...data })
+      .where(eq(widget.id, data.id))
+      .returning()
+    return result[0]
+  }
+  return useMutation({
+    mutationFn,
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ['widgets', data.id] })
+      queryClient.invalidateQueries({ queryKey: ['screenwidgets'] })
     }
   })
 }

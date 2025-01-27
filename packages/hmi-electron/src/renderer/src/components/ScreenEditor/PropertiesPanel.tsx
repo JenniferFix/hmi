@@ -12,6 +12,7 @@ import { ScrollArea } from '@renderer/components/ui/scroll-area'
 import PaletteWrap from '@renderer/components/ScreenEditor/PaletteWrap'
 import { useEditorStore } from '@renderer/store'
 import { useGetWidget } from '@renderer/hooks/usewidgetqueries'
+import NumberSpinner from '@renderer/components/ui/numberspinner'
 
 const InnerPropertiesPanel = ({ widgetId }: { widgetId: string }) => {
   // This when there is a selected widget that we can get properties for
@@ -63,6 +64,10 @@ const InnerPropertiesPanel = ({ widgetId }: { widgetId: string }) => {
     return props[propName].default
   }
 
+  const setProperty = (val: any) => {
+    //
+  }
+
   return (
     <ScrollArea className="absolute inset-0 h-full">
       <Table className="h-full">
@@ -77,14 +82,29 @@ const InnerPropertiesPanel = ({ widgetId }: { widgetId: string }) => {
           {defaults.map((d) => (
             <TableRow key={d}>
               <TableCell>{d}</TableCell>
-              <TableCell>{data[d]}</TableCell>
+
+              <TableCell>
+                {typeof data[d] === 'string' && data[d]}
+                {typeof data[d] === 'number' && (
+                  <NumberSpinner axis="x" value={data[d]} setValue={setProperty} />
+                )}
+              </TableCell>
             </TableRow>
           ))}
           {data.template.properties.map((prop) => (
             <TableRow key={prop.id}>
               <TableCell>{prop.name}</TableCell>
 
-              <TableCell>{getProperty(prop.name, prop.id)}</TableCell>
+              <TableCell>
+                {prop.dataType.typescriptType === 'string' && getProperty(prop.name, prop.id)}
+                {prop.dataType.typescriptType === 'number' && (
+                  <NumberSpinner
+                    axis="x"
+                    value={getProperty(prop.name, prop.id)}
+                    setValue={setProperty}
+                  />
+                )}
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
