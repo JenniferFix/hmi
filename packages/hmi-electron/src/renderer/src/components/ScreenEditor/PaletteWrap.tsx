@@ -1,8 +1,8 @@
-import React from 'react'
+import * as React from 'react'
 
 const PaletteOutline = ({ title, children }: { title: string; children: React.ReactNode }) => {
   const ref = React.useRef(null)
-  const handleDragStart: React.DragEventHandler<HTMLDivElement> = (e) => {
+  const handleDragStart: React.DragEventHandler<HTMLDivElement> = React.useCallback((e) => {
     e.preventDefault()
     //
     console.log('e', e)
@@ -10,15 +10,16 @@ const PaletteOutline = ({ title, children }: { title: string; children: React.Re
     // if (data && data.node) {
     // data.node.style.pointerEvents = 'none'
     // }
-  }
-  const handleDragEnd: React.DragEventHandler<HTMLDivElement> = (e) => {
+  }, [])
+
+  const handleDragEnd: React.DragEventHandler<HTMLDivElement> = React.useCallback((e) => {
     e.preventDefault()
     console.log('e', e)
     //console.log('data', data)
     // if (data && data.node) {
     //   data.node.style.pointerEvents = 'auto'
     // }
-  }
+  }, [])
 
   return (
     <div className="absolute inset-0 flex flex-col border border-muted-50">
@@ -35,4 +36,4 @@ const PaletteOutline = ({ title, children }: { title: string; children: React.Re
   )
 }
 
-export default PaletteOutline
+export default React.memo(PaletteOutline)

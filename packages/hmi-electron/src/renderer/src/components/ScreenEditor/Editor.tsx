@@ -30,4 +30,4 @@ const Editor = () => {
   )
 }
 
-export default Editor
+export default React.memo(Editor)

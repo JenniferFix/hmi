@@ -29,4 +29,4 @@ const WidgetContextMenu = ({
   )
 }
 
-export default WidgetContextMenu
+export default React.memo(WidgetContextMenu)

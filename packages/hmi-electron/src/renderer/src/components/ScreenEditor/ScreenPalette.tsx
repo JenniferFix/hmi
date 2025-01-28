@@ -34,7 +34,7 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>
 
-const ScreenPalette = () => {
+const ScreenPalette = React.memo(() => {
   const insertScreen = useInsertScreen()
   const { isError, isLoading, data, error } = useGetScreens()
   const [open, setOpen] = React.useState(false)
@@ -109,7 +109,7 @@ const ScreenPalette = () => {
       </ScrollArea>
     </div>
   )
-}
+})
 
 const WrappedScreenPalette = () => (
   <PaletteWrap title="Screens">
@@ -117,4 +117,4 @@ const WrappedScreenPalette = () => (
   </PaletteWrap>
 )
 
-export default WrappedScreenPalette
+export default React.memo(WrappedScreenPalette)

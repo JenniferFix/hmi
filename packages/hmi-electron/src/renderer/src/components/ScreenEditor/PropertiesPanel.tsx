@@ -13,10 +13,12 @@ import PaletteWrap from '@renderer/components/ScreenEditor/PaletteWrap'
 import { useEditorStore } from '@renderer/store'
 import { useGetWidget } from '@renderer/hooks/usewidgetqueries'
 import NumberSpinner from '@renderer/components/ui/numberspinner'
+import { useUpdateWidget } from '@renderer/hooks/usewidgetqueries'
 
-const InnerPropertiesPanel = ({ widgetId }: { widgetId: string }) => {
+const InnerPropertiesPanel = React.memo(({ widgetId }: { widgetId: string }) => {
   // This when there is a selected widget that we can get properties for
   const { data, isLoading, isError, error } = useGetWidget({ id: widgetId })
+  const updateWidget = useUpdateWidget()
   if (isLoading) return <div>Loading...</div>
   if (isError) return <div>Error: {error?.message}</div>
   if (!data) return <div>noData</div>
@@ -60,12 +62,18 @@ const InnerPropertiesPanel = ({ widgetId }: { widgetId: string }) => {
 
   const getProperty = (propName: string, propertyTemplateId: string) => {
     const [val] = data.properties.filter((p) => p.propertyTemplateId === propertyTemplateId)
-    if (val?.data) return val.data
+    if (val?.data) {
+      //
+      console.log(val)
+      return val.data
+    }
     return props[propName].default
   }
 
-  const setProperty = (val: any) => {
+  const setProperty = async (val: any): Promise<boolean> => {
     //
+    const result = await updateWidget.mutateAsync({ id: widgetId })
+    return true
   }
 
   return (
@@ -111,15 +119,15 @@ const InnerPropertiesPanel = ({ widgetId }: { widgetId: string }) => {
       </Table>
     </ScrollArea>
   )
-}
+})
 
-const OuterPropertiesPanel = () => {
+const OuterPropertiesPanel = React.memo(() => {
   const selectedWidgets = useEditorStore((state) => state.selectedWidgets)
   if (selectedWidgets.length > 1) return <div>Multiple Selected</div>
   if (selectedWidgets.length === 0) return <div>Select a Widget</div>
   if (selectedWidgets.length === 1) return <InnerPropertiesPanel widgetId={selectedWidgets[0]} />
   return <div>Error</div>
-}
+})
 
 const WrappedPropertiesPanel = () => {
   return (
@@ -129,4 +137,4 @@ const WrappedPropertiesPanel = () => {
   )
 }
 
-export default WrappedPropertiesPanel
+export default React.memo(WrappedPropertiesPanel)

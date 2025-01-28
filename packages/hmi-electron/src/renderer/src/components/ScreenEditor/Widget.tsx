@@ -13,42 +13,29 @@ const Widget = ({ widgetId }: { widgetId: string }) => {
   const setSelected = useEditorStore((state) => state.setSelected)
   const addToSelected = useEditorStore((state) => state.addToSelected)
   const removeFromSelected = useEditorStore((state) => state.removeFromSelected)
-  if (isLoading) return <div>Loading...</div>
-  if (isError) return <div>WidgetError: {error?.message}</div>
-  if (data === undefined) return <div>No Data</div>
 
   // GOAL: Render Widget.
   // Need to choose the specific component to render based on the widgetId and it's properties
 
-  const handleClick: React.MouseEventHandler<HTMLElement> = (e) => {
-    e.preventDefault()
-    e.stopPropagation()
-    const widgetId = e.currentTarget.dataset.widgetid
-    if (e.shiftKey) {
-      if (isSelected) {
-        removeFromSelected(widgetId || '')
+  const handleClick: React.MouseEventHandler<HTMLElement> = React.useCallback(
+    (e) => {
+      e.preventDefault()
+      e.stopPropagation()
+      const widgetId = e.currentTarget.dataset.widgetid
+      if (e.shiftKey) {
+        if (isSelected) {
+          removeFromSelected(widgetId || '')
+        } else {
+          addToSelected(widgetId || '')
+        }
       } else {
-        addToSelected(widgetId || '')
+        setSelected(widgetId || '')
       }
-    } else {
-      setSelected(widgetId || '')
-    }
-  }
+    },
+    [widgetId]
+  )
 
-  const props = data.template.properties.reduce((acc, curr) => {
-    acc = { ...acc }
-    acc[curr.name] = {
-      ...curr
-    }
-    return acc
-  }, {})
-
-  const getProperty = (propName: string, propertyTemplateId: string) => {
-    const [val] = data.properties.filter((p) => p.propertyTemplateId === propertyTemplateId)
-    if (val?.data) return val.data
-    return props[propName].default
-  }
-  const handleDragStart = (e: React.DragEvent<HTMLElement>, widgetId: string) => {
+  const handleDragStart = React.useCallback((e: React.DragEvent<HTMLElement>, widgetId: string) => {
     const rect = e.currentTarget.getBoundingClientRect()
     const xOffset = e.clientX - rect.left
     const yOffset = e.clientY - rect.top
@@ -63,10 +50,27 @@ const Widget = ({ widgetId }: { widgetId: string }) => {
     e.dataTransfer.setData('text/plain', widgetId)
     e.dataTransfer.setData('application/json', JSON.stringify(dragData))
     // console.log('widget onDragStart', e)
-  }
+  }, [])
 
-  const handleDragEnd: React.DragEventHandler<HTMLElement> = (e) => {
+  const handleDragEnd: React.DragEventHandler<HTMLElement> = React.useCallback((e) => {
     // console.log('widget onDragEnd', e)
+  }, [])
+
+  if (isLoading) return <div>Loading...</div>
+  if (isError) return <div>WidgetError: {error?.message}</div>
+  if (data === undefined) return <div>No Data</div>
+  const props = data.template.properties.reduce((acc, curr) => {
+    acc = { ...acc }
+    acc[curr.name] = {
+      ...curr
+    }
+    return acc
+  }, {})
+
+  const getProperty = (propName: string, propertyTemplateId: string) => {
+    const [val] = data.properties.filter((p) => p.propertyTemplateId === propertyTemplateId)
+    if (val?.data) return val.data
+    return props[propName].default
   }
 
   return (
@@ -94,4 +98,4 @@ const Widget = ({ widgetId }: { widgetId: string }) => {
   )
 }
 
-export default Widget
+export default React.memo(Widget)

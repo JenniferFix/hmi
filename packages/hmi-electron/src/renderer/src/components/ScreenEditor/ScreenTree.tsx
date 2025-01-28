@@ -28,7 +28,7 @@ function Node({ node, style, dragHandle }: NodeRendererProps<NodeType>) {
   )
 }
 
-const ScreenTree = ({ screenId }: { screenId: string }) => {
+const ScreenTree = React.memo(({ screenId }: { screenId: string }) => {
   const { ref, width, height } = useResizeObserver()
   const {
     data: screenData,
@@ -71,7 +71,7 @@ const ScreenTree = ({ screenId }: { screenId: string }) => {
       </Tree>
     </div>
   )
-}
+})
 
 const WrappedScreenTree = () => {
   const params = useParams({ strict: false })
@@ -82,4 +82,4 @@ const WrappedScreenTree = () => {
   )
 }
 
-export default WrappedScreenTree
+export default React.memo(WrappedScreenTree)

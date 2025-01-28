@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { useGetComponentTemplates } from '@renderer/hooks/usewidgettemplatequeries'
 import PaletteWrap from './PaletteWrap'
 import { ScrollArea } from '@renderer/components/ui/scroll-area'
@@ -8,25 +8,26 @@ import { Tooltip, TooltipTrigger, TooltipContent } from '@renderer/components/ui
 import { type WidgetType } from '$/src/db/schema/widget'
 import { EditDragData } from '@renderer/types'
 
-const WidgetPalette = () => {
+const WidgetPalette = React.memo(() => {
   const { data, isLoading, isError, error } = useGetComponentTemplates()
-  if (isLoading) return <div>Loading...</div>
-  if (isError) return <div>Error: {error.message}</div>
 
-  const handleDragStart = (e: React.DragEvent<HTMLElement>, widget: WidgetType) => {
-    const dragData: EditDragData = {
-      type: 'widgetTemplate',
-      id: widget.id,
-      name: widget.name || ''
-    }
-    e.dataTransfer.setData('text/plain', widget.id)
-    e.dataTransfer.setData('application/json', JSON.stringify(dragData))
-    // console.log('widget onDragStart', e)
-  }
+  const handleDragStart = React.useCallback(
+    (e: React.DragEvent<HTMLElement>, widget: WidgetType) => {
+      const dragData: EditDragData = {
+        type: 'widgetTemplate',
+        id: widget.id,
+        name: widget.name || ''
+      }
+      e.dataTransfer.setData('text/plain', widget.id)
+      e.dataTransfer.setData('application/json', JSON.stringify(dragData))
+      // console.log('widget onDragStart', e)
+    },
+    []
+  )
 
-  const handleDragEnd: React.DragEventHandler<HTMLElement> = (e) => {
+  const handleDragEnd: React.DragEventHandler<HTMLElement> = React.useCallback((e) => {
     // console.log('widget onDragEnd', e)
-  }
+  }, [])
 
   const getIcon = (widgetName: string): React.ReactNode | null => {
     switch (widgetName) {
@@ -38,6 +39,10 @@ const WidgetPalette = () => {
         return null
     }
   }
+
+  if (isLoading) return <div>Loading...</div>
+  if (isError) return <div>Error: {error.message}</div>
+
   return (
     <ScrollArea className="h-full">
       <div className="flex flex-col gap-1 p-1">
@@ -63,7 +68,7 @@ const WidgetPalette = () => {
       </div>
     </ScrollArea>
   )
-}
+})
 
 const WrappedWidgetPalette = () => {
   return (
@@ -72,4 +77,4 @@ const WrappedWidgetPalette = () => {
     </PaletteWrap>
   )
 }
-export default WrappedWidgetPalette
+export default React.memo(WrappedWidgetPalette)
