@@ -33,8 +33,9 @@ export default async function seed(db: DBType) {
                 throw new Error(`No propertyTemplate found with this name: ${prop.propName}`)
               await db.insert(schema.property).values({
                 widgetId: insertedWidget.id,
-                propertyTemplateId: propTemplate.id,
-                data: prop.data
+                propertyTemplateId: propTemplate.id
+                // TODO:
+                // data: prop.data
               })
             })
           )

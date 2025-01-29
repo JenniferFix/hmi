@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import {
   Table,
   TableBody,
@@ -34,32 +34,6 @@ const InnerPropertiesPanel = React.memo(({ widgetId }: { widgetId: string }) => 
   // console.log('props', props)
   // console.log('data', data)
 
-  /* Properties List
-   *
-   * Defaults for all widgets:
-   * id
-   * name
-   * description
-   * xPos
-   * yPos
-   * xScale
-   * yScale
-   * rotation
-   * visible
-   *
-   */
-  const defaults = [
-    'id',
-    'name',
-    'description',
-    'xPos',
-    'yPos',
-    'xScale',
-    'yScale',
-    'rotation',
-    'visible'
-  ]
-
   const getProperty = (propName: string, propertyTemplateId: string) => {
     const [val] = data.properties.filter((p) => p.propertyTemplateId === propertyTemplateId)
     if (val?.data) {
@@ -87,18 +61,6 @@ const InnerPropertiesPanel = React.memo(({ widgetId }: { widgetId: string }) => 
           </TableRow>
         </TableHeader>
         <TableBody>
-          {defaults.map((d) => (
-            <TableRow key={d}>
-              <TableCell>{d}</TableCell>
-
-              <TableCell>
-                {typeof data[d] === 'string' && data[d]}
-                {typeof data[d] === 'number' && (
-                  <NumberSpinner axis="x" value={data[d]} setValue={setProperty} />
-                )}
-              </TableCell>
-            </TableRow>
-          ))}
           {data.template.properties.map((prop) => (
             <TableRow key={prop.id}>
               <TableCell>{prop.name}</TableCell>
@@ -109,7 +71,7 @@ const InnerPropertiesPanel = React.memo(({ widgetId }: { widgetId: string }) => 
                   <NumberSpinner
                     axis="x"
                     value={getProperty(prop.name, prop.id)}
-                    setValue={setProperty}
+                    setValue={(val) => setProperty(val)}
                   />
                 )}
               </TableCell>

@@ -2,8 +2,10 @@ import React from 'react'
 import { useGetScreen } from '@renderer/hooks/usescreensqueries'
 import {
   useGetScreenWidgets,
-  useAddWidgetToScreen,
-  useUpdateWidget
+  // useAddWidgetToScreen,
+  useUpdateWidget,
+  useAddWidgetToScreenWithLocation,
+  useSetWidgetPropertyValue
 } from '@renderer/hooks/usewidgetqueries'
 import Widget from '@renderer/components/ScreenEditor/Widget'
 import { useEditorStore } from '@renderer/store'
@@ -23,8 +25,10 @@ const Screen = React.memo(({ screenId }: { screenId: string }) => {
     isError: widgetIsError,
     error: widgetError
   } = useGetScreenWidgets({ screenId })
-  const addWidget = useAddWidgetToScreen()
+  // const addWidget = useAddWidgetToScreen()
+  const addWidget = useAddWidgetToScreenWithLocation()
   const updateWidget = useUpdateWidget()
+  const setWidgetPropertyValue = useSetWidgetPropertyValue()
 
   const handleDragEnter: React.DragEventHandler<HTMLElement> = React.useCallback((e) => {
     e.dataTransfer.dropEffect = 'move'
@@ -77,18 +81,29 @@ const Screen = React.memo(({ screenId }: { screenId: string }) => {
             switch (dropData.type) {
               case 'widget':
                 // move widget, set new x and y
-                updateWidget.mutate({
-                  id: dropData.id,
-                  xPos: x - dropData.xOffset,
-                  yPos: y - dropData.yOffset
+                // updateWidget.mutate({
+                //   id: dropData.id,
+                //   xPos: x - dropData.xOffset,
+                //   yPos: y - dropData.yOffset
+                // })
+                setWidgetPropertyValue({
+                  widgetId: dropData.id,
+                  propName: 'posX',
+                  value: x - dropData.xOffset
+                })
+                setWidgetPropertyValue({
+                  widgetId: dropData.id,
+                  propName: 'posY',
+                  value: y - dropData.yOffset
                 })
                 break
               case 'widgetTemplate':
-                const newWidget = await addWidget.mutateAsync({
+                // Create new Widget in location
+                const newWidget = await addWidget({
                   screenId,
                   widgetTemplateId: dropData.id,
-                  xPos: x,
-                  yPos: y
+                  posX: x,
+                  posY: y
                 })
                 setSelected(newWidget.id)
                 break

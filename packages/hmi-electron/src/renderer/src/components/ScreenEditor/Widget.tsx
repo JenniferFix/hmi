@@ -14,9 +14,6 @@ const Widget = ({ widgetId }: { widgetId: string }) => {
   const addToSelected = useEditorStore((state) => state.addToSelected)
   const removeFromSelected = useEditorStore((state) => state.removeFromSelected)
 
-  // GOAL: Render Widget.
-  // Need to choose the specific component to render based on the widgetId and it's properties
-
   const handleClick: React.MouseEventHandler<HTMLElement> = React.useCallback(
     (e) => {
       e.preventDefault()
@@ -67,10 +64,15 @@ const Widget = ({ widgetId }: { widgetId: string }) => {
     return acc
   }, {})
 
-  const getProperty = (propName: string, propertyTemplateId: string) => {
-    const [val] = data.properties.filter((p) => p.propertyTemplateId === propertyTemplateId)
-    if (val?.data) return val.data
-    return props[propName].default
+  const getProperty = (propName: string) => {
+    const [propTemplate] = data?.template.properties.filter((prop) => prop.name === propName)
+    // const [val] = data.properties.filter((p) => p.propertyTemplateId === propertyTemplateId)
+    // if (val?.data) return val.data
+    // return props[propName].default
+    const [propdata] = data?.properties.filter(
+      (prop) => prop.propertyTemplateId === propTemplate.id
+    )
+    return propdata?.data ?? propTemplate.default
   }
 
   return (
@@ -84,7 +86,7 @@ const Widget = ({ widgetId }: { widgetId: string }) => {
         )}
         style={{
           position: 'fixed',
-          transform: `translate(${data.xPos}px, ${data.yPos}px)`
+          transform: `translate(${getProperty('posX')}px, ${getProperty('posY')}px)`
         }}
         onClick={handleClick}
         draggable

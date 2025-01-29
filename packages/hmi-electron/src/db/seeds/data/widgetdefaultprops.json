@@ -1,0 +1,62 @@
+{
+  "name": {
+    "description": "User defined name of element",
+    "dataType": "STRING",
+    "default": ""
+  },
+  "description": {
+    "description": "User defined description of the element.",
+    "dataType": "STRING",
+    "default": ""
+  },
+  "posX": {
+    "description": "X position",
+    "dataType": "REAL",
+    "default": 0
+  },
+  "posY": {
+    "description": "Y position",
+    "dataType": "REAL",
+    "default": 0
+  },
+  "posZ": {
+    "description": "Z position",
+    "dataType": "REAL",
+    "default": 0
+  },
+  "scaleX": {
+    "description": "X scale",
+    "dataType": "REAL",
+    "default": 1
+  },
+  "scaleY": {
+    "description": "Y scale",
+    "dataType": "REAL",
+    "default": 1
+  },
+  "scaleZ": {
+    "description": "Z scale",
+    "dataType": "REAL",
+    "default": 1
+  },
+  "rotationX": {
+    "description": "X rotation",
+    "dataType": "REAL",
+    "default": 0
+  },
+  "rotationY": {
+    "description": "Y rotation",
+    "dataType": "REAL",
+    "default": 0
+  },
+  "rotationZ": {
+    "description": "Z rotation",
+    "dataType": "REAL",
+    "default": 0
+  },
+  "visible": {
+    "description": "Toggle the visibility of the element. Does not disable anything.",
+    "dataType": "BOOL",
+    "default": true
+  }
+}

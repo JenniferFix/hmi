@@ -2,67 +2,58 @@
   {
     "name": "Text",
     "description": "Displays Text",
-    "properties": [
-      {
-        "name": "value",
+    "properties": {
+      "value": {
         "description": "The text to display",
         "dataType": "STRING",
         "default": "Text Widget"
       },
-      {
-        "name": "font",
+      "font": {
         "description": "The Font Family String",
         "dataType": "STRING",
         "default": "sans"
       },
-      {
-        "name": "fontSize",
+      "fontSize": {
         "description": "Size of text",
         "dataType": "UINT",
         "default": "12"
       },
-      {
-        "name": "color",
+      "color": {
         "description": "Foreground colour",
         "dataType": "STRING",
         "default": "black"
       },
-      {
-        "name": "background",
+      "background": {
         "description": "Background colour",
         "dataType": "STRING",
         "default": "transparent"
       }
-    ]
+    }
   },
   {
     "name": "Image",
     "description": "Display an image",
-    "properties": [
-      {
-        "name": "type",
+    "properties": {
+      "type": {
         "description": "PNG | SVG",
         "dataType": "STRING",
         "default": ""
       },
-      {
-        "name": "url",
+      "url": {
         "description": "Location of the image",
         "dataType": "STRING",
         "default": ""
       },
-      {
-        "name": "width",
+      "width": {
         "description": "Image width",
         "dataType": "STRING",
         "default": ""
       },
-      {
-        "name": "height",
+      "height": {
         "description": "Image height",
         "dataType": "STRING",
         "default": ""
       }
-    ]
+    }
   }
 ]

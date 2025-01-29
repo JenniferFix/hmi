@@ -22,16 +22,18 @@ CREATE TABLE `dataType` (
 --> statement-breakpoint
 CREATE INDEX `nameIndex` ON `dataType` (`name`);--> statement-breakpoint
 CREATE TABLE `property` (
-	`id` text PRIMARY KEY NOT NULL,
-	`createdAt` text DEFAULT CURRENT_TIMESTAMP NOT NULL,
-	`updatedAt` text DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	`widgetId` text NOT NULL,
 	`propertyTemplateId` text NOT NULL,
+	`createdAt` text DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	`updatedAt` text DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	`data` blob,
+	PRIMARY KEY(`widgetId`, `propertyTemplateId`),
 	FOREIGN KEY (`widgetId`) REFERENCES `widget`(`id`) ON UPDATE no action ON DELETE no action,
 	FOREIGN KEY (`propertyTemplateId`) REFERENCES `propertyTemplate`(`id`) ON UPDATE no action ON DELETE no action
 );
 --> statement-breakpoint
+CREATE INDEX `widgetIdIdx` ON `property` (`widgetId`);--> statement-breakpoint
+CREATE INDEX `propertyTemplateIdIdx` ON `property` (`propertyTemplateId`);--> statement-breakpoint
 CREATE TABLE `propertyTemplate` (
 	`id` text PRIMARY KEY NOT NULL,
 	`createdAt` text DEFAULT CURRENT_TIMESTAMP NOT NULL,

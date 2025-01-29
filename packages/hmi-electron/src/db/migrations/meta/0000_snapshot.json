@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "f75b632a-30f6-4f2f-aa1d-e0aa3e1784e0",
+  "id": "1ce532f1-5cfe-4885-940e-ad2d230200d6",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "controller": {
@@ -154,10 +154,17 @@
     "property": {
       "name": "property",
       "columns": {
-        "id": {
-          "name": "id",
+        "widgetId": {
+          "name": "widgetId",
           "type": "text",
-          "primaryKey": true,
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "propertyTemplateId": {
+          "name": "propertyTemplateId",
+          "type": "text",
+          "primaryKey": false,
           "notNull": true,
           "autoincrement": false
         },
@@ -177,20 +184,6 @@
           "autoincrement": false,
           "default": "CURRENT_TIMESTAMP"
         },
-        "widgetId": {
-          "name": "widgetId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "propertyTemplateId": {
-          "name": "propertyTemplateId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
         "data": {
           "name": "data",
           "type": "blob",
@@ -199,7 +192,22 @@
           "autoincrement": false
         }
       },
-      "indexes": {},
+      "indexes": {
+        "widgetIdIdx": {
+          "name": "widgetIdIdx",
+          "columns": [
+            "widgetId"
+          ],
+          "isUnique": false
+        },
+        "propertyTemplateIdIdx": {
+          "name": "propertyTemplateIdIdx",
+          "columns": [
+            "propertyTemplateId"
+          ],
+          "isUnique": false
+        }
+      },
       "foreignKeys": {
         "property_widgetId_widget_id_fk": {
           "name": "property_widgetId_widget_id_fk",
@@ -228,7 +236,15 @@
           "onUpdate": "no action"
         }
       },
-      "compositePrimaryKeys": {},
+      "compositePrimaryKeys": {
+        "property_widgetId_propertyTemplateId_pk": {
+          "columns": [
+            "widgetId",
+            "propertyTemplateId"
+          ],
+          "name": "property_widgetId_propertyTemplateId_pk"
+        }
+      },
       "uniqueConstraints": {},
       "checkConstraints": {}
     },

@@ -52,11 +52,11 @@
   {
     "name": "REAL",
     "description": "4-byte floating point number",
-    "typescriptType": "float"
+    "typescriptType": "number"
   },
   {
     "name": "LREAL",
     "description": "8-byte floating point number",
-    "typescriptType": "float"
+    "typescriptType": "number"
   }
 ]
