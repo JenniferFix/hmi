@@ -8,7 +8,7 @@
   "license": "MIT",
   "keywords": [],
   "scripts": {
-    "dev": "node esbuild.mjs",
+    "dev": "node esbuild.mjs --watch",
     "build": "node esbuild.mjs",
     "type-check": "tsc --noEmit",
     "lint": "eslint ./src --ext .ts",
