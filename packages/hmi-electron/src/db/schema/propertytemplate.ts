@@ -22,7 +22,7 @@ export const propertyTemplate = sqliteTable('propertyTemplate', {
   description: text('description'),
   widgetTemplateId: text('widgetTemplateId')
     .notNull()
-    .references(() => widgetTemplate.id),
+    .references(() => widgetTemplate.id, { onDelete: 'cascade' }),
   dataTypeId: text('dataTypeId')
     .notNull()
     .references(() => dataType.id),

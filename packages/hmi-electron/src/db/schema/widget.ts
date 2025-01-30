@@ -20,20 +20,12 @@ export const widget = sqliteTable('widget', {
     .notNull()
     .default(sql`CURRENT_TIMESTAMP`)
     .$onUpdate(() => sql`CURRENT_TIMESTAMP`),
-  name: text('name'),
-  description: text('description'),
   widgetTemplateId: text('widgetTemplateId')
     .notNull()
     .references(() => widgetTemplate.id),
   screenId: text('screenId')
     .notNull()
-    .references(() => screen.id),
-  xPos: real('xPos').default(0),
-  yPos: real('yPos').default(0),
-  xScale: real('xScale').default(0),
-  yScale: real('yScale').default(0),
-  rotation: real('rotation').default(0),
-  visible: integer('visible').default(1)
+    .references(() => screen.id, { onDelete: 'cascade' })
 })
 
 export const widgetRelations = relations(widget, ({ one, many }) => ({

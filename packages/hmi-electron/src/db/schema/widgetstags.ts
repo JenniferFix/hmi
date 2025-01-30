@@ -11,10 +11,10 @@ export const widgetsTags = sqliteTable(
   {
     widgetId: text('widgetId')
       .notNull()
-      .references(() => widget.id),
+      .references(() => widget.id, { onDelete: 'cascade' }),
     tagId: text('tagId')
       .notNull()
-      .references(() => tag.id)
+      .references(() => tag.id, { onDelete: 'cascade' })
   },
   (table) => ({
     pk: primaryKey({ columns: [table.widgetId, table.tagId] })

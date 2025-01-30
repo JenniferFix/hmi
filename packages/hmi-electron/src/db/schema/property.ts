@@ -16,10 +16,10 @@ export const property = sqliteTable(
   {
     widgetId: text('widgetId')
       .notNull()
-      .references(() => widget.id),
+      .references(() => widget.id, { onDelete: 'cascade' }),
     propertyTemplateId: text('propertyTemplateId')
       .notNull()
-      .references(() => propertyTemplate.id),
+      .references(() => propertyTemplate.id, { onDelete: 'cascade' }),
     createdAt: text('createdAt')
       .notNull()
       .default(sql`CURRENT_TIMESTAMP`),
