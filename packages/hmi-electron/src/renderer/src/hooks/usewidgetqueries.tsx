@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { useQuery, useMutation, useQueryClient, queryOptions } from '@tanstack/react-query'
 import { database } from '@renderer/db'
 import { widget, type InsertWidgetType, type WidgetType } from '@db/schema/widget'

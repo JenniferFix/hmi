@@ -82,6 +82,7 @@ const InnerPropertiesPanel = React.memo(({ widgetId }: { widgetId: string }) => 
     </ScrollArea>
   )
 })
+InnerPropertiesPanel.displayName = 'InnerPropertiesPanel'
 
 const OuterPropertiesPanel = React.memo(() => {
   const selectedWidgets = useEditorStore((state) => state.selectedWidgets)
@@ -90,6 +91,7 @@ const OuterPropertiesPanel = React.memo(() => {
   if (selectedWidgets.length === 1) return <InnerPropertiesPanel widgetId={selectedWidgets[0]} />
   return <div>Error</div>
 })
+OuterPropertiesPanel.displayName = 'OuterPropertiesPanel'
 
 const WrappedPropertiesPanel = () => {
   return (
@@ -98,5 +100,6 @@ const WrappedPropertiesPanel = () => {
     </PaletteWrap>
   )
 }
+WrappedPropertiesPanel.displayName = 'WrappedPropertiesPanel'
 
 export default React.memo(WrappedPropertiesPanel)

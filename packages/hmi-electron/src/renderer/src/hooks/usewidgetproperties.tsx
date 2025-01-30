@@ -2,18 +2,6 @@ import React from 'react'
 import { useGetWidget } from './usewidgetqueries'
 import * as z from 'zod'
 
-type DefaultProps = {
-  id: string
-  name: string | null | undefined
-  description: string | null | undefined
-  xPos: Number
-  yPos: Number
-  xScale: Number
-  yScale: Number
-  rotation: Number
-  visible: boolean | Number
-}
-
 const getZodProp = (strType: string) => {
   switch (strType) {
     case 'string':
@@ -43,18 +31,6 @@ export function useWidgetProperties({ widgetId }: { widgetId: string }) {
     const widgetSchema = z.object(zodObject)
     type WidgetProps = z.infer<typeof widgetSchema>
   }, [widget])
-
-  const [props, setProps] = React.useState<DefaultProps>({
-    id: widgetId,
-    name: '',
-    description: '',
-    xPos: 0,
-    yPos: 0,
-    xScale: 1,
-    yScale: 1,
-    rotation: 0,
-    visible: true
-  })
 
   const getProperty = (propName: string, propertyTemplateId: string) => {
     if (widget.isLoading) return
