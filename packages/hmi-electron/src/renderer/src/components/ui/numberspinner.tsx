@@ -37,7 +37,7 @@ const NumberSpinner = ({
   const handleMouseDown: React.MouseEventHandler<HTMLElement> = React.useCallback(
     (e) => {
       setIsDragging(true)
-      setTempValue(value)
+      // setTempValue(value)
       setMouseStartX(e.clientX)
       setMouseStartY(e.clientY)
     },
@@ -57,13 +57,11 @@ const NumberSpinner = ({
     [value, mouseStartX, mouseStartY]
   )
 
-  const handleMouseUp = React.useCallback(
-    (e: MouseEvent) => {
-      setIsDragging(false)
-      setValue(tempValue)
-    },
-    [tempValue]
-  )
+  const handleMouseUp = (e: MouseEvent) => {
+    console.log('mouseUptempValue', tempValue, 'value', value)
+    setIsDragging(false)
+    setValue(tempValue)
+  }
 
   return (
     <Tooltip>

@@ -7,6 +7,7 @@ import { RouterProvider, createRouter, createHashHistory } from '@tanstack/react
 import { ThemeProvider } from '@renderer/components/theme-provider'
 import { TooltipProvider } from '@renderer/components/ui/tooltip'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { Toaster } from '@renderer/components/ui/sonner'
 
 const router = createRouter({ routeTree, history: createHashHistory() })
 const queryClient = new QueryClient()
@@ -24,6 +25,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
         <TooltipProvider>
           <RouterProvider router={router} />
           <ReactQueryDevtools initialIsOpen={false} />
+          <Toaster />
         </TooltipProvider>
       </ThemeProvider>
     </QueryClientProvider>

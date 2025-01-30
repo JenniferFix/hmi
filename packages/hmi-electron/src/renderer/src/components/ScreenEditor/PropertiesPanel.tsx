@@ -14,16 +14,17 @@ import { useEditorStore } from '@renderer/store'
 import { useGetWidget } from '@renderer/hooks/usewidgetqueries'
 import NumberSpinner from '@renderer/components/ui/numberspinner'
 import { useUpdateWidget } from '@renderer/hooks/usewidgetqueries'
+import { useUpsertProperty } from '@renderer/hooks/usepropertyqueries'
 
 const InnerPropertiesPanel = React.memo(({ widgetId }: { widgetId: string }) => {
   // This when there is a selected widget that we can get properties for
   const { data, isLoading, isError, error } = useGetWidget({ id: widgetId })
   const updateWidget = useUpdateWidget()
+  const upsertProperty = useUpsertProperty()
   if (isLoading) return <div>Loading...</div>
   if (isError) return <div>Error: {error?.message}</div>
   if (!data) return <div>noData</div>
 
-  // console.log(data)
   const props = data.template.properties.reduce((acc, curr) => {
     acc = { ...acc }
     acc[curr.name] = {
@@ -38,16 +39,24 @@ const InnerPropertiesPanel = React.memo(({ widgetId }: { widgetId: string }) => 
     const [val] = data.properties.filter((p) => p.propertyTemplateId === propertyTemplateId)
     if (val?.data) {
       //
-      console.log(val)
+      // console.log(val)
       return val.data
     }
     return props[propName].default
   }
 
-  const setProperty = async (val: any): Promise<boolean> => {
+  const setProperty = async (propName: string, value: any): Promise<boolean> => {
+    console.log('setProperty', value)
+    const [prop] = data.template.properties.filter((p) => p.name === propName)
     //
-    const result = await updateWidget.mutateAsync({ id: widgetId })
-    return true
+    const newProp = await upsertProperty.mutateAsync({
+      widgetId,
+      propertyTemplateId: prop.id,
+      data: value
+    })
+    console.log('newprop', newProp)
+    if (newProp) return true
+    return false
   }
 
   return (
@@ -71,7 +80,7 @@ const InnerPropertiesPanel = React.memo(({ widgetId }: { widgetId: string }) => 
                   <NumberSpinner
                     axis="x"
                     value={getProperty(prop.name, prop.id)}
-                    setValue={(val) => setProperty(val)}
+                    setValue={(val) => setProperty(prop.name, val)}
                   />
                 )}
               </TableCell>
