@@ -45,7 +45,7 @@ const InnerPropertiesPanel = React.memo(({ widgetId }: { widgetId: string }) => 
     return props[propName].default
   }
 
-  const setProperty = async (propName: string, value: any): Promise<boolean> => {
+  const setProperty = async (propName: string, value: string | number): Promise<boolean> => {
     console.log('setProperty', value)
     const [prop] = data.template.properties.filter((p) => p.name === propName)
     //
@@ -79,8 +79,12 @@ const InnerPropertiesPanel = React.memo(({ widgetId }: { widgetId: string }) => 
                 {prop.dataType.typescriptType === 'number' && (
                   <NumberSpinner
                     axis="x"
-                    value={getProperty(prop.name, prop.id)}
-                    setValue={(val) => setProperty(prop.name, val)}
+                    initialValue={getProperty(prop.name, prop.id)}
+                    widgetId={widgetId}
+                    propertyTemplateId={
+                      data.template.properties.filter((p) => p.name === prop.name)[0].id
+                    }
+                    // setValue={(val) => setProperty(prop.name, val)}
                   />
                 )}
               </TableCell>

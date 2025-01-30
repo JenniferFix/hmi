@@ -1,25 +1,63 @@
 import * as React from 'react'
 import { cn } from '@renderer/lib/utils'
 import { Tooltip, TooltipTrigger, TooltipContent } from './tooltip'
+import { useGetWidgetProperty, useUpsertProperty } from '@renderer/hooks/usepropertyqueries'
 
 export type Axis = 'x' | 'y'
 
 const NumberSpinner = ({
   axis,
-  value,
-  setValue
+  widgetId,
+  propertyTemplateId,
+  initialValue
 }: {
   axis: Axis
-  value: number
-  /*
-   *return value is if succeeds if fails we return back to value instead of temp value
-   */
-  setValue: (val: number) => Promise<boolean>
+  initialValue: number
+  widgetId: string
+  propertyTemplateId: string
 }) => {
   const [isDragging, setIsDragging] = React.useState(false)
   const [mouseStartX, setMouseStartX] = React.useState(0)
   const [mouseStartY, setMouseStartY] = React.useState(0)
-  const [tempValue, setTempValue] = React.useState(0)
+  const [draggingValue, setDraggingValue] = React.useState(initialValue as number)
+  const upsertProperty = useUpsertProperty()
+
+  const handleMouseMove = (e: MouseEvent) => {
+    if (!isDragging) return
+    if (axis === 'x') {
+      // pixel for pixel add
+      setDraggingValue(initialValue + e.clientX - mouseStartX)
+      upsertProperty.mutate({
+        widgetId,
+        propertyTemplateId,
+        data: draggingValue
+      })
+    } else {
+      setDraggingValue(initialValue + e.clientY - mouseStartY)
+      upsertProperty.mutate({
+        widgetId,
+        propertyTemplateId,
+        data: draggingValue
+      })
+    }
+  }
+
+  const handleMouseUp = async (e: MouseEvent) => {
+    setIsDragging(false)
+    // setValue(draggingValue)
+    upsertProperty.mutate({
+      widgetId,
+      propertyTemplateId,
+      data: draggingValue
+    })
+  }
+
+  const handleMouseDown: React.MouseEventHandler<HTMLElement> = (e) => {
+    setIsDragging(true)
+    // setDraggingValue(value)
+    setMouseStartX(e.clientX)
+    setMouseStartY(e.clientY)
+  }
 
   React.useEffect(() => {
     if (isDragging) {
@@ -32,36 +70,7 @@ const NumberSpinner = ({
       window.removeEventListener('mousemove', handleMouseMove)
       window.removeEventListener('mouseup', handleMouseUp)
     }
-  }, [isDragging, axis])
-
-  const handleMouseDown: React.MouseEventHandler<HTMLElement> = React.useCallback(
-    (e) => {
-      setIsDragging(true)
-      // setTempValue(value)
-      setMouseStartX(e.clientX)
-      setMouseStartY(e.clientY)
-    },
-    [value]
-  )
-
-  const handleMouseMove = React.useCallback(
-    (e: MouseEvent) => {
-      if (!isDragging) return
-      if (axis === 'x') {
-        // pixel for pixel add
-        setTempValue(value + e.clientX - mouseStartX)
-      } else {
-        setTempValue(value + e.clientY - mouseStartY)
-      }
-    },
-    [value, mouseStartX, mouseStartY]
-  )
-
-  const handleMouseUp = (e: MouseEvent) => {
-    console.log('mouseUptempValue', tempValue, 'value', value)
-    setIsDragging(false)
-    setValue(tempValue)
-  }
+  }, [isDragging, axis, handleMouseMove, handleMouseUp])
 
   return (
     <Tooltip>
@@ -74,7 +83,8 @@ const NumberSpinner = ({
           )}
           onMouseDown={handleMouseDown}
         >
-          {!isDragging ? value : tempValue}
+          {/* {!isDragging ? initialValue : draggingValue} */}
+          {draggingValue}
         </div>
       </TooltipTrigger>
       <TooltipContent>
@@ -84,4 +94,4 @@ const NumberSpinner = ({
   )
 }
 
-export default React.memo(NumberSpinner)
+export default NumberSpinner
