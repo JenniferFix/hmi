@@ -86,6 +86,7 @@ const Screen = ({ screenId }: { screenId: string }) => {
                 //   xPos: x - dropData.xOffset,
                 //   yPos: y - dropData.yOffset
                 // })
+                document.startViewTransition()
                 setWidgetPropertyValue({
                   widgetId: dropData.id,
                   propName: 'posX',

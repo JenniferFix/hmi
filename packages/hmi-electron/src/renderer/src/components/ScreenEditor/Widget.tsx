@@ -81,7 +81,9 @@ const Widget = ({ widgetId }: { widgetId: string }) => {
         data-widgetid={data.id}
         className={cn(
           'hover:cursor-default select-none hover:bg-accent',
-          isSelected ? 'outline outline-1 outline-foreground' : ''
+          isSelected
+            ? 'bg-accent shadow-[0_0_5px] shadow-foreground outline outline-1 outline-accent'
+            : ''
         )}
         style={{
           position: 'fixed',

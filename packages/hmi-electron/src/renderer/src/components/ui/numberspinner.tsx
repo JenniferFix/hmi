@@ -42,7 +42,7 @@ const NumberSpinner = ({
     }
   }
 
-  const handleMouseUp = async (e: MouseEvent) => {
+  const handleMouseUp = async (_e: MouseEvent) => {
     setIsDragging(false)
     // setValue(draggingValue)
     upsertProperty.mutate({

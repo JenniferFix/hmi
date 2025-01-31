@@ -32,14 +32,10 @@ const InnerPropertiesPanel = React.memo(({ widgetId }: { widgetId: string }) => 
     }
     return acc
   }, {})
-  // console.log('props', props)
-  // console.log('data', data)
 
   const getProperty = (propName: string, propertyTemplateId: string) => {
     const [val] = data.properties.filter((p) => p.propertyTemplateId === propertyTemplateId)
     if (val?.data) {
-      //
-      // console.log(val)
       return val.data
     }
     return props[propName].default
@@ -84,7 +80,6 @@ const InnerPropertiesPanel = React.memo(({ widgetId }: { widgetId: string }) => 
                     propertyTemplateId={
                       data.template.properties.filter((p) => p.name === prop.name)[0].id
                     }
-                    // setValue={(val) => setProperty(prop.name, val)}
                   />
                 )}
               </TableCell>
