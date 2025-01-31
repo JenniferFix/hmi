@@ -47,7 +47,7 @@ const menuItems: MenuItem[] = [
   }
 ]
 
-const SideMenu = React.memo(() => {
+const SideMenu = () => {
   return (
     <div className="bg-accent flex flex-col py-2 px-2 justify-between">
       <div className="flex flex-col gap-2">
@@ -83,6 +83,6 @@ const SideMenu = React.memo(() => {
       </div>
     </div>
   )
-})
+}
 
-export default SideMenu
+export default React.memo(SideMenu)

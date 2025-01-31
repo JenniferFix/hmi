@@ -10,7 +10,7 @@ import {
 import Widget from '@renderer/components/ScreenEditor/Widget'
 import { useEditorStore } from '@renderer/store'
 
-const Screen = React.memo(({ screenId }: { screenId: string }) => {
+const Screen = ({ screenId }: { screenId: string }) => {
   const clearSelectedWidgets = useEditorStore((state) => state.clearSelection)
   const setSelected = useEditorStore((state) => state.setSelected)
   const {
@@ -97,7 +97,7 @@ const Screen = React.memo(({ screenId }: { screenId: string }) => {
                   value: y - dropData.yOffset
                 })
                 break
-              case 'widgetTemplate':
+              case 'widgetTemplate': {
                 // Create new Widget in location
                 const newWidget = await addWidget({
                   screenId,
@@ -107,6 +107,7 @@ const Screen = React.memo(({ screenId }: { screenId: string }) => {
                 })
                 setSelected(newWidget.id)
                 break
+              }
               default:
                 throw new Error(`Invalid drop type: ${dropData.type}`)
             }
@@ -144,6 +145,6 @@ const Screen = React.memo(({ screenId }: { screenId: string }) => {
       {widgetData && widgetData.map((widget) => <Widget widgetId={widget.id} key={widget.id} />)}
     </div>
   )
-})
+}
 
-export default Screen
+export default React.memo(Screen)

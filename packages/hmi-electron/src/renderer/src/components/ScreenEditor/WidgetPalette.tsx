@@ -5,18 +5,17 @@ import { ScrollArea } from '@renderer/components/ui/scroll-area'
 import { TypeOutline, Image } from 'lucide-react'
 import { Button } from '@renderer/components/ui/button'
 import { Tooltip, TooltipTrigger, TooltipContent } from '@renderer/components/ui/tooltip'
-import { type WidgetType } from '$/src/db/schema/widget'
 import { EditDragData } from '@renderer/types'
+import { type WidgetTemplateType } from '$/src/db/schema'
 
-const WidgetPalette = React.memo(() => {
+const WidgetPalette = () => {
   const { data, isLoading, isError, error } = useGetComponentTemplates()
 
   const handleDragStart = React.useCallback(
-    (e: React.DragEvent<HTMLElement>, widget: WidgetType) => {
+    (e: React.DragEvent<HTMLElement>, widget: WidgetTemplateType) => {
       const dragData: EditDragData = {
         type: 'widgetTemplate',
-        id: widget.id,
-        name: widget.name || ''
+        id: widget.id
       }
       e.dataTransfer.setData('text/plain', widget.id)
       e.dataTransfer.setData('application/json', JSON.stringify(dragData))
@@ -55,7 +54,7 @@ const WidgetPalette = React.memo(() => {
                   variant="outline"
                   size="sm"
                   draggable
-                  onDragStart={(e) => handleDragStart(e, widget as WidgetType)}
+                  onDragStart={(e) => handleDragStart(e, widget as WidgetTemplateType)}
                   onDragEnd={handleDragEnd}
                 >
                   {getIcon(widget.name || '')}
@@ -68,7 +67,7 @@ const WidgetPalette = React.memo(() => {
       </div>
     </ScrollArea>
   )
-})
+}
 
 const WrappedWidgetPalette = () => {
   return (

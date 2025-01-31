@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { useGetWidget } from '@renderer/hooks/usewidgetqueries'
 
-const Text = React.memo(({ widgetId }: { widgetId: string }) => {
+const Text = ({ widgetId }: { widgetId: string }) => {
   const { data, isLoading, isError, error } = useGetWidget({ id: widgetId })
   if (isLoading) return <div>Loading...</div>
   if (isError) return <div>WidgetError: {error?.message}</div>
@@ -44,6 +44,6 @@ const Text = React.memo(({ widgetId }: { widgetId: string }) => {
 
   return <div>{getProperty('value')}</div>
   // return <div>tempText</div>
-})
+}
 
 export default React.memo(Text)

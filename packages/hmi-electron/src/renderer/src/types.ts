@@ -8,7 +8,6 @@ export type EditDragData =
   | {
       type: 'widgetTemplate'
       id: string
-      name: string
     }
   | {
       type: 'widget'
@@ -16,3 +15,5 @@ export type EditDragData =
       xOffset: number
       yOffset: number
     }
+
+export type PanelId = 'screens' | 'widgets' | 'treeview' | 'properties'

@@ -1,11 +1,25 @@
 import React from 'react'
-import {
-  ResizablePanelGroup,
-  ResizableHandle,
-  ResizablePanel
-} from '@renderer/components/ui/resizable'
+import { ResizablePanelGroup, ResizableHandle } from '@renderer/components/ui/resizable'
+import ScreenPalette from './ScreenPalette'
+import WidgetPalette from './WidgetPalette'
+import ScreenTree from './ScreenTree'
+import PropertiesPanel from './PropertiesPanel'
+import { type PanelId } from '@renderer/types'
 
-const SidePanel = React.memo(({ panels }: { panels?: React.ReactNode[] }) => {
+const SidePanel = ({ panels }: { panels: PanelId[] }) => {
+  const renderSpecific = (panel: PanelId) => {
+    switch (panel) {
+      case 'screens':
+        return <ScreenPalette />
+      case 'widgets':
+        return <WidgetPalette />
+      case 'treeview':
+        return <ScreenTree />
+      case 'properties':
+        return <PropertiesPanel />
+    }
+  }
+
   const handleDragOver: React.DragEventHandler<keyof HTMLElementTagNameMap> = React.useCallback(
     (e) => {
       e.preventDefault()
@@ -21,15 +35,16 @@ const SidePanel = React.memo(({ panels }: { panels?: React.ReactNode[] }) => {
 
   return (
     <ResizablePanelGroup direction="vertical">
-      {panels &&
-        panels.map((panel, idx) => (
-          <React.Fragment key={'panel' + idx.toString()}>
-            <ResizablePanel className="relative z-50">{panel}</ResizablePanel>
+      {panels.map((panel, idx) => {
+        return (
+          <React.Fragment key={idx}>
+            {renderSpecific(panel)}
             {idx < panels.length - 1 && <ResizableHandle />}
           </React.Fragment>
-        ))}
+        )
+      })}
     </ResizablePanelGroup>
   )
-})
+}
 
-export default SidePanel
+export default React.memo(SidePanel)

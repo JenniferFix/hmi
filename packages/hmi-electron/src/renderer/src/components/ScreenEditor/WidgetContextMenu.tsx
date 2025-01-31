@@ -3,9 +3,9 @@ import {
   ContextMenu,
   ContextMenuContent,
   ContextMenuItem,
-  ContextMenuTrigger,
-  ContextMenuSeparator,
-  ContextMenuCheckboxItem
+  ContextMenuTrigger
+  // ContextMenuSeparator,
+  // ContextMenuCheckboxItem
 } from '@renderer/components/ui/context-menu'
 import { useDeleteWidget } from '@renderer/hooks/usewidgetqueries'
 

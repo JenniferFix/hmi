@@ -5,8 +5,8 @@ const NodeRedEditor = () => {
     <webview
       src="http://localhost:1880/red"
       className="w-full h-full"
-      nodeintegration="true"
-      webpreferences="contextIolation=false"
+      // nodeintegration="true"
+      // webpreferences="contextIolation=false"
     />
   )
 }

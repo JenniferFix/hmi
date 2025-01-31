@@ -65,13 +65,12 @@ const Widget = ({ widgetId }: { widgetId: string }) => {
   }, {})
 
   const getProperty = (propName: string) => {
-    const [propTemplate] = data?.template.properties.filter((prop) => prop.name === propName)
+    if (!data) throw new Error('Errror in getProperty, no data')
+    const [propTemplate] = data.template.properties.filter((prop) => prop.name === propName)
     // const [val] = data.properties.filter((p) => p.propertyTemplateId === propertyTemplateId)
     // if (val?.data) return val.data
     // return props[propName].default
-    const [propdata] = data?.properties.filter(
-      (prop) => prop.propertyTemplateId === propTemplate.id
-    )
+    const [propdata] = data.properties.filter((prop) => prop.propertyTemplateId === propTemplate.id)
     return propdata?.data ?? propTemplate.default
   }
 
