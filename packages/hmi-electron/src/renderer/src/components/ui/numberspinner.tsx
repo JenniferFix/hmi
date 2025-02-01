@@ -74,7 +74,7 @@ const NumberSpinner = ({
 
   return (
     <Tooltip>
-      <TooltipTrigger>
+      <TooltipTrigger asChild>
         <div
           className={cn(
             'hover:outline outline-1',
