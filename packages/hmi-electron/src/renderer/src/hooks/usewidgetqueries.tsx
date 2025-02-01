@@ -1,6 +1,6 @@
-import { useQuery, useMutation, useQueryClient, queryOptions } from '@tanstack/react-query'
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { database } from '@renderer/db'
-import { widget, type InsertWidgetType, type WidgetType } from '@db/schema/widget'
+import { widget, type InsertWidgetType } from '@db/schema/widget'
 import { eq, and } from 'drizzle-orm'
 import { InsertWidget } from '@renderer/types'
 import { useUpsertProperty } from './usepropertyqueries'

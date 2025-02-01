@@ -1,4 +1,4 @@
-import { type DBType } from '@/main/db'
+import { type DBType } from '@/db'
 import datatypes from './data/datatype.json'
 import { dataType } from '@/db/schema'
 

@@ -1,6 +1,7 @@
 import { useQuery, useMutation, useQueryClient, queryOptions } from '@tanstack/react-query'
 import { database } from '@renderer/db'
 import { property, type InsertPropertyType } from '@db/schema/property'
+import { getWidgetPropertyQuery } from '$/src/db/queries'
 
 export function useGetWidgetProperty({
   widgetId,

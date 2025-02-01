@@ -1,4 +1,5 @@
 import { WidgetType } from '$/src/db/schema/widget'
+export { type DBType } from '@/db'
 
 export type WithRequired<T, K extends keyof T> = T & { [P in K]-?: T[P] }
 

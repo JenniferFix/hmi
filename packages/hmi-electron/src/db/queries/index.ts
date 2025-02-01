@@ -1,0 +1,1 @@
+export { getWidgetPropertyQuery } from './propertyqueries'

@@ -1,4 +1,4 @@
-import { type DBType } from '@/main/db'
+import { type DBType } from '@/db'
 import screens from './data/screens.json'
 import * as schema from '@/db/schema'
 import { eq, and } from 'drizzle-orm'

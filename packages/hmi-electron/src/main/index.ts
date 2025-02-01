@@ -2,11 +2,11 @@ import { app, shell, BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
-import { initialize as initDb, close as closeDb, execute, runMigrate } from './db'
+import { initialize as initDb, close as closeDb, execute, runMigrate } from '@/db'
 import windowStateKeeper from 'electron-window-state'
 import { startNodeRed } from './nodeRedService'
 import env from '@/env'
-import { seedDb } from '../db/seed'
+import { seedDb } from '@/db/seed'
 
 function createWindow(): void {
   const windowState = windowStateKeeper({

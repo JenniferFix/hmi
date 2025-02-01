@@ -1,6 +1,6 @@
 import { Table, getTableName, sql } from 'drizzle-orm'
 import env from '@/env'
-import { getDB, type DBType, getClient } from '../main/db'
+import { getDB, type DBType, getClient } from '@/db'
 import * as schema from '../db/schema'
 import * as seeds from './seeds'
 
