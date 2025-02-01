@@ -3,6 +3,7 @@ import { useForm } from '@tanstack/react-form'
 import { Input } from '@renderer/components/ui/input'
 import { type PropertyTemplateType, type DataTypeType } from '$/src/db/schema'
 import { useGetWidgetProperty } from '@renderer/hooks/usepropertyqueries'
+import { createZodSchema } from '@db/gentypes'
 
 const PropertyInput = ({
   propertyTemplate,
