@@ -26,7 +26,7 @@ CREATE TABLE `property` (
 	`propertyTemplateId` text NOT NULL,
 	`createdAt` text DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	`updatedAt` text DEFAULT CURRENT_TIMESTAMP NOT NULL,
-	`data` blob,
+	`data` text,
 	PRIMARY KEY(`widgetId`, `propertyTemplateId`),
 	FOREIGN KEY (`widgetId`) REFERENCES `widget`(`id`) ON UPDATE no action ON DELETE cascade,
 	FOREIGN KEY (`propertyTemplateId`) REFERENCES `propertyTemplate`(`id`) ON UPDATE no action ON DELETE cascade
@@ -42,7 +42,7 @@ CREATE TABLE `propertyTemplate` (
 	`description` text,
 	`widgetTemplateId` text NOT NULL,
 	`dataTypeId` text NOT NULL,
-	`default` blob,
+	`default` text,
 	FOREIGN KEY (`widgetTemplateId`) REFERENCES `widgetTemplate`(`id`) ON UPDATE no action ON DELETE cascade,
 	FOREIGN KEY (`dataTypeId`) REFERENCES `dataType`(`id`) ON UPDATE no action ON DELETE no action
 );

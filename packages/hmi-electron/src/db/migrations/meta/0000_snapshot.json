@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "977f85d4-ea46-4b6b-bb22-afb09a154515",
+  "id": "aa1af0f2-4590-4fdc-901a-a2d8f851dbba",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "controller": {
@@ -186,7 +186,7 @@
         },
         "data": {
           "name": "data",
-          "type": "blob",
+          "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
@@ -304,7 +304,7 @@
         },
         "default": {
           "name": "default",
-          "type": "blob",
+          "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false

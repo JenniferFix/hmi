@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 export function createZodSchema(fields: {
   [key: string]: {
-    type: 'string' | 'number' | 'boolean' | 'date'
+    type: string
     required?: boolean
     minLength?: number
     maxLength?: number

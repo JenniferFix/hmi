@@ -27,7 +27,7 @@ export const property = sqliteTable(
       .notNull()
       .default(sql`CURRENT_TIMESTAMP`)
       .$onUpdate(() => sql`CURRENT_TIMESTAMP`),
-    data: blob('data')
+    data: text('data', { mode: 'json' })
   },
   (table) => ({
     widgetIdIdx: index('widgetIdIdx').on(table.widgetId),

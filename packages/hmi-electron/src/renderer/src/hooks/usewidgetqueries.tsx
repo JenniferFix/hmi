@@ -169,6 +169,6 @@ export function useSetWidgetPropertyValue() {
     })
     if (!widget) throw new Error(`No widget with id: ${widgetId}`)
     const [propTemplate] = widget.template.properties.filter((prop) => prop.name === propName)
-    upsertProp.mutate({ widgetId, propertyTemplateId: propTemplate.id, data: value })
+    await upsertProp.mutateAsync({ widgetId, propertyTemplateId: propTemplate.id, data: value })
   }
 }

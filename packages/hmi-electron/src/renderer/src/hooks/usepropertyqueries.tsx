@@ -14,7 +14,8 @@ export function useGetWidgetProperty({
     queryFn: async () => {
       const result = await database.query.property.findFirst({
         where: (property, { eq, and }) =>
-          and(eq(property.widgetId, widgetId), eq(property.propertyTemplateId, propertyTemplateId))
+          and(eq(property.widgetId, widgetId), eq(property.propertyTemplateId, propertyTemplateId)),
+        with: { propertyTemplate: { with: { dataType: true } } }
       })
       return result
     }

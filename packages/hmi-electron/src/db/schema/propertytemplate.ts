@@ -26,7 +26,7 @@ export const propertyTemplate = sqliteTable('propertyTemplate', {
   dataTypeId: text('dataTypeId')
     .notNull()
     .references(() => dataType.id),
-  default: blob('default')
+  default: text('default', { mode: 'json' })
 })
 
 export const propertyTemplateRelations = relations(propertyTemplate, ({ one }) => ({

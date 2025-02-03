@@ -86,17 +86,21 @@ const Screen = ({ screenId }: { screenId: string }) => {
                 //   xPos: x - dropData.xOffset,
                 //   yPos: y - dropData.yOffset
                 // })
-                document.startViewTransition()
-                setWidgetPropertyValue({
-                  widgetId: dropData.id,
-                  propName: 'posX',
-                  value: x - dropData.xOffset
+                document.startViewTransition(async () => {
+                  await Promise.all([
+                    setWidgetPropertyValue({
+                      widgetId: dropData.id,
+                      propName: 'posX',
+                      value: x - dropData.xOffset
+                    }),
+                    setWidgetPropertyValue({
+                      widgetId: dropData.id,
+                      propName: 'posY',
+                      value: y - dropData.yOffset
+                    })
+                  ])
                 })
-                setWidgetPropertyValue({
-                  widgetId: dropData.id,
-                  propName: 'posY',
-                  value: y - dropData.yOffset
-                })
+                setSelected(dropData.id)
                 break
               case 'widgetTemplate': {
                 // Create new Widget in location

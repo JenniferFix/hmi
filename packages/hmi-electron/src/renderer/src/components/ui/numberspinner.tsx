@@ -77,14 +77,14 @@ const NumberSpinner = ({
       <TooltipTrigger asChild>
         <div
           className={cn(
-            'hover:outline outline-1',
+            'w-full hover:outline outline-1',
             axis === 'x' ? 'hover:cursor-ew-resize' : 'hover:cursor-ns-resize',
             'select-none'
           )}
           onMouseDown={handleMouseDown}
         >
           {/* {!isDragging ? initialValue : draggingValue} */}
-          {draggingValue}
+          {draggingValue.toString()}
         </div>
       </TooltipTrigger>
       <TooltipContent>

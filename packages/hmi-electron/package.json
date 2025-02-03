@@ -43,6 +43,7 @@
     "@tanstack/react-query": "^5.65.1",
     "@tanstack/react-router": "^1.98.4",
     "@tanstack/router": "0.0.1-beta.53",
+    "@tanstack/zod-form-adapter": "^0.41.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "dotenv": "^16.4.7",

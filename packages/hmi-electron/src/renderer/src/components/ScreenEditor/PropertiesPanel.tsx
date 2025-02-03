@@ -13,47 +13,81 @@ import PaletteWrap from '@renderer/components/ScreenEditor/PaletteWrap'
 import { useEditorStore } from '@renderer/store'
 import { useGetWidget } from '@renderer/hooks/usewidgetqueries'
 import NumberSpinner from '@renderer/components/ui/numberspinner'
-import { useUpdateWidget } from '@renderer/hooks/usewidgetqueries'
-import { useUpsertProperty } from '@renderer/hooks/usepropertyqueries'
+import { useGetWidgetProperty, useUpsertProperty } from '@renderer/hooks/usepropertyqueries'
+import PropertyInput from './PropertyInput'
+import { type PropertyTemplateType, type DataTypeType } from '@db/schema'
+
+type TypeMap = {
+  string: string
+  number: number
+  boolean: boolean
+}
+
+function convert<T extends keyof TypeMap>(type: T, value: string): TypeMap[T] {
+  switch (type) {
+    case 'string':
+      return value as TypeMap[T]
+    case 'number':
+      return Number(value) as TypeMap[T]
+    case 'boolean':
+      return (value === 'true') as TypeMap[T]
+    default:
+      throw new Error(`Unsupported type: ${type}`)
+  }
+}
+
+const PropertyRow = ({
+  widgetId,
+  propTemplate,
+  dataType
+}: {
+  widgetId: string
+  propTemplate: PropertyTemplateType
+  dataType: DataTypeType
+}) => {
+  const { data, isLoading, isError, error } = useGetWidgetProperty({
+    widgetId,
+    propertyTemplateId: propTemplate.id
+  })
+  const [clicked, setClicked] = React.useState(false)
+
+  const handleClicked = React.useCallback(() => {
+    if (!clicked) setClicked(true)
+  }, [clicked, setClicked])
+
+  console.log(data, error)
+  if (isLoading) return null
+  if (isError) return null
+  if (!data) throw new Error(`Error no data`)
+
+  return (
+    <TableRow>
+      <TableCell>{propTemplate.name}</TableCell>
+      <TableCell onClick={handleClicked}>
+        {dataType.typescriptType === 'string' && (data?.data as string)}
+        {dataType.typescriptType === 'number' &&
+          (clicked ? (
+            <PropertyInput widgetId={widgetId} propertyTemplateId={propTemplate.id} />
+          ) : (
+            <NumberSpinner
+              key={`${data?.data}`}
+              axis="x"
+              initialValue={Number(data?.data || propTemplate.default)}
+              widgetId={widgetId}
+              // propertyTemplateId={data.template.properties.filter((p) => p.name === prop.name)[0].id}
+              propertyTemplateId={propTemplate.id}
+            />
+          ))}
+      </TableCell>
+    </TableRow>
+  )
+}
 
 const InnerPropertiesPanel = React.memo(({ widgetId }: { widgetId: string }) => {
-  // This when there is a selected widget that we can get properties for
   const { data, isLoading, isError, error } = useGetWidget({ id: widgetId })
-  const updateWidget = useUpdateWidget()
-  const upsertProperty = useUpsertProperty()
   if (isLoading) return <div>Loading...</div>
   if (isError) return <div>Error: {error?.message}</div>
   if (!data) return <div>noData</div>
-
-  const props = data.template.properties.reduce((acc, curr) => {
-    acc = { ...acc }
-    acc[curr.name] = {
-      ...curr
-    }
-    return acc
-  }, {})
-
-  const getProperty = (propName: string, propertyTemplateId: string) => {
-    const [val] = data.properties.filter((p) => p.propertyTemplateId === propertyTemplateId)
-    if (val?.data) {
-      return val.data
-    }
-    return props[propName].default
-  }
-
-  const setProperty = async (propName: string, value: string | number): Promise<boolean> => {
-    console.log('setProperty', value)
-    const [prop] = data.template.properties.filter((p) => p.name === propName)
-    //
-    const newProp = await upsertProperty.mutateAsync({
-      widgetId,
-      propertyTemplateId: prop.id,
-      data: value
-    })
-    console.log('newprop', newProp)
-    if (newProp) return true
-    return false
-  }
 
   return (
     <ScrollArea className="absolute inset-0 h-full">
@@ -66,25 +100,16 @@ const InnerPropertiesPanel = React.memo(({ widgetId }: { widgetId: string }) => 
           </TableRow>
         </TableHeader>
         <TableBody>
-          {data.template.properties.map((prop) => (
-            <TableRow key={prop.id}>
-              <TableCell>{prop.name}</TableCell>
-
-              <TableCell>
-                {prop.dataType.typescriptType === 'string' && getProperty(prop.name, prop.id)}
-                {prop.dataType.typescriptType === 'number' && (
-                  <NumberSpinner
-                    axis="x"
-                    initialValue={getProperty(prop.name, prop.id)}
-                    widgetId={widgetId}
-                    propertyTemplateId={
-                      data.template.properties.filter((p) => p.name === prop.name)[0].id
-                    }
-                  />
-                )}
-              </TableCell>
-            </TableRow>
-          ))}
+          {data.template.properties.map((prop) => {
+            return (
+              <PropertyRow
+                key={prop.id}
+                widgetId={widgetId}
+                propTemplate={prop}
+                dataType={prop.dataType}
+              />
+            )
+          })}
         </TableBody>
       </Table>
     </ScrollArea>
