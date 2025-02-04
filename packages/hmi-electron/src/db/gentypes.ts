@@ -25,7 +25,7 @@ export function createZodSchema(fields: {
         schemaFields[fieldName] = fieldSchema
         break
       case 'number':
-        let numberSchema: z.ZodNumber = z.number()
+        let numberSchema: z.ZodNumber = z.coerce.number()
         if (config.min !== undefined) {
           numberSchema = numberSchema.min(config.min)
         }

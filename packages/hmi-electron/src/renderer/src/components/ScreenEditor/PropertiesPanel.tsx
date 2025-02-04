@@ -55,24 +55,30 @@ const PropertyRow = ({
     if (!clicked) setClicked(true)
   }, [clicked, setClicked])
 
-  console.log(data, error)
   if (isLoading) return null
-  if (isError) return null
-  if (!data) throw new Error(`Error no data`)
+  // if (isError) return null
+  // if (!data) throw new Error(`Error no data`)
 
   return (
     <TableRow>
       <TableCell>{propTemplate.name}</TableCell>
-      <TableCell onClick={handleClicked}>
+      <TableCell className="w-full" onClick={handleClicked}>
         {dataType.typescriptType === 'string' && (data?.data as string)}
         {dataType.typescriptType === 'number' &&
           (clicked ? (
             <PropertyInput widgetId={widgetId} propertyTemplateId={propTemplate.id} />
           ) : (
             <NumberSpinner
-              key={`${data?.data}`}
+              key={`${data?.data ?? propTemplate.default}`}
               axis="x"
-              initialValue={Number(data?.data || propTemplate.default)}
+              initialValue={convert<'number'>(
+                'number',
+                data?.data !== undefined
+                  ? String(data.data)
+                  : propTemplate.default !== undefined
+                    ? String(propTemplate.default)
+                    : '0'
+              )}
               widgetId={widgetId}
               // propertyTemplateId={data.template.properties.filter((p) => p.name === prop.name)[0].id}
               propertyTemplateId={propTemplate.id}

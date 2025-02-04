@@ -17,8 +17,9 @@ export function useGetWidgetProperty({
           and(eq(property.widgetId, widgetId), eq(property.propertyTemplateId, propertyTemplateId)),
         with: { propertyTemplate: { with: { dataType: true } } }
       })
-      return result
-    }
+      return result ?? null
+    },
+    retry: false
   })
 }
 
