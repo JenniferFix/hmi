@@ -1,5 +1,5 @@
 import React from 'react'
-import { ThemeToggle } from '@renderer/components/Common/ThemeToggle'
+import { ThemeToggle } from '@renderer/components/common/ThemeToggle'
 
 const ConfigPage = () => {
   return (

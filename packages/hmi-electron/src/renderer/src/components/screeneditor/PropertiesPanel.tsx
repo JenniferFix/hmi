@@ -9,7 +9,7 @@ import {
   TableRow
 } from '@renderer/components/ui/table'
 import { ScrollArea } from '@renderer/components/ui/scroll-area'
-import PaletteWrap from '@renderer/components/ScreenEditor/PaletteWrap'
+import PaletteWrap from '@renderer/components/screeneditor/PaletteWrap'
 import { useEditorStore } from '@renderer/store'
 import { useGetWidget } from '@renderer/hooks/usewidgetqueries'
 import NumberSpinner from '@renderer/components/ui/numberspinner'

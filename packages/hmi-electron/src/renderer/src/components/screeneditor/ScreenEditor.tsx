@@ -7,7 +7,7 @@ import {
   useAddWidgetToScreenWithLocation,
   useSetWidgetPropertyValue
 } from '@renderer/hooks/usewidgetqueries'
-import Widget from '@renderer/components/ScreenEditor/Widget'
+import Widget from '@renderer/components/screeneditor/Widget'
 import { useEditorStore } from '@renderer/store'
 
 const Screen = ({ screenId }: { screenId: string }) => {
