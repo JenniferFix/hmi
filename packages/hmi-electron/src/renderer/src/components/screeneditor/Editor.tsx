@@ -10,16 +10,12 @@ import SidePanel from './SidePanel'
 const Editor = () => {
   return (
     <ResizablePanelGroup direction="horizontal" autoSaveId="jahmi-edit-panels">
-      <ResizablePanel defaultSize={15}>
-        <SidePanel panels={['screens', 'widgets']} />
-      </ResizablePanel>
-      <ResizableHandle withHandle />
       <ResizablePanel defaultSize={60} className="relative">
         <Outlet />
       </ResizablePanel>
       <ResizableHandle withHandle />
       <ResizablePanel defaultSize={15}>
-        <SidePanel panels={['treeview', 'properties']} />
+        <SidePanel panels={['screens', 'properties']} />
       </ResizablePanel>
     </ResizablePanelGroup>
   )
