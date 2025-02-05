@@ -31,9 +31,9 @@ const menuItems: MenuItem[] = [
     url: '/'
   },
   {
-    tooltip: 'Edit',
+    tooltip: 'Screens',
     icon: <FilePenLineIcon />,
-    url: '/edit'
+    url: '/screens'
   },
   {
     tooltip: 'Edit Tags',

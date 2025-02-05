@@ -11,19 +11,19 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as TagsImport } from './routes/tags'
+import { Route as ScreensImport } from './routes/screens'
 import { Route as NoderedImport } from './routes/nodered'
-import { Route as EditImport } from './routes/edit'
+import { Route as ControllersImport } from './routes/controllers'
 import { Route as ConfigImport } from './routes/config'
 import { Route as IndexImport } from './routes/index'
-import { Route as EditIndexImport } from './routes/edit.index'
-import { Route as EditScreenIdImport } from './routes/edit.$screenId'
+import { Route as ScreensIndexImport } from './routes/screens.index'
+import { Route as ScreensScreenIdImport } from './routes/screens.$screenId'
 
 // Create/Update Routes
 
-const TagsRoute = TagsImport.update({
-  id: '/tags',
-  path: '/tags',
+const ScreensRoute = ScreensImport.update({
+  id: '/screens',
+  path: '/screens',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -33,9 +33,9 @@ const NoderedRoute = NoderedImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const EditRoute = EditImport.update({
-  id: '/edit',
-  path: '/edit',
+const ControllersRoute = ControllersImport.update({
+  id: '/controllers',
+  path: '/controllers',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -51,16 +51,16 @@ const IndexRoute = IndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const EditIndexRoute = EditIndexImport.update({
+const ScreensIndexRoute = ScreensIndexImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => EditRoute,
+  getParentRoute: () => ScreensRoute,
 } as any)
 
-const EditScreenIdRoute = EditScreenIdImport.update({
+const ScreensScreenIdRoute = ScreensScreenIdImport.update({
   id: '/$screenId',
   path: '/$screenId',
-  getParentRoute: () => EditRoute,
+  getParentRoute: () => ScreensRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
@@ -81,11 +81,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConfigImport
       parentRoute: typeof rootRoute
     }
-    '/edit': {
-      id: '/edit'
-      path: '/edit'
-      fullPath: '/edit'
-      preLoaderRoute: typeof EditImport
+    '/controllers': {
+      id: '/controllers'
+      path: '/controllers'
+      fullPath: '/controllers'
+      preLoaderRoute: typeof ControllersImport
       parentRoute: typeof rootRoute
     }
     '/nodered': {
@@ -95,72 +95,73 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NoderedImport
       parentRoute: typeof rootRoute
     }
-    '/tags': {
-      id: '/tags'
-      path: '/tags'
-      fullPath: '/tags'
-      preLoaderRoute: typeof TagsImport
+    '/screens': {
+      id: '/screens'
+      path: '/screens'
+      fullPath: '/screens'
+      preLoaderRoute: typeof ScreensImport
       parentRoute: typeof rootRoute
     }
-    '/edit/$screenId': {
-      id: '/edit/$screenId'
+    '/screens/$screenId': {
+      id: '/screens/$screenId'
       path: '/$screenId'
-      fullPath: '/edit/$screenId'
-      preLoaderRoute: typeof EditScreenIdImport
-      parentRoute: typeof EditImport
+      fullPath: '/screens/$screenId'
+      preLoaderRoute: typeof ScreensScreenIdImport
+      parentRoute: typeof ScreensImport
     }
-    '/edit/': {
-      id: '/edit/'
+    '/screens/': {
+      id: '/screens/'
       path: '/'
-      fullPath: '/edit/'
-      preLoaderRoute: typeof EditIndexImport
-      parentRoute: typeof EditImport
+      fullPath: '/screens/'
+      preLoaderRoute: typeof ScreensIndexImport
+      parentRoute: typeof ScreensImport
     }
   }
 }
 
 // Create and export the route tree
 
-interface EditRouteChildren {
-  EditScreenIdRoute: typeof EditScreenIdRoute
-  EditIndexRoute: typeof EditIndexRoute
+interface ScreensRouteChildren {
+  ScreensScreenIdRoute: typeof ScreensScreenIdRoute
+  ScreensIndexRoute: typeof ScreensIndexRoute
 }
 
-const EditRouteChildren: EditRouteChildren = {
-  EditScreenIdRoute: EditScreenIdRoute,
-  EditIndexRoute: EditIndexRoute,
+const ScreensRouteChildren: ScreensRouteChildren = {
+  ScreensScreenIdRoute: ScreensScreenIdRoute,
+  ScreensIndexRoute: ScreensIndexRoute,
 }
 
-const EditRouteWithChildren = EditRoute._addFileChildren(EditRouteChildren)
+const ScreensRouteWithChildren =
+  ScreensRoute._addFileChildren(ScreensRouteChildren)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/config': typeof ConfigRoute
-  '/edit': typeof EditRouteWithChildren
+  '/controllers': typeof ControllersRoute
   '/nodered': typeof NoderedRoute
-  '/tags': typeof TagsRoute
-  '/edit/$screenId': typeof EditScreenIdRoute
-  '/edit/': typeof EditIndexRoute
+  '/screens': typeof ScreensRouteWithChildren
+  '/screens/$screenId': typeof ScreensScreenIdRoute
+  '/screens/': typeof ScreensIndexRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/config': typeof ConfigRoute
+  '/controllers': typeof ControllersRoute
   '/nodered': typeof NoderedRoute
-  '/tags': typeof TagsRoute
-  '/edit/$screenId': typeof EditScreenIdRoute
-  '/edit': typeof EditIndexRoute
+  '/screens/$screenId': typeof ScreensScreenIdRoute
+  '/screens': typeof ScreensIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/config': typeof ConfigRoute
-  '/edit': typeof EditRouteWithChildren
+  '/controllers': typeof ControllersRoute
   '/nodered': typeof NoderedRoute
-  '/tags': typeof TagsRoute
-  '/edit/$screenId': typeof EditScreenIdRoute
-  '/edit/': typeof EditIndexRoute
+  '/screens': typeof ScreensRouteWithChildren
+  '/screens/$screenId': typeof ScreensScreenIdRoute
+  '/screens/': typeof ScreensIndexRoute
 }
 
 export interface FileRouteTypes {
@@ -168,39 +169,45 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/config'
-    | '/edit'
+    | '/controllers'
     | '/nodered'
-    | '/tags'
-    | '/edit/$screenId'
-    | '/edit/'
+    | '/screens'
+    | '/screens/$screenId'
+    | '/screens/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/config' | '/nodered' | '/tags' | '/edit/$screenId' | '/edit'
+  to:
+    | '/'
+    | '/config'
+    | '/controllers'
+    | '/nodered'
+    | '/screens/$screenId'
+    | '/screens'
   id:
     | '__root__'
     | '/'
     | '/config'
-    | '/edit'
+    | '/controllers'
     | '/nodered'
-    | '/tags'
-    | '/edit/$screenId'
-    | '/edit/'
+    | '/screens'
+    | '/screens/$screenId'
+    | '/screens/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ConfigRoute: typeof ConfigRoute
-  EditRoute: typeof EditRouteWithChildren
+  ControllersRoute: typeof ControllersRoute
   NoderedRoute: typeof NoderedRoute
-  TagsRoute: typeof TagsRoute
+  ScreensRoute: typeof ScreensRouteWithChildren
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ConfigRoute: ConfigRoute,
-  EditRoute: EditRouteWithChildren,
+  ControllersRoute: ControllersRoute,
   NoderedRoute: NoderedRoute,
-  TagsRoute: TagsRoute,
+  ScreensRoute: ScreensRouteWithChildren,
 }
 
 export const routeTree = rootRoute
@@ -215,9 +222,9 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/config",
-        "/edit",
+        "/controllers",
         "/nodered",
-        "/tags"
+        "/screens"
       ]
     },
     "/": {
@@ -226,26 +233,26 @@ export const routeTree = rootRoute
     "/config": {
       "filePath": "config.tsx"
     },
-    "/edit": {
-      "filePath": "edit.tsx",
-      "children": [
-        "/edit/$screenId",
-        "/edit/"
-      ]
+    "/controllers": {
+      "filePath": "controllers.tsx"
     },
     "/nodered": {
       "filePath": "nodered.tsx"
     },
-    "/tags": {
-      "filePath": "tags.tsx"
+    "/screens": {
+      "filePath": "screens.tsx",
+      "children": [
+        "/screens/$screenId",
+        "/screens/"
+      ]
     },
-    "/edit/$screenId": {
-      "filePath": "edit.$screenId.tsx",
-      "parent": "/edit"
+    "/screens/$screenId": {
+      "filePath": "screens.$screenId.tsx",
+      "parent": "/screens"
     },
-    "/edit/": {
-      "filePath": "edit.index.tsx",
-      "parent": "/edit"
+    "/screens/": {
+      "filePath": "screens.index.tsx",
+      "parent": "/screens"
     }
   }
 }

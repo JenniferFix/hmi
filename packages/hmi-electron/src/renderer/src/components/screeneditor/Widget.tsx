@@ -53,7 +53,7 @@ const Widget = ({ widgetId }: { widgetId: string }) => {
     // console.log('widget onDragEnd', e)
   }, [])
 
-  if (isLoading) return <div>Loading...</div>
+  if (isLoading) return null
   if (isError) return <div>WidgetError: {error?.message}</div>
   if (data === undefined) return <div>No Data</div>
   const props = data.template.properties.reduce((acc, curr) => {

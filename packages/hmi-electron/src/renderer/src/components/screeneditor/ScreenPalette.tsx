@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { Button } from '@renderer/components/ui/button'
 import { useInsertScreen, useGetScreens } from '@renderer/hooks/usescreensqueries'
 import { Link } from '@tanstack/react-router'
@@ -94,7 +94,7 @@ const ScreenPalette = () => {
             <div key={screen.id}>
               <Button className="w-full justify-start" variant="link" asChild>
                 <Link
-                  to={`/edit/$screenId`}
+                  to={`/screens/$screenId`}
                   params={{ screenId: screen.id.toString() }}
                   activeProps={{ className: 'bg-muted' }}
                 >

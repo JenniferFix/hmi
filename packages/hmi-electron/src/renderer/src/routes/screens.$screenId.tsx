@@ -1,8 +1,8 @@
 import { createFileRoute } from '@tanstack/react-router'
 import ScreenEditor from '@renderer/components/screeneditor/ScreenEditor'
 
-export const Route = createFileRoute('/edit/$screenId')({
-  component: RouteComponent
+export const Route = createFileRoute('/screens/$screenId')({
+  component: RouteComponent,
 })
 
 function RouteComponent() {

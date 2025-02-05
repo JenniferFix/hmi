@@ -8,6 +8,7 @@ import { ThemeProvider } from '@renderer/components/theme-provider'
 import { TooltipProvider } from '@renderer/components/ui/tooltip'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { Toaster } from '@renderer/components/ui/sonner'
+import { SidebarProvider } from '@renderer/components/ui/sidebar'
 
 const router = createRouter({ routeTree, history: createHashHistory() })
 const queryClient = new QueryClient()
@@ -23,9 +24,11 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <QueryClientProvider client={queryClient}>
       <ThemeProvider defaultTheme="dark" storageKey="jahmi-ui-theme">
         <TooltipProvider>
-          <RouterProvider router={router} />
-          <ReactQueryDevtools initialIsOpen={false} />
-          <Toaster />
+          <SidebarProvider>
+            <RouterProvider router={router} />
+            <ReactQueryDevtools initialIsOpen={false} />
+            <Toaster />
+          </SidebarProvider>
         </TooltipProvider>
       </ThemeProvider>
     </QueryClientProvider>
