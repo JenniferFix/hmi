@@ -15,7 +15,7 @@ const Editor = () => {
       </ResizablePanel>
       <ResizableHandle withHandle />
       <ResizablePanel defaultSize={15}>
-        <SidePanel panels={['screens', 'properties']} />
+        <SidePanel panels={['widgets', 'properties']} />
       </ResizablePanel>
     </ResizablePanelGroup>
   )
