@@ -35,7 +35,7 @@ const Screen = ({ screenId }: { screenId: string }) => {
   }, [])
 
   const handleDragOver: React.DragEventHandler<HTMLElement> = React.useCallback((e) => {
-    // console.log('dragOver', e)
+    e.preventDefault()
     e.dataTransfer.dropEffect = 'move'
   }, [])
 
@@ -49,15 +49,15 @@ const Screen = ({ screenId }: { screenId: string }) => {
 
   const handleDrop: React.DragEventHandler<HTMLElement> = React.useCallback(
     async (e: React.DragEvent) => {
-      e.preventDefault()
       // console.log('drop', e)
+      e.preventDefault()
       // console.log('items:', e.dataTransfer.items)
       // console.log('items.length', e.dataTransfer.items.length)
       // console.log('types.length', e.dataTransfer.types.length)
       // console.log('files', e.dataTransfer.files)
 
       Array.from(e.dataTransfer.items).forEach(async (item) => {
-        console.log('item:', item.kind, item.type)
+        // console.log('item:', item.kind, item.type)
         // handle files
         if (item.kind === 'file') {
           console.log('file:', item.getAsFile())
@@ -70,7 +70,7 @@ const Screen = ({ screenId }: { screenId: string }) => {
             const jsondata = e.dataTransfer.getData('application/json')
             const dropData = JSON.parse(jsondata)
 
-            console.log('dropdata', dropData)
+            // console.log('dropdata', dropData)
 
             if (!dropData.type) return
 
