@@ -17,4 +17,4 @@ export type EditDragData =
       yOffset: number
     }
 
-export type PanelId = 'screens' | 'widgets' | 'treeview' | 'properties'
+export type PanelId = 'screens' | 'widgets' | 'properties'

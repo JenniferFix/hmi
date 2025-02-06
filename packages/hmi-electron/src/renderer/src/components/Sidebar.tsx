@@ -4,6 +4,7 @@ import {
   Sidebar,
   SidebarContent,
   SidebarHeader,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupLabel,
   SidebarGroupContent,
@@ -21,9 +22,32 @@ import { Button } from '@renderer/components/ui/button'
 import { cn } from '@renderer/lib/utils'
 import { Link } from '@tanstack/react-router'
 import { useGetScreens } from '@renderer/hooks/usescreensqueries'
+import { useGetControllers } from '@renderer/hooks/usecontrollerqueries'
+import { Settings } from 'lucide-react'
 
 const ControllerList = () => {
-  return <div>ControllerList</div>
+  const { data, isLoading, isError, error } = useGetControllers()
+  if (isLoading) return null
+  if (isError) throw new Error('Error in ControllerList')
+  if (data && data.length === 0)
+    return (
+      <SidebarMenu>
+        <SidebarMenuItem>
+          <SidebarMenuButton>Add Controller</SidebarMenuButton>
+        </SidebarMenuItem>
+      </SidebarMenu>
+    )
+  return (
+    <SidebarMenu>
+      {data?.map((controller, idx) => {
+        return (
+          <SidebarMenuItem key={idx}>
+            <SidebarMenuButton>{controller.ip}</SidebarMenuButton>
+          </SidebarMenuItem>
+        )
+      })}
+    </SidebarMenu>
+  )
 }
 
 const ScreensList = () => {
@@ -76,7 +100,11 @@ const CollapsibleSection = ({
         >
           <CollapsibleTrigger asChild>
             <SidebarMenuButton asChild className="w-full">
-              <Link to={link}>
+              <Link
+                to={link}
+                //TODO: Fix this so if any children are selected this is not, it looks silly otherwise
+                // activeProps={{ className: 'bg-sidebar-accent text-sidebar-accent-foreground' }}
+              >
                 {title}
                 <ChevronRight
                   className={cn('ml-auto transition-transform', open ? 'rotate-90' : '')}
@@ -95,13 +123,16 @@ const CollapsibleSection = ({
 
 const AppSidebar = () => {
   return (
-    <Sidebar variant="floating">
+    <Sidebar
+      variant="floating"
+      className="top-[--header-height] !h-[calc(100svh-var(--header-height))]"
+    >
       <SidebarHeader>Header</SidebarHeader>
       <CollapsibleSection title="App name here" defaultOpen>
         <SidebarContent>
           <SidebarGroup>
             <CollapsibleSection title="Controllers" link="/controllers">
-              Controllers
+              <ControllerList />
             </CollapsibleSection>
             <CollapsibleSection title="Screens" link="/screens">
               <ScreensList />
@@ -109,13 +140,33 @@ const AppSidebar = () => {
             <SidebarMenu>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild>
-                  <Link to="/nodered">Node-RED</Link>
+                  <Link
+                    to="/nodered"
+                    activeProps={{ className: 'bg-sidebar-accent text-sidebar-accent-foreground' }}
+                  >
+                    Node-RED
+                  </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroup>
         </SidebarContent>
       </CollapsibleSection>
+      <SidebarFooter className="mt-auto">
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton asChild>
+              <Link
+                to="/config"
+                activeProps={{ className: 'bg-sidebar-accent text-sidebar-accent-foreground' }}
+              >
+                <Settings />
+                <span>Settings</span>
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarFooter>
     </Sidebar>
   )
 }

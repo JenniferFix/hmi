@@ -2,7 +2,6 @@ import React from 'react'
 import { ResizablePanelGroup, ResizableHandle } from '@renderer/components/ui/resizable'
 import ScreenPalette from './ScreenPalette'
 import WidgetPalette from './WidgetPalette'
-import ScreenTree from './ScreenTree'
 import PropertiesPanel from './PropertiesPanel'
 import { type PanelId } from '@renderer/types'
 
@@ -13,8 +12,6 @@ const SidePanel = ({ panels }: { panels: PanelId[] }) => {
         return <ScreenPalette />
       case 'widgets':
         return <WidgetPalette />
-      case 'treeview':
-        return <ScreenTree />
       case 'properties':
         return <PropertiesPanel />
     }

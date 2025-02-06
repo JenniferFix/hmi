@@ -24,7 +24,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <QueryClientProvider client={queryClient}>
       <ThemeProvider defaultTheme="dark" storageKey="jahmi-ui-theme">
         <TooltipProvider>
-          <SidebarProvider>
+          <SidebarProvider className="fixed inset-0">
             <RouterProvider router={router} />
             <ReactQueryDevtools initialIsOpen={false} />
             <Toaster />

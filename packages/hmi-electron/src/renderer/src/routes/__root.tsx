@@ -12,14 +12,15 @@ export const Route = createRootRoute({
 function RootComponent() {
   return (
     <React.Fragment>
-      <div className={`fixed inset-0 flex font-noto`}>
-        <Sidebar />
-        <SidebarInset className="flex flex-col">
-          <AppHeader />
-          <main className="grow">
+      <div className={`w-full flex flex-col font-noto [--header-height:calc(theme(spacing.12))]`}>
+        {/* <div className="w-full flex flex-col"> */}
+        <AppHeader />
+        <div className="flex">
+          <Sidebar />
+          <SidebarInset className="flex flex-col">
             <Outlet />
-          </main>
-        </SidebarInset>
+          </SidebarInset>
+        </div>
       </div>
     </React.Fragment>
   )
