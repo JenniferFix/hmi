@@ -4,14 +4,17 @@ import {
   ResizablePanel,
   ResizableHandle
 } from '@renderer/components/ui/resizable'
+import ControllerAddEditForm from './ControllerAddEditForm'
 import { Outlet } from '@tanstack/react-router'
 
 const TagEditor = () => {
   return (
     <ResizablePanelGroup direction="vertical">
-      <ResizablePanel>Top</ResizablePanel>
+      <ResizablePanel>
+        <ControllerAddEditForm />
+      </ResizablePanel>
       <ResizableHandle withHandle />
-      <ResizablePanel>Bottom</ResizablePanel>
+      <ResizablePanel>Controller's Tags. Data table shadcn</ResizablePanel>
     </ResizablePanelGroup>
   )
 }
