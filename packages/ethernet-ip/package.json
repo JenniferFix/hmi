@@ -1,0 +1,18 @@
+{
+  "name": "@fixtech/ethernet-ip",
+  "version": "1.0.0",
+  "description": "Ethernet/IP communications with Allen-Bradley PLCs",
+  "main": "lib/index.js",
+  "type": "module",
+  "scripts": {
+    "build": "node build.js",
+    "dev": "node build.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Jennifer Fix",
+  "license": "MIT",
+  "dependencies": {
+    "st-ethernet-ip": "^2.7.3"
+  }
+}
