@@ -31,3 +31,4 @@ export const controllerRelations = relations(controller, ({ many }) => ({
 
 export type ControllerType = typeof controller.$inferSelect
 export type InsertControllerType = typeof controller.$inferInsert
+export type UpdateControllerType = Partial<Omit<ControllerType, 'id' | 'createdAt' | 'updatedAt'>>

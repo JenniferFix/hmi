@@ -2,7 +2,8 @@ export {
   controller,
   controllerRelations,
   type ControllerType,
-  type InsertControllerType
+  type InsertControllerType,
+  type UpdateControllerType
 } from './controller'
 export { dataType, type DataTypeType, type InsertDataTypeType } from './datatype'
 export { property, propertyRelations, type PropertyType, type InsertPropertyType } from './property'

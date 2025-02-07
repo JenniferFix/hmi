@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { SidebarTrigger } from '@renderer/components/ui/sidebar'
 
-const AppHeader = () => {
+const AppHeader = React.memo(() => {
   return (
     <header className=" sticky">
       <div className="flex items-center pl-4 h-[--header-height]">
@@ -9,6 +9,6 @@ const AppHeader = () => {
       </div>
     </header>
   )
-}
+})
 
 export default AppHeader
