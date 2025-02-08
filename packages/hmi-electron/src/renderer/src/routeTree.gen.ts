@@ -17,7 +17,9 @@ import { Route as ControllersImport } from './routes/controllers'
 import { Route as ConfigImport } from './routes/config'
 import { Route as IndexImport } from './routes/index'
 import { Route as ScreensIndexImport } from './routes/screens.index'
+import { Route as ControllersIndexImport } from './routes/controllers.index'
 import { Route as ScreensScreenIdImport } from './routes/screens.$screenId'
+import { Route as ControllersAddImport } from './routes/controllers.add'
 import { Route as ControllersControllerIdImport } from './routes/controllers.$controllerId'
 
 // Create/Update Routes
@@ -58,10 +60,22 @@ const ScreensIndexRoute = ScreensIndexImport.update({
   getParentRoute: () => ScreensRoute,
 } as any)
 
+const ControllersIndexRoute = ControllersIndexImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ControllersRoute,
+} as any)
+
 const ScreensScreenIdRoute = ScreensScreenIdImport.update({
   id: '/$screenId',
   path: '/$screenId',
   getParentRoute: () => ScreensRoute,
+} as any)
+
+const ControllersAddRoute = ControllersAddImport.update({
+  id: '/add',
+  path: '/add',
+  getParentRoute: () => ControllersRoute,
 } as any)
 
 const ControllersControllerIdRoute = ControllersControllerIdImport.update({
@@ -116,12 +130,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ControllersControllerIdImport
       parentRoute: typeof ControllersImport
     }
+    '/controllers/add': {
+      id: '/controllers/add'
+      path: '/add'
+      fullPath: '/controllers/add'
+      preLoaderRoute: typeof ControllersAddImport
+      parentRoute: typeof ControllersImport
+    }
     '/screens/$screenId': {
       id: '/screens/$screenId'
       path: '/$screenId'
       fullPath: '/screens/$screenId'
       preLoaderRoute: typeof ScreensScreenIdImport
       parentRoute: typeof ScreensImport
+    }
+    '/controllers/': {
+      id: '/controllers/'
+      path: '/'
+      fullPath: '/controllers/'
+      preLoaderRoute: typeof ControllersIndexImport
+      parentRoute: typeof ControllersImport
     }
     '/screens/': {
       id: '/screens/'
@@ -137,10 +165,14 @@ declare module '@tanstack/react-router' {
 
 interface ControllersRouteChildren {
   ControllersControllerIdRoute: typeof ControllersControllerIdRoute
+  ControllersAddRoute: typeof ControllersAddRoute
+  ControllersIndexRoute: typeof ControllersIndexRoute
 }
 
 const ControllersRouteChildren: ControllersRouteChildren = {
   ControllersControllerIdRoute: ControllersControllerIdRoute,
+  ControllersAddRoute: ControllersAddRoute,
+  ControllersIndexRoute: ControllersIndexRoute,
 }
 
 const ControllersRouteWithChildren = ControllersRoute._addFileChildren(
@@ -167,17 +199,20 @@ export interface FileRoutesByFullPath {
   '/nodered': typeof NoderedRoute
   '/screens': typeof ScreensRouteWithChildren
   '/controllers/$controllerId': typeof ControllersControllerIdRoute
+  '/controllers/add': typeof ControllersAddRoute
   '/screens/$screenId': typeof ScreensScreenIdRoute
+  '/controllers/': typeof ControllersIndexRoute
   '/screens/': typeof ScreensIndexRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/config': typeof ConfigRoute
-  '/controllers': typeof ControllersRouteWithChildren
   '/nodered': typeof NoderedRoute
   '/controllers/$controllerId': typeof ControllersControllerIdRoute
+  '/controllers/add': typeof ControllersAddRoute
   '/screens/$screenId': typeof ScreensScreenIdRoute
+  '/controllers': typeof ControllersIndexRoute
   '/screens': typeof ScreensIndexRoute
 }
 
@@ -189,7 +224,9 @@ export interface FileRoutesById {
   '/nodered': typeof NoderedRoute
   '/screens': typeof ScreensRouteWithChildren
   '/controllers/$controllerId': typeof ControllersControllerIdRoute
+  '/controllers/add': typeof ControllersAddRoute
   '/screens/$screenId': typeof ScreensScreenIdRoute
+  '/controllers/': typeof ControllersIndexRoute
   '/screens/': typeof ScreensIndexRoute
 }
 
@@ -202,16 +239,19 @@ export interface FileRouteTypes {
     | '/nodered'
     | '/screens'
     | '/controllers/$controllerId'
+    | '/controllers/add'
     | '/screens/$screenId'
+    | '/controllers/'
     | '/screens/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/config'
-    | '/controllers'
     | '/nodered'
     | '/controllers/$controllerId'
+    | '/controllers/add'
     | '/screens/$screenId'
+    | '/controllers'
     | '/screens'
   id:
     | '__root__'
@@ -221,7 +261,9 @@ export interface FileRouteTypes {
     | '/nodered'
     | '/screens'
     | '/controllers/$controllerId'
+    | '/controllers/add'
     | '/screens/$screenId'
+    | '/controllers/'
     | '/screens/'
   fileRoutesById: FileRoutesById
 }
@@ -268,7 +310,9 @@ export const routeTree = rootRoute
     "/controllers": {
       "filePath": "controllers.tsx",
       "children": [
-        "/controllers/$controllerId"
+        "/controllers/$controllerId",
+        "/controllers/add",
+        "/controllers/"
       ]
     },
     "/nodered": {
@@ -285,9 +329,17 @@ export const routeTree = rootRoute
       "filePath": "controllers.$controllerId.tsx",
       "parent": "/controllers"
     },
+    "/controllers/add": {
+      "filePath": "controllers.add.tsx",
+      "parent": "/controllers"
+    },
     "/screens/$screenId": {
       "filePath": "screens.$screenId.tsx",
       "parent": "/screens"
+    },
+    "/controllers/": {
+      "filePath": "controllers.index.tsx",
+      "parent": "/controllers"
     },
     "/screens/": {
       "filePath": "screens.index.tsx",
