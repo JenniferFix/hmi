@@ -29,7 +29,7 @@ export function useGetController(controllerId: string) {
 export function useInsertController() {
   const queryClient = useQueryClient()
   const mutationFn = async (insertData: InsertControllerType) => {
-    const result = database.insert(controller).values(insertData).returning()
+    const result = await database.insert(controller).values(insertData).returning()
     return result[0]
   }
   return useMutation({

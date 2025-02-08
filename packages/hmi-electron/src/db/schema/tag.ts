@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { controller } from './controller'
 import { dataType } from './datatype'
 import { widgetsTags } from './widgetstags'
+import { createInsertSchema, createUpdateSchema, createSelectSchema } from 'drizzle-zod'
 
 /*
  * the tags for the controller. each tag can only have one controller
@@ -42,3 +43,6 @@ export const tagRelations = relations(tag, ({ one, many }) => ({
 
 export type TagType = typeof tag.$inferSelect
 export type InsertTagType = typeof tag.$inferInsert
+export const tagSelectSchema = createSelectSchema(tag)
+export const tagUpdateSchema = createUpdateSchema(tag)
+export const tagInsertSchema = createInsertSchema(tag)

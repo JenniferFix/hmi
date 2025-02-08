@@ -3,7 +3,10 @@ export {
   controllerRelations,
   type ControllerType,
   type InsertControllerType,
-  type UpdateControllerType
+  type UpdateControllerType,
+  controllerSelectSchema,
+  controllerUpdateSchema,
+  controllerInsertSchema
 } from './controller'
 export { dataType, type DataTypeType, type InsertDataTypeType } from './datatype'
 export { property, propertyRelations, type PropertyType, type InsertPropertyType } from './property'

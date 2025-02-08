@@ -2,6 +2,7 @@ import { sql, relations } from 'drizzle-orm'
 import { text, sqliteTable, integer } from 'drizzle-orm/sqlite-core'
 import { v4 as uuidv4 } from 'uuid'
 import { tag } from './tag'
+import { createSelectSchema, createUpdateSchema, createInsertSchema } from 'drizzle-zod'
 
 /*
  * controller information table
@@ -32,3 +33,7 @@ export const controllerRelations = relations(controller, ({ many }) => ({
 export type ControllerType = typeof controller.$inferSelect
 export type InsertControllerType = typeof controller.$inferInsert
 export type UpdateControllerType = Partial<Omit<ControllerType, 'id' | 'createdAt' | 'updatedAt'>>
+
+export const controllerSelectSchema = createSelectSchema(controller)
+export const controllerUpdateSchema = createUpdateSchema(controller)
+export const controllerInsertSchema = createInsertSchema(controller)

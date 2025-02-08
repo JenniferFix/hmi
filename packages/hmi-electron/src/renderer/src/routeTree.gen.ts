@@ -18,6 +18,7 @@ import { Route as ConfigImport } from './routes/config'
 import { Route as IndexImport } from './routes/index'
 import { Route as ScreensIndexImport } from './routes/screens.index'
 import { Route as ScreensScreenIdImport } from './routes/screens.$screenId'
+import { Route as ControllersControllerIdImport } from './routes/controllers.$controllerId'
 
 // Create/Update Routes
 
@@ -63,6 +64,12 @@ const ScreensScreenIdRoute = ScreensScreenIdImport.update({
   getParentRoute: () => ScreensRoute,
 } as any)
 
+const ControllersControllerIdRoute = ControllersControllerIdImport.update({
+  id: '/$controllerId',
+  path: '/$controllerId',
+  getParentRoute: () => ControllersRoute,
+} as any)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -102,6 +109,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ScreensImport
       parentRoute: typeof rootRoute
     }
+    '/controllers/$controllerId': {
+      id: '/controllers/$controllerId'
+      path: '/$controllerId'
+      fullPath: '/controllers/$controllerId'
+      preLoaderRoute: typeof ControllersControllerIdImport
+      parentRoute: typeof ControllersImport
+    }
     '/screens/$screenId': {
       id: '/screens/$screenId'
       path: '/$screenId'
@@ -121,6 +135,18 @@ declare module '@tanstack/react-router' {
 
 // Create and export the route tree
 
+interface ControllersRouteChildren {
+  ControllersControllerIdRoute: typeof ControllersControllerIdRoute
+}
+
+const ControllersRouteChildren: ControllersRouteChildren = {
+  ControllersControllerIdRoute: ControllersControllerIdRoute,
+}
+
+const ControllersRouteWithChildren = ControllersRoute._addFileChildren(
+  ControllersRouteChildren,
+)
+
 interface ScreensRouteChildren {
   ScreensScreenIdRoute: typeof ScreensScreenIdRoute
   ScreensIndexRoute: typeof ScreensIndexRoute
@@ -137,9 +163,10 @@ const ScreensRouteWithChildren =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/config': typeof ConfigRoute
-  '/controllers': typeof ControllersRoute
+  '/controllers': typeof ControllersRouteWithChildren
   '/nodered': typeof NoderedRoute
   '/screens': typeof ScreensRouteWithChildren
+  '/controllers/$controllerId': typeof ControllersControllerIdRoute
   '/screens/$screenId': typeof ScreensScreenIdRoute
   '/screens/': typeof ScreensIndexRoute
 }
@@ -147,8 +174,9 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/config': typeof ConfigRoute
-  '/controllers': typeof ControllersRoute
+  '/controllers': typeof ControllersRouteWithChildren
   '/nodered': typeof NoderedRoute
+  '/controllers/$controllerId': typeof ControllersControllerIdRoute
   '/screens/$screenId': typeof ScreensScreenIdRoute
   '/screens': typeof ScreensIndexRoute
 }
@@ -157,9 +185,10 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/config': typeof ConfigRoute
-  '/controllers': typeof ControllersRoute
+  '/controllers': typeof ControllersRouteWithChildren
   '/nodered': typeof NoderedRoute
   '/screens': typeof ScreensRouteWithChildren
+  '/controllers/$controllerId': typeof ControllersControllerIdRoute
   '/screens/$screenId': typeof ScreensScreenIdRoute
   '/screens/': typeof ScreensIndexRoute
 }
@@ -172,6 +201,7 @@ export interface FileRouteTypes {
     | '/controllers'
     | '/nodered'
     | '/screens'
+    | '/controllers/$controllerId'
     | '/screens/$screenId'
     | '/screens/'
   fileRoutesByTo: FileRoutesByTo
@@ -180,6 +210,7 @@ export interface FileRouteTypes {
     | '/config'
     | '/controllers'
     | '/nodered'
+    | '/controllers/$controllerId'
     | '/screens/$screenId'
     | '/screens'
   id:
@@ -189,6 +220,7 @@ export interface FileRouteTypes {
     | '/controllers'
     | '/nodered'
     | '/screens'
+    | '/controllers/$controllerId'
     | '/screens/$screenId'
     | '/screens/'
   fileRoutesById: FileRoutesById
@@ -197,7 +229,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ConfigRoute: typeof ConfigRoute
-  ControllersRoute: typeof ControllersRoute
+  ControllersRoute: typeof ControllersRouteWithChildren
   NoderedRoute: typeof NoderedRoute
   ScreensRoute: typeof ScreensRouteWithChildren
 }
@@ -205,7 +237,7 @@ export interface RootRouteChildren {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ConfigRoute: ConfigRoute,
-  ControllersRoute: ControllersRoute,
+  ControllersRoute: ControllersRouteWithChildren,
   NoderedRoute: NoderedRoute,
   ScreensRoute: ScreensRouteWithChildren,
 }
@@ -234,7 +266,10 @@ export const routeTree = rootRoute
       "filePath": "config.tsx"
     },
     "/controllers": {
-      "filePath": "controllers.tsx"
+      "filePath": "controllers.tsx",
+      "children": [
+        "/controllers/$controllerId"
+      ]
     },
     "/nodered": {
       "filePath": "nodered.tsx"
@@ -245,6 +280,10 @@ export const routeTree = rootRoute
         "/screens/$screenId",
         "/screens/"
       ]
+    },
+    "/controllers/$controllerId": {
+      "filePath": "controllers.$controllerId.tsx",
+      "parent": "/controllers"
     },
     "/screens/$screenId": {
       "filePath": "screens.$screenId.tsx",

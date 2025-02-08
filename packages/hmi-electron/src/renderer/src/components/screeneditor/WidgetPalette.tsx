@@ -8,7 +8,7 @@ import { Tooltip, TooltipTrigger, TooltipContent } from '@renderer/components/ui
 import { EditDragData } from '@renderer/types'
 import { type WidgetTemplateType } from '$/src/db/schema'
 
-const WidgetPalette = () => {
+const WidgetPalette = React.memo(() => {
   const { data, isLoading, isError, error } = useGetComponentTemplates()
 
   const handleDragStart = React.useCallback(
@@ -28,7 +28,7 @@ const WidgetPalette = () => {
     // console.log('widget onDragEnd', e)
   }, [])
 
-  const getIcon = (widgetName: string): React.ReactNode | null => {
+  const getIcon = React.useCallback((widgetName: string): React.ReactNode | null => {
     switch (widgetName) {
       case 'Text':
         return <TypeOutline className="inline" />
@@ -37,7 +37,7 @@ const WidgetPalette = () => {
       default:
         return null
     }
-  }
+  }, [])
 
   if (isLoading) return <div>Loading...</div>
   if (isError) return <div>Error: {error.message}</div>
@@ -67,7 +67,7 @@ const WidgetPalette = () => {
       </div>
     </ScrollArea>
   )
-}
+})
 
 const WrappedWidgetPalette = () => {
   return (
