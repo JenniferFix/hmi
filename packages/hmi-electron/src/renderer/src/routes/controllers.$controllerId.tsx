@@ -1,10 +1,10 @@
 import { createFileRoute } from '@tanstack/react-router'
-import ControllerEditor from '@renderer/components/controllereditor/ControllerEditor'
+import ControllerTags from '@renderer/components/controllereditor/ControllerTags'
 
 export const Route = createFileRoute('/controllers/$controllerId')({
   component: RouteComponent
 })
 
 function RouteComponent() {
-  return <ControllerEditor controllerId={Route.useParams().controllerId} />
+  return <ControllerTags controllerId={Route.useParams().controllerId} />
 }

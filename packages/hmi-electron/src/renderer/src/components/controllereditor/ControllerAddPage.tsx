@@ -9,8 +9,8 @@ import {
 
 const AddControllerPage = React.memo(() => {
   return (
-    <div>
-      <Card>
+    <div className="w-full h-full flex items-center justify-center">
+      <Card className="">
         <CardHeader>
           <CardTitle>Add Controller</CardTitle>
           <CardDescription>Add a new controller</CardDescription>
