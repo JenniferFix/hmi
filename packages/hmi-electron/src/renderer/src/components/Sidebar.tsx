@@ -43,7 +43,15 @@ const ControllerList = React.memo(() => {
       {data?.map((controller, idx) => {
         return (
           <SidebarMenuItem key={idx}>
-            <SidebarMenuButton>{controller.ip}</SidebarMenuButton>
+            <SidebarMenuButton asChild>
+              <Link
+                to="/controllers/$controllerId"
+                params={{ controllerId: controller.id }}
+                activeProps={{ className: 'bg-sidebar-accent text-sidebar-accent-foreground' }}
+              >
+                {controller.ip}
+              </Link>
+            </SidebarMenuButton>
           </SidebarMenuItem>
         )
       })}

@@ -22,6 +22,7 @@ export const tag = sqliteTable('tag', {
     .default(sql`CURRENT_TIMESTAMP`)
     .$onUpdate(() => sql`CURRENT_TIMESTAMP`),
   name: text('name').notNull().default(''),
+  description: text().default(''),
   controllerId: text('controllerId').references(() => controller.id),
   dataTypeId: text('dataTypeId')
     .notNull()

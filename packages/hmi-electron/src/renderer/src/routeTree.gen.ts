@@ -21,6 +21,7 @@ import { Route as ControllersIndexImport } from './routes/controllers.index'
 import { Route as ScreensScreenIdImport } from './routes/screens.$screenId'
 import { Route as ControllersAddImport } from './routes/controllers.add'
 import { Route as ControllersControllerIdImport } from './routes/controllers.$controllerId'
+import { Route as ControllersControllerIdEditImport } from './routes/controllers.$controllerId_.edit'
 
 // Create/Update Routes
 
@@ -83,6 +84,13 @@ const ControllersControllerIdRoute = ControllersControllerIdImport.update({
   path: '/$controllerId',
   getParentRoute: () => ControllersRoute,
 } as any)
+
+const ControllersControllerIdEditRoute =
+  ControllersControllerIdEditImport.update({
+    id: '/$controllerId_/edit',
+    path: '/$controllerId/edit',
+    getParentRoute: () => ControllersRoute,
+  } as any)
 
 // Populate the FileRoutesByPath interface
 
@@ -158,6 +166,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ScreensIndexImport
       parentRoute: typeof ScreensImport
     }
+    '/controllers/$controllerId_/edit': {
+      id: '/controllers/$controllerId_/edit'
+      path: '/$controllerId/edit'
+      fullPath: '/controllers/$controllerId/edit'
+      preLoaderRoute: typeof ControllersControllerIdEditImport
+      parentRoute: typeof ControllersImport
+    }
   }
 }
 
@@ -167,12 +182,14 @@ interface ControllersRouteChildren {
   ControllersControllerIdRoute: typeof ControllersControllerIdRoute
   ControllersAddRoute: typeof ControllersAddRoute
   ControllersIndexRoute: typeof ControllersIndexRoute
+  ControllersControllerIdEditRoute: typeof ControllersControllerIdEditRoute
 }
 
 const ControllersRouteChildren: ControllersRouteChildren = {
   ControllersControllerIdRoute: ControllersControllerIdRoute,
   ControllersAddRoute: ControllersAddRoute,
   ControllersIndexRoute: ControllersIndexRoute,
+  ControllersControllerIdEditRoute: ControllersControllerIdEditRoute,
 }
 
 const ControllersRouteWithChildren = ControllersRoute._addFileChildren(
@@ -203,6 +220,7 @@ export interface FileRoutesByFullPath {
   '/screens/$screenId': typeof ScreensScreenIdRoute
   '/controllers/': typeof ControllersIndexRoute
   '/screens/': typeof ScreensIndexRoute
+  '/controllers/$controllerId/edit': typeof ControllersControllerIdEditRoute
 }
 
 export interface FileRoutesByTo {
@@ -214,6 +232,7 @@ export interface FileRoutesByTo {
   '/screens/$screenId': typeof ScreensScreenIdRoute
   '/controllers': typeof ControllersIndexRoute
   '/screens': typeof ScreensIndexRoute
+  '/controllers/$controllerId/edit': typeof ControllersControllerIdEditRoute
 }
 
 export interface FileRoutesById {
@@ -228,6 +247,7 @@ export interface FileRoutesById {
   '/screens/$screenId': typeof ScreensScreenIdRoute
   '/controllers/': typeof ControllersIndexRoute
   '/screens/': typeof ScreensIndexRoute
+  '/controllers/$controllerId_/edit': typeof ControllersControllerIdEditRoute
 }
 
 export interface FileRouteTypes {
@@ -243,6 +263,7 @@ export interface FileRouteTypes {
     | '/screens/$screenId'
     | '/controllers/'
     | '/screens/'
+    | '/controllers/$controllerId/edit'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -253,6 +274,7 @@ export interface FileRouteTypes {
     | '/screens/$screenId'
     | '/controllers'
     | '/screens'
+    | '/controllers/$controllerId/edit'
   id:
     | '__root__'
     | '/'
@@ -265,6 +287,7 @@ export interface FileRouteTypes {
     | '/screens/$screenId'
     | '/controllers/'
     | '/screens/'
+    | '/controllers/$controllerId_/edit'
   fileRoutesById: FileRoutesById
 }
 
@@ -312,7 +335,8 @@ export const routeTree = rootRoute
       "children": [
         "/controllers/$controllerId",
         "/controllers/add",
-        "/controllers/"
+        "/controllers/",
+        "/controllers/$controllerId_/edit"
       ]
     },
     "/nodered": {
@@ -344,6 +368,10 @@ export const routeTree = rootRoute
     "/screens/": {
       "filePath": "screens.index.tsx",
       "parent": "/screens"
+    },
+    "/controllers/$controllerId_/edit": {
+      "filePath": "controllers.$controllerId_.edit.tsx",
+      "parent": "/controllers"
     }
   }
 }

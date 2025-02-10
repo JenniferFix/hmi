@@ -1,6 +1,6 @@
 {
   "name": "@fixtech/hmi",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "An application to build HMI clients for use with Allen Bradley PLCs",
   "author": "Jennifer Fix",
   "homepage": "https://jenniferfix.ca",

@@ -1,4 +1,5 @@
 import * as React from 'react'
+import ControllerAddEditForm from './ControllerAddEditForm'
 import {
   Card,
   CardContent,
@@ -6,22 +7,21 @@ import {
   CardHeader,
   CardTitle
 } from '@renderer/components/ui/card'
-import ControllerAddEditForm from './ControllerAddEditForm'
 
-const AddControllerPage = React.memo(() => {
+const ControllerEditPage = ({ controllerId }: { controllerId: string }) => {
   return (
     <div className="grow w-full h-full flex items-center justify-center">
       <Card>
         <CardHeader>
-          <CardTitle>Add Controller</CardTitle>
-          <CardDescription>Add a new controller</CardDescription>
+          <CardTitle>Edit Controller</CardTitle>
+          <CardDescription>Change the controller settings</CardDescription>
         </CardHeader>
         <CardContent>
-          <ControllerAddEditForm />
+          <ControllerAddEditForm controllerId={controllerId} />
         </CardContent>
       </Card>
     </div>
   )
-})
+}
 
-export default AddControllerPage
+export default ControllerEditPage

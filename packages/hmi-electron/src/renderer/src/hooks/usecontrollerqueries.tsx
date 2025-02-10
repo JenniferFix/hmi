@@ -50,7 +50,7 @@ export function useUpdateController() {
     controllerId: string
     controllerData: UpdateControllerType
   }) => {
-    const result = database
+    const result = await database
       .update(controller)
       .set(controllerData)
       .where(eq(controller.id, controllerId))
@@ -61,6 +61,7 @@ export function useUpdateController() {
     mutationFn,
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: [controllerKey, data.id] })
+      queryClient.invalidateQueries({ queryKey: [controllerKey] })
     }
   })
 }

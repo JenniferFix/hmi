@@ -60,6 +60,7 @@ CREATE TABLE `tag` (
 	`createdAt` text DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	`updatedAt` text DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	`name` text DEFAULT '' NOT NULL,
+	`description` text DEFAULT '',
 	`controllerId` text,
 	`dataTypeId` text NOT NULL,
 	`value` text,

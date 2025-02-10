@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "aa1af0f2-4590-4fdc-901a-a2d8f851dbba",
+  "id": "2142e373-2ecb-4a65-8763-9b2efe812ef5",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "controller": {
@@ -421,6 +421,14 @@
           "type": "text",
           "primaryKey": false,
           "notNull": true,
+          "autoincrement": false,
+          "default": "''"
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
           "autoincrement": false,
           "default": "''"
         },

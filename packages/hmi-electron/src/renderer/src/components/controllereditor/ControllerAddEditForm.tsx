@@ -10,13 +10,14 @@ import {
   useUpdateController,
   useInsertController
 } from '@renderer/hooks/usecontrollerqueries'
-import { ControllerType } from '@db/schema'
-import { useNavigate } from '@tanstack/react-router'
-import { ScrollArea } from '@renderer/components/ui/scroll-area'
+import type { ControllerType, UpdateControllerType } from '@db/schema'
+import { useNavigate, Link, useSearch, useRouter } from '@tanstack/react-router'
+import { FieldWrap } from '@renderer/components/common/Form'
+// import { ScrollArea } from '@renderer/components/ui/scroll-area'
 
 const formSchema = z.object({
   name: z.string(),
-  description: z.string(),
+  description: z.string().nullable(),
   ip: z.string().ip(),
   slot: z.coerce.number(),
   rpi: z.coerce.number()
@@ -30,7 +31,7 @@ const AddForm = React.memo(() => {
     defaultValues: {
       name: '',
       description: '',
-      ip: '',
+      ip: '127.0.0.1',
       slot: 0,
       rpi: 50
     },
@@ -39,11 +40,13 @@ const AddForm = React.memo(() => {
       onChange: formSchema
     },
     onSubmit: async ({ value }) => {
-      const inserted = insertController.mutateAsync(value)
+      const inserted = await insertController.mutateAsync(value)
       form.reset()
       navigate({ to: '/controllers/$controllerId', params: { controllerId: inserted.id } })
     }
   })
+  const required = <span className="text-destructive ml-1">*</span>
+
   return (
     <form
       onSubmit={(e) => {
@@ -52,98 +55,113 @@ const AddForm = React.memo(() => {
         form.handleSubmit()
       }}
     >
-      <div className="flex flex-col gap-1 px-2">
+      <div className="flex flex-col gap-2">
         <form.Field
           name="name"
           children={(field) => (
-            <div>
-              <Label htmlFor={field.name}>Name</Label>
+            <FieldWrap>
+              <Label htmlFor={field.name}>Name{required}</Label>
               <Input
+                className="bg-background text-foreground"
                 name={field.name}
                 value={field.state.value}
                 onBlur={field.handleBlur}
                 onChange={(e) => field.handleChange(e.target.value)}
+                onClick={(e) => e.currentTarget.select()}
               />
               {field.state.meta.errors && (
                 <em role="alert">{field.state.meta.errors.join(', ')}</em>
               )}
-            </div>
-          )}
-        />
-        <form.Field
-          name="description"
-          children={(field) => (
-            <div>
-              <Label htmlFor={field.name}>Description</Label>
-              <Textarea
-                name={field.name}
-                value={field.state.value}
-                onBlur={field.handleBlur}
-                onChange={(e) => field.handleChange(e.target.value)}
-              />
-              {field.state.meta.errors && (
-                <em role="alert">{field.state.meta.errors.join(', ')}</em>
-              )}
-            </div>
+            </FieldWrap>
           )}
         />
         <form.Field
           name="ip"
           children={(field) => (
-            <div>
-              <Label htmlFor={field.name}>IP</Label>
+            <FieldWrap className="bg-accent rounded-xl p-2 border shadow-md">
+              <Label htmlFor={field.name}>IP{required}</Label>
               <Input
+                className="bg-background text-foreground"
                 name={field.name}
                 value={field.state.value}
                 onBlur={field.handleBlur}
                 onChange={(e) => field.handleChange(e.target.value)}
+                onClick={(e) => e.currentTarget.select()}
               />
               {field.state.meta.errors && (
                 <em role="alert">{field.state.meta.errors.join(', ')}</em>
               )}
-            </div>
+            </FieldWrap>
+          )}
+        />
+        <form.Field
+          name="description"
+          children={(field) => (
+            <FieldWrap>
+              <Label htmlFor={field.name}>Description</Label>
+              <Textarea
+                className="bg-background text-foreground"
+                name={field.name}
+                value={field.state.value ?? ''}
+                onBlur={field.handleBlur}
+                onChange={(e) => field.handleChange(e.target.value)}
+                onClick={(e) => e.currentTarget.select()}
+              />
+              {field.state.meta.errors && (
+                <em role="alert">{field.state.meta.errors.join(', ')}</em>
+              )}
+            </FieldWrap>
           )}
         />
         <div className="flex gap-2">
           <form.Field
             name="slot"
             children={(field) => (
-              <div className="grow">
-                <Label htmlFor={field.name}>Slot</Label>
+              <FieldWrap className="grow">
+                <Label htmlFor={field.name}>Slot{required}</Label>
                 <Input
+                  className="bg-background text-foreground"
                   type="number"
                   name={field.name}
                   value={field.state.value}
                   onBlur={field.handleBlur}
                   onChange={(e) => field.handleChange(e.target.valueAsNumber)}
+                  onClick={(e) => e.currentTarget.select()}
                 />
                 {field.state.meta.errors && (
                   <em role="alert">{field.state.meta.errors.join(', ')}</em>
                 )}
-              </div>
+              </FieldWrap>
             )}
           />
           <form.Field
             name="rpi"
             children={(field) => (
-              <div className="grow">
-                <Label htmlFor={field.name}>RPI</Label>
+              <FieldWrap className="grow">
+                <Label htmlFor={field.name}>RPI{required}</Label>
                 <Input
+                  className="bg-background text-foreground"
                   type="number"
                   name={field.name}
                   value={field.state.value}
                   onBlur={field.handleBlur}
                   onChange={(e) => field.handleChange(e.target.valueAsNumber)}
+                  onClick={(e) => e.currentTarget.select()}
                 />
                 {field.state.meta.errors && (
                   <em role="alert">{field.state.meta.errors.join(', ')}</em>
                 )}
-              </div>
+              </FieldWrap>
             )}
           />
         </div>
-        <div className="flex justify-end">
-          <Button type="submit">Add</Button>
+        <div className="flex justify-end gap-3">
+          <Button variant="outline" asChild>
+            <Link to="/controllers">Cancel</Link>
+          </Button>
+          <Button type="submit" variant="outline">
+            Add
+          </Button>
         </div>
       </div>
     </form>
@@ -160,6 +178,7 @@ const UpdateForm = React.memo(({ controllerId }: { controllerId: string }) => {
 })
 
 const UpdateFormInner = React.memo(({ controller }: { controller: ControllerType }) => {
+  const navigate = useNavigate()
   const updateController = useUpdateController()
   const form = useForm({
     defaultValues: {
@@ -173,8 +192,13 @@ const UpdateFormInner = React.memo(({ controller }: { controller: ControllerType
       onSubmit: formSchema,
       onChange: formSchema
     },
-    onSubmit: ({ value }) => {
-      console.log(value)
+    onSubmit: async ({ value }) => {
+      const result = await updateController.mutateAsync({
+        controllerId: controller.id,
+        controllerData: value
+      })
+      form.reset()
+      navigate({ to: '/controllers/$controllerId', params: { controllerId: result.id } })
     }
   })
   return (
@@ -204,11 +228,11 @@ const UpdateFormInner = React.memo(({ controller }: { controller: ControllerType
           )}
         />
         <form.Field
-          name="description"
+          name="ip"
           children={(field) => (
             <div>
-              <Label htmlFor={field.name}>Description</Label>
-              <Textarea
+              <Label htmlFor={field.name}>IP</Label>
+              <Input
                 name={field.name}
                 value={field.state.value}
                 onBlur={field.handleBlur}
@@ -221,13 +245,13 @@ const UpdateFormInner = React.memo(({ controller }: { controller: ControllerType
           )}
         />
         <form.Field
-          name="ip"
+          name="description"
           children={(field) => (
             <div>
-              <Label htmlFor={field.name}>IP</Label>
-              <Input
+              <Label htmlFor={field.name}>Description</Label>
+              <Textarea
                 name={field.name}
-                value={field.state.value}
+                value={field.state.value ?? ''}
                 onBlur={field.handleBlur}
                 onChange={(e) => field.handleChange(e.target.value)}
               />
@@ -276,7 +300,14 @@ const UpdateFormInner = React.memo(({ controller }: { controller: ControllerType
           />
         </div>
         <div className="flex justify-end">
-          <Button type="submit">Add</Button>
+          <Button variant="outline" asChild>
+            <Link to="/controllers/$controllerId" params={{ controllerId: controller.id }}>
+              Cancel
+            </Link>
+          </Button>
+          <Button type="submit" variant="outline">
+            Update
+          </Button>
         </div>
       </div>
     </form>

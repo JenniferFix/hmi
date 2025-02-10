@@ -1,6 +1,6 @@
 {
   "name": "@fixtech/ethernet-ip",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Ethernet/IP communications with Allen-Bradley PLCs",
   "main": "lib/index.js",
   "type": "module",
