@@ -63,6 +63,7 @@ CREATE TABLE `tag` (
 	`description` text DEFAULT '',
 	`controllerId` text,
 	`dataTypeId` text NOT NULL,
+	`program` text DEFAULT '',
 	`value` text,
 	FOREIGN KEY (`controllerId`) REFERENCES `controller`(`id`) ON UPDATE no action ON DELETE no action,
 	FOREIGN KEY (`dataTypeId`) REFERENCES `dataType`(`id`) ON UPDATE no action ON DELETE no action

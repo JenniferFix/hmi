@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "2142e373-2ecb-4a65-8763-9b2efe812ef5",
+  "id": "a2e00af9-be0c-4f70-89b1-bfcbbbd3631b",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "controller": {
@@ -445,6 +445,14 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
+        },
+        "program": {
+          "name": "program",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "''"
         },
         "value": {
           "name": "value",
