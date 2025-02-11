@@ -17,7 +17,7 @@ export {
   type InsertPropertyTemplateType
 } from './propertytemplate'
 export { screen, screenRelations, type ScreenType, type InsertScreenType } from './screen'
-export { tag, tagRelations, type TagType, type InsertTagType } from './tag'
+export { tag, tagRelations, type TagType, type InsertTagType, type UpdateTagType } from './tag'
 export { widget, widgetRelations, type WidgetType, type InsertWidgetType } from './widget'
 export {
   widgetTemplate,

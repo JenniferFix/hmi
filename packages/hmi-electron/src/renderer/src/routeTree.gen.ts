@@ -22,6 +22,7 @@ import { Route as ScreensScreenIdImport } from './routes/screens.$screenId'
 import { Route as ControllersAddImport } from './routes/controllers.add'
 import { Route as ControllersControllerIdImport } from './routes/controllers.$controllerId'
 import { Route as ControllersControllerIdEditImport } from './routes/controllers.$controllerId_.edit'
+import { Route as ControllersControllerIdAddtagImport } from './routes/controllers.$controllerId_.addtag'
 
 // Create/Update Routes
 
@@ -89,6 +90,13 @@ const ControllersControllerIdEditRoute =
   ControllersControllerIdEditImport.update({
     id: '/$controllerId_/edit',
     path: '/$controllerId/edit',
+    getParentRoute: () => ControllersRoute,
+  } as any)
+
+const ControllersControllerIdAddtagRoute =
+  ControllersControllerIdAddtagImport.update({
+    id: '/$controllerId_/addtag',
+    path: '/$controllerId/addtag',
     getParentRoute: () => ControllersRoute,
   } as any)
 
@@ -166,6 +174,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ScreensIndexImport
       parentRoute: typeof ScreensImport
     }
+    '/controllers/$controllerId_/addtag': {
+      id: '/controllers/$controllerId_/addtag'
+      path: '/$controllerId/addtag'
+      fullPath: '/controllers/$controllerId/addtag'
+      preLoaderRoute: typeof ControllersControllerIdAddtagImport
+      parentRoute: typeof ControllersImport
+    }
     '/controllers/$controllerId_/edit': {
       id: '/controllers/$controllerId_/edit'
       path: '/$controllerId/edit'
@@ -182,6 +197,7 @@ interface ControllersRouteChildren {
   ControllersControllerIdRoute: typeof ControllersControllerIdRoute
   ControllersAddRoute: typeof ControllersAddRoute
   ControllersIndexRoute: typeof ControllersIndexRoute
+  ControllersControllerIdAddtagRoute: typeof ControllersControllerIdAddtagRoute
   ControllersControllerIdEditRoute: typeof ControllersControllerIdEditRoute
 }
 
@@ -189,6 +205,7 @@ const ControllersRouteChildren: ControllersRouteChildren = {
   ControllersControllerIdRoute: ControllersControllerIdRoute,
   ControllersAddRoute: ControllersAddRoute,
   ControllersIndexRoute: ControllersIndexRoute,
+  ControllersControllerIdAddtagRoute: ControllersControllerIdAddtagRoute,
   ControllersControllerIdEditRoute: ControllersControllerIdEditRoute,
 }
 
@@ -220,6 +237,7 @@ export interface FileRoutesByFullPath {
   '/screens/$screenId': typeof ScreensScreenIdRoute
   '/controllers/': typeof ControllersIndexRoute
   '/screens/': typeof ScreensIndexRoute
+  '/controllers/$controllerId/addtag': typeof ControllersControllerIdAddtagRoute
   '/controllers/$controllerId/edit': typeof ControllersControllerIdEditRoute
 }
 
@@ -232,6 +250,7 @@ export interface FileRoutesByTo {
   '/screens/$screenId': typeof ScreensScreenIdRoute
   '/controllers': typeof ControllersIndexRoute
   '/screens': typeof ScreensIndexRoute
+  '/controllers/$controllerId/addtag': typeof ControllersControllerIdAddtagRoute
   '/controllers/$controllerId/edit': typeof ControllersControllerIdEditRoute
 }
 
@@ -247,6 +266,7 @@ export interface FileRoutesById {
   '/screens/$screenId': typeof ScreensScreenIdRoute
   '/controllers/': typeof ControllersIndexRoute
   '/screens/': typeof ScreensIndexRoute
+  '/controllers/$controllerId_/addtag': typeof ControllersControllerIdAddtagRoute
   '/controllers/$controllerId_/edit': typeof ControllersControllerIdEditRoute
 }
 
@@ -263,6 +283,7 @@ export interface FileRouteTypes {
     | '/screens/$screenId'
     | '/controllers/'
     | '/screens/'
+    | '/controllers/$controllerId/addtag'
     | '/controllers/$controllerId/edit'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -274,6 +295,7 @@ export interface FileRouteTypes {
     | '/screens/$screenId'
     | '/controllers'
     | '/screens'
+    | '/controllers/$controllerId/addtag'
     | '/controllers/$controllerId/edit'
   id:
     | '__root__'
@@ -287,6 +309,7 @@ export interface FileRouteTypes {
     | '/screens/$screenId'
     | '/controllers/'
     | '/screens/'
+    | '/controllers/$controllerId_/addtag'
     | '/controllers/$controllerId_/edit'
   fileRoutesById: FileRoutesById
 }
@@ -336,6 +359,7 @@ export const routeTree = rootRoute
         "/controllers/$controllerId",
         "/controllers/add",
         "/controllers/",
+        "/controllers/$controllerId_/addtag",
         "/controllers/$controllerId_/edit"
       ]
     },
@@ -368,6 +392,10 @@ export const routeTree = rootRoute
     "/screens/": {
       "filePath": "screens.index.tsx",
       "parent": "/screens"
+    },
+    "/controllers/$controllerId_/addtag": {
+      "filePath": "controllers.$controllerId_.addtag.tsx",
+      "parent": "/controllers"
     },
     "/controllers/$controllerId_/edit": {
       "filePath": "controllers.$controllerId_.edit.tsx",

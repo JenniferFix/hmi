@@ -27,6 +27,7 @@ export const tag = sqliteTable('tag', {
   dataTypeId: text('dataTypeId')
     .notNull()
     .references(() => dataType.id),
+  program: text('program').default(''),
   value: text('value')
 })
 
@@ -44,6 +45,7 @@ export const tagRelations = relations(tag, ({ one, many }) => ({
 
 export type TagType = typeof tag.$inferSelect
 export type InsertTagType = typeof tag.$inferInsert
+export type UpdateTagType = Partial<Omit<InsertTagType, 'id' | 'createdAt' | 'updatedAt'>>
 export const tagSelectSchema = createSelectSchema(tag)
 export const tagUpdateSchema = createUpdateSchema(tag)
 export const tagInsertSchema = createInsertSchema(tag)
