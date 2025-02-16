@@ -5,6 +5,7 @@ import fs from 'fs'
 import { app } from 'electron'
 import path from 'path'
 import { createClient } from '@libsql/client'
+import { BaseSQLiteDatabase } from 'drizzle-orm/sqlite-core'
 
 const dbPath = import.meta.env.DEV ? 'sqlite.db' : path.join(app.getPath('userData'), 'data.db')
 

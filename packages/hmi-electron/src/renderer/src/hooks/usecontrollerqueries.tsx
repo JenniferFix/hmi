@@ -21,7 +21,7 @@ export function useGetController(controllerId: string) {
     queryFn: async () => {
       return await database.query.controller.findFirst({
         where: (controller, { eq }) => eq(controller.id, controllerId),
-        with: { tags: true }
+        with: { tags: { with: { dataType: true } } }
       })
     }
   })

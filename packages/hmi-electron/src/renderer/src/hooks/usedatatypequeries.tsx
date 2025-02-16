@@ -13,3 +13,14 @@ export const useGetDatatypes = () => {
     }
   })
 }
+
+export const useGetDatatype = (datatypeId: string) => {
+  return useQuery({
+    queryKey: [datatypeKey, datatypeId],
+    queryFn: async () => {
+      return await database.query.dataType.findFirst({
+        where: (datatype, { eq }) => eq(datatype.id, datatypeId)
+      })
+    }
+  })
+}

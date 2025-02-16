@@ -8,11 +8,11 @@ import {
   useSetWidgetPropertyValue
 } from '@renderer/hooks/usewidgetqueries'
 import Widget from '@renderer/components/screeneditor/Widget'
-import { useEditorStore } from '@renderer/store'
+import { useHMIEditorStore } from '@renderer/store'
 
 const Screen = ({ screenId }: { screenId: string }) => {
-  const clearSelectedWidgets = useEditorStore((state) => state.clearSelection)
-  const setSelected = useEditorStore((state) => state.setSelected)
+  const clearSelectedWidgets = useHMIEditorStore((state) => state.clearSelection)
+  const setSelected = useHMIEditorStore((state) => state.setSelected)
   const {
     data: screenData,
     isLoading: screenIsLoading,

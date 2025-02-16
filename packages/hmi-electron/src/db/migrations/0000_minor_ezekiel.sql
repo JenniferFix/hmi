@@ -56,19 +56,22 @@ CREATE TABLE `screen` (
 );
 --> statement-breakpoint
 CREATE TABLE `tag` (
-	`id` text PRIMARY KEY NOT NULL,
+	`id` text,
 	`createdAt` text DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	`updatedAt` text DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	`name` text DEFAULT '' NOT NULL,
 	`description` text DEFAULT '',
-	`controllerId` text,
+	`controllerId` text NOT NULL,
 	`dataTypeId` text NOT NULL,
 	`program` text DEFAULT '',
 	`value` text,
+	PRIMARY KEY(`controllerId`, `name`),
 	FOREIGN KEY (`controllerId`) REFERENCES `controller`(`id`) ON UPDATE no action ON DELETE no action,
 	FOREIGN KEY (`dataTypeId`) REFERENCES `dataType`(`id`) ON UPDATE no action ON DELETE no action
 );
 --> statement-breakpoint
+CREATE UNIQUE INDEX `id` ON `tag` (`id`);--> statement-breakpoint
+CREATE INDEX `name` ON `tag` (`name`);--> statement-breakpoint
 CREATE TABLE `widget` (
 	`id` text PRIMARY KEY NOT NULL,
 	`createdAt` text DEFAULT CURRENT_TIMESTAMP NOT NULL,

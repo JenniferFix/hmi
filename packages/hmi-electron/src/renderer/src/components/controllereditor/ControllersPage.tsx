@@ -46,7 +46,7 @@ const Controllers = React.memo(() => {
   if (isError) return null
 
   return (
-    <div className="grow flex flex-col gap-2 px-3 py-2">
+    <div className="grow flex flex-col gap-2 px-3 py-2 max-h-screen">
       <div className="flex gap-2">
         <Select value={selected} onValueChange={(value) => setSelected(value)}>
           <SelectTrigger>

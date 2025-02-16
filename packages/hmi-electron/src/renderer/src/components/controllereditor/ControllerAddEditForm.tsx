@@ -101,6 +101,7 @@ const AddForm = React.memo(() => {
               <Label htmlFor={field.name}>Description</Label>
               <Textarea
                 className="bg-background text-foreground"
+                placeholder="Description"
                 name={field.name}
                 value={field.state.value ?? ''}
                 onBlur={field.handleBlur}

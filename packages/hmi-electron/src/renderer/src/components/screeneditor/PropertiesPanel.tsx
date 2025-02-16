@@ -10,7 +10,7 @@ import {
 } from '@renderer/components/ui/table'
 import { ScrollArea } from '@renderer/components/ui/scroll-area'
 import PaletteWrap from '@renderer/components/screeneditor/PaletteWrap'
-import { useEditorStore } from '@renderer/store'
+import { useHMIEditorStore } from '@renderer/store'
 import { useGetWidget } from '@renderer/hooks/usewidgetqueries'
 import NumberSpinner from '@renderer/components/ui/numberspinner'
 import { useGetWidgetProperty, useUpsertProperty } from '@renderer/hooks/usepropertyqueries'
@@ -124,7 +124,7 @@ const InnerPropertiesPanel = React.memo(({ widgetId }: { widgetId: string }) => 
 InnerPropertiesPanel.displayName = 'InnerPropertiesPanel'
 
 const OuterPropertiesPanel = React.memo(() => {
-  const selectedWidgets = useEditorStore((state) => state.selectedWidgets)
+  const selectedWidgets = useHMIEditorStore((state) => state.selectedWidgets)
   if (selectedWidgets.length > 1) return <div>Multiple Selected</div>
   if (selectedWidgets.length === 0) return <div>Select a Widget</div>
   if (selectedWidgets.length === 1) return <InnerPropertiesPanel widgetId={selectedWidgets[0]} />

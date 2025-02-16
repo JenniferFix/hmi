@@ -25,7 +25,7 @@ const TagAddToControllerPage = React.memo(({ controllerId }: { controllerId: str
           <CardDescription>Adds tag to selected controller</CardDescription>
         </CardHeader>
         <CardContent>
-          <TagAddEditForm />
+          <TagAddEditForm controllerId={controllerId} />
         </CardContent>
       </Card>
     </div>

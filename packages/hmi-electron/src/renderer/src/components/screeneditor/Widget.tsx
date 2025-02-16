@@ -2,17 +2,17 @@ import * as React from 'react'
 import { useGetWidget } from '@renderer/hooks/usewidgetqueries'
 import Text from '@renderer/components/screeneditor/defaultwidgets/Text'
 import Image from '@renderer/components/screeneditor/defaultwidgets/Image'
-import { useEditorStore } from '@renderer/store'
+import { useHMIEditorStore } from '@renderer/store'
 import { cn } from '@renderer/lib/utils'
 import WidgetContextMenu from './WidgetContextMenu'
 import { EditDragData } from '@renderer/types'
 
 const Widget = ({ widgetId }: { widgetId: string }) => {
   const { data, isLoading, isError, error } = useGetWidget({ id: widgetId })
-  const isSelected = useEditorStore((state) => state.selectedWidgets.includes(widgetId))
-  const setSelected = useEditorStore((state) => state.setSelected)
-  const addToSelected = useEditorStore((state) => state.addToSelected)
-  const removeFromSelected = useEditorStore((state) => state.removeFromSelected)
+  const isSelected = useHMIEditorStore((state) => state.selectedWidgets.includes(widgetId))
+  const setSelected = useHMIEditorStore((state) => state.setSelected)
+  const addToSelected = useHMIEditorStore((state) => state.addToSelected)
+  const removeFromSelected = useHMIEditorStore((state) => state.removeFromSelected)
 
   const handleClick: React.MouseEventHandler<HTMLElement> = React.useCallback(
     (e) => {

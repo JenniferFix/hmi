@@ -33,7 +33,14 @@ const ControllerList = React.memo(() => {
     return (
       <SidebarMenu>
         <SidebarMenuItem>
-          <SidebarMenuButton>Add Controller</SidebarMenuButton>
+          <SidebarMenuButton asChild>
+            <Link
+              to={'/controllers/add'}
+              activeProps={{ className: 'bg-sidebar-accent text-sidebar-accent-foreground' }}
+            >
+              Add Controller
+            </Link>
+          </SidebarMenuButton>
         </SidebarMenuItem>
       </SidebarMenu>
     )

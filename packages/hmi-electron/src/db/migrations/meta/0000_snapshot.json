@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "a2e00af9-be0c-4f70-89b1-bfcbbbd3631b",
+  "id": "27c64b5f-d80a-43ef-937e-b423e7787b3d",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "controller": {
@@ -396,8 +396,8 @@
         "id": {
           "name": "id",
           "type": "text",
-          "primaryKey": true,
-          "notNull": true,
+          "primaryKey": false,
+          "notNull": false,
           "autoincrement": false
         },
         "createdAt": {
@@ -436,7 +436,7 @@
           "name": "controllerId",
           "type": "text",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "autoincrement": false
         },
         "dataTypeId": {
@@ -462,7 +462,22 @@
           "autoincrement": false
         }
       },
-      "indexes": {},
+      "indexes": {
+        "id": {
+          "name": "id",
+          "columns": [
+            "id"
+          ],
+          "isUnique": true
+        },
+        "name": {
+          "name": "name",
+          "columns": [
+            "name"
+          ],
+          "isUnique": false
+        }
+      },
       "foreignKeys": {
         "tag_controllerId_controller_id_fk": {
           "name": "tag_controllerId_controller_id_fk",
@@ -491,7 +506,15 @@
           "onUpdate": "no action"
         }
       },
-      "compositePrimaryKeys": {},
+      "compositePrimaryKeys": {
+        "tag_controllerId_name_pk": {
+          "columns": [
+            "controllerId",
+            "name"
+          ],
+          "name": "tag_controllerId_name_pk"
+        }
+      },
       "uniqueConstraints": {},
       "checkConstraints": {}
     },

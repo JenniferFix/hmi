@@ -3,6 +3,7 @@ import { useForm } from '@tanstack/react-form'
 import { Button } from '@renderer/components/ui/button'
 import { Label } from '@renderer/components/ui/label'
 import { Input } from '@renderer/components/ui/input'
+import { Textarea } from '@renderer/components/ui/textarea'
 import { z } from 'zod'
 import {
   useGetController,
@@ -10,7 +11,7 @@ import {
   useInsertController
 } from '@renderer/hooks/usecontrollerqueries'
 import { useGetTag, useUpdateTag, useInsertTag } from '@renderer/hooks/usetagqueries'
-import type { ControllerType, UpdateControllerType } from '@db/schema'
+import type { InsertTagType } from '@db/schema'
 import { useNavigate, Link, useSearch, useRouter } from '@tanstack/react-router'
 import { FieldWrap } from '@renderer/components/common/Form'
 import DatatypeDropdown from './DatatypeDropdown'
@@ -18,16 +19,29 @@ import DatatypeDropdown from './DatatypeDropdown'
 
 const formSchema = z.object({
   name: z.string(),
-  datatype: z.string(),
-  program: z.string().nullable()
+  dataTypeId: z.string(),
+  program: z.string().nullable(),
+  description: z.string()
 })
 
-const AddForm = () => {
+const AddForm = ({ controllerId }: { controllerId: string }) => {
+  const navigate = useNavigate()
+  const insertTag = useInsertTag()
   const form = useForm({
     defaultValues: {
       name: '',
-      datatype: '',
-      program: ''
+      dataTypeId: '',
+      program: '',
+      description: ''
+    },
+    validators: {
+      onSubmit: formSchema
+    },
+    onSubmit: async ({ value }) => {
+      // TODO: Decide if there is a tag page to go to, or get rid of the return value
+      const inserted = await insertTag.mutateAsync({ values: { ...value, controllerId } })
+      form.reset()
+      navigate({ to: '/controllers/$controllerId', params: { controllerId } })
     }
   })
   return (
@@ -45,7 +59,8 @@ const AddForm = () => {
             <FieldWrap>
               <Label htmlFor={field.name}>Name</Label>
               <Input
-                className="bg-background text-foreground"
+                className="bg-background text-foreground w-80"
+                placeholder="Tagname"
                 name={field.name}
                 value={field.state.value}
                 onBlur={field.handleBlur}
@@ -56,18 +71,23 @@ const AddForm = () => {
           )}
         />
         <form.Field
-          name="datatype"
+          name="dataTypeId"
           children={(field) => (
             <FieldWrap>
               <Label htmlFor={field.name}>Datatype</Label>
-              <Input
+              <DatatypeDropdown
                 className="bg-background text-foreground"
-                name={field.name}
-                value={field.state.value}
-                onBlur={field.handleBlur}
-                onChange={(e) => field.handleChange(e.target.value)}
-                onClick={(e) => e.currentTarget.select()}
+                selectedId={field.state.value}
+                setSelectedId={field.setValue}
               />
+              {/* <Input */}
+              {/*   className="bg-background text-foreground" */}
+              {/*   name={field.name} */}
+              {/*   value={field.state.value} */}
+              {/*   onBlur={field.handleBlur} */}
+              {/*   onChange={(e) => field.handleChange(e.target.value)} */}
+              {/*   onClick={(e) => e.currentTarget.select()} */}
+              {/* /> */}
             </FieldWrap>
           )}
         />
@@ -76,11 +96,28 @@ const AddForm = () => {
           children={(field) => (
             <FieldWrap>
               <Label htmlFor={field.name}>Program</Label>
-              <DatatypeDropdown selectedId={field.state.value} setSelectedId={field.setValue} />
               <Input
                 className="bg-background text-foreground"
+                placeholder="Program"
                 name={field.name}
-                value={field.state.value}
+                value={field.state.value ?? ''}
+                onBlur={field.handleBlur}
+                onChange={(e) => field.handleChange(e.target.value)}
+                onClick={(e) => e.currentTarget.select()}
+              />
+            </FieldWrap>
+          )}
+        />
+        <form.Field
+          name="description"
+          children={(field) => (
+            <FieldWrap>
+              <Label htmlFor={field.name}>Description</Label>
+              <Textarea
+                className="bg-background text-foreground"
+                placeholder="Description"
+                name={field.name}
+                value={field.state.value ?? ''}
                 onBlur={field.handleBlur}
                 onChange={(e) => field.handleChange(e.target.value)}
                 onClick={(e) => e.currentTarget.select()}
@@ -89,7 +126,14 @@ const AddForm = () => {
           )}
         />
         <div className="flex justify-end gap-2">
-          <Button variant="outline">Cancel</Button>
+          <Button variant="outline" asChild>
+            <Link to="/controllers/$controllerId" params={{ controllerId }}>
+              Cancel
+            </Link>
+          </Button>
+          <Button variant="outline" disabled>
+            Check
+          </Button>
           <Button variant="default" type="submit">
             Add
           </Button>
@@ -103,9 +147,9 @@ const EditForm = ({ tagId }: { tagId: string }) => {
   return <div> hi</div>
 }
 
-const TagAddEditForm = ({ tagId }: { tagId?: string }) => {
+const TagAddEditForm = ({ controllerId, tagId }: { controllerId?: string; tagId?: string }) => {
   if (tagId) return <EditForm tagId={tagId} />
-  return <AddForm />
+  return <AddForm controllerId={controllerId ?? ''} />
 }
 
 export default TagAddEditForm

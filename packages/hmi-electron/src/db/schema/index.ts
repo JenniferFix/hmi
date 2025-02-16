@@ -8,6 +8,7 @@ export {
   controllerUpdateSchema,
   controllerInsertSchema
 } from './controller'
+import { type DataTypeType } from './datatype'
 export { dataType, type DataTypeType, type InsertDataTypeType } from './datatype'
 export { property, propertyRelations, type PropertyType, type InsertPropertyType } from './property'
 export {
@@ -17,6 +18,7 @@ export {
   type InsertPropertyTemplateType
 } from './propertytemplate'
 export { screen, screenRelations, type ScreenType, type InsertScreenType } from './screen'
+import { type TagType, type InsertTagType, type UpdateTagType } from './tag'
 export { tag, tagRelations, type TagType, type InsertTagType, type UpdateTagType } from './tag'
 export { widget, widgetRelations, type WidgetType, type InsertWidgetType } from './widget'
 export {
@@ -31,3 +33,4 @@ export {
   type WidgetsTagsType,
   type InsertWidgetsTagsType
 } from './widgetstags'
+export type TagWithDatatype = TagType & { dataType: DataTypeType }
