@@ -1,5 +1,5 @@
 {
-  "name": "@fixtech/hmi-js-websocket",
+  "name": "@fixtech/hmi-websocket",
   "version": "0.0.1",
   "description": "",
   "main": "dist/index.js",

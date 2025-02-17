@@ -15,13 +15,7 @@ importers:
         specifier: ^6.0.1
         version: 6.0.1
 
-  packages/ethernet-ip:
-    dependencies:
-      st-ethernet-ip:
-        specifier: ^2.7.3
-        version: 2.7.3
-
-  packages/hmi-electron:
+  packages/editor:
     dependencies:
       '@electron-toolkit/preload':
         specifier: ^3.0.1
@@ -29,6 +23,9 @@ importers:
       '@electron-toolkit/utils':
         specifier: ^4.0.0
         version: 4.0.0(electron@34.1.1)
+      '@fixtech/hmi-websocket':
+        specifier: workspace:*
+        version: link:../websocket
       '@fixtech/node-red-contrib-fixtech-hmi-websocket':
         specifier: workspace:*
         version: link:../node-red-contrib-fixtech-hmi-websocket
@@ -247,7 +244,38 @@ importers:
         specifier: ^3.0.5
         version: 3.0.5(@types/debug@4.1.12)(@types/node@22.13.1)(jiti@1.21.7)(tsx@4.19.2)(yaml@2.7.0)
 
-  packages/hmi-js-websocket:
+  packages/ethernet-ip:
+    dependencies:
+      st-ethernet-ip:
+        specifier: ^2.7.3
+        version: 2.7.3
+
+  packages/node-red-contrib-fixtech-hmi-websocket:
+    dependencies:
+      ws:
+        specifier: ^8.18.0
+        version: 8.18.0
+    devDependencies:
+      '@fixtech/hmi-websocket':
+        specifier: workspace:*
+        version: link:../websocket
+      '@types/node':
+        specifier: ^22.13.1
+        version: 22.13.1
+      '@types/node-red':
+        specifier: ^1.3.5
+        version: 1.3.5
+      esbuild:
+        specifier: ^0.25.0
+        version: 0.25.0
+      eslint:
+        specifier: ^9.20.0
+        version: 9.20.0(jiti@1.21.7)
+      typescript:
+        specifier: ^5.7.3
+        version: 5.7.3
+
+  packages/websocket:
     dependencies:
       ws:
         specifier: ^8.18.0
@@ -262,31 +290,6 @@ importers:
       rimraf:
         specifier: ^6.0.1
         version: 6.0.1
-      typescript:
-        specifier: ^5.7.3
-        version: 5.7.3
-
-  packages/node-red-contrib-fixtech-hmi-websocket:
-    dependencies:
-      ws:
-        specifier: ^8.18.0
-        version: 8.18.0
-    devDependencies:
-      '@fixtech/hmi-js-websocket':
-        specifier: workspace:*
-        version: link:../hmi-js-websocket
-      '@types/node':
-        specifier: ^22.13.1
-        version: 22.13.1
-      '@types/node-red':
-        specifier: ^1.3.5
-        version: 1.3.5
-      esbuild:
-        specifier: ^0.25.0
-        version: 0.25.0
-      eslint:
-        specifier: ^9.20.0
-        version: 9.20.0(jiti@1.21.7)
       typescript:
         specifier: ^5.7.3
         version: 5.7.3
@@ -8135,7 +8138,7 @@ snapshots:
 
   acorn-walk@8.3.4:
     dependencies:
-      acorn: 8.12.1
+      acorn: 8.14.0
 
   acorn@8.12.1: {}
 

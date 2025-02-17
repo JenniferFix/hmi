@@ -1,11 +1,12 @@
 import * as React from 'react'
-import { useGetWidget } from '@renderer/hooks/usewidgetqueries'
+import { useGetWidget, useUpdateWidget } from '@renderer/hooks/usewidgetqueries'
 import Text from '@renderer/components/screeneditor/defaultwidgets/Text'
 import Image from '@renderer/components/screeneditor/defaultwidgets/Image'
 import { useHMIEditorStore } from '@renderer/store'
 import { cn } from '@renderer/lib/utils'
 import WidgetContextMenu from './WidgetContextMenu'
 import { EditDragData } from '@renderer/types'
+import { Keys } from '@renderer/consts'
 
 const Widget = ({ widgetId }: { widgetId: string }) => {
   const { data, isLoading, isError, error } = useGetWidget({ id: widgetId })
@@ -13,6 +14,7 @@ const Widget = ({ widgetId }: { widgetId: string }) => {
   const setSelected = useHMIEditorStore((state) => state.setSelected)
   const addToSelected = useHMIEditorStore((state) => state.addToSelected)
   const removeFromSelected = useHMIEditorStore((state) => state.removeFromSelected)
+  const updateWidget = useUpdateWidget()
 
   const handleClick: React.MouseEventHandler<HTMLElement> = React.useCallback(
     (e) => {
@@ -52,6 +54,26 @@ const Widget = ({ widgetId }: { widgetId: string }) => {
   const handleDragEnd: React.DragEventHandler<HTMLElement> = React.useCallback((e) => {
     // console.log('widget onDragEnd', e)
   }, [])
+
+  React.useEffect(() => {
+    const handleKeyDown = async (e: KeyboardEvent) => {
+      if (!isSelected) return
+      switch (e.key) {
+        case 'ArrowUp':
+          console.log(widgetId, 'up', isSelected)
+          break
+        case 'ArrowDown':
+          console.log(widgetId, 'dn', isSelected)
+          break
+        case 'ArrowLeft':
+          break
+        case 'ArrowRight':
+          break
+      }
+    }
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [isSelected, widgetId])
 
   if (isLoading) return null
   if (isError) return <div>WidgetError: {error?.message}</div>
@@ -93,6 +115,9 @@ const Widget = ({ widgetId }: { widgetId: string }) => {
         draggable
         onDragStart={(e) => handleDragStart(e, widgetId)}
         onDragEnd={handleDragEnd}
+        onKeyUp={(e) => {
+          console.log(e)
+        }}
       >
         {data.template.name === 'Text' && <Text widgetId={widgetId} />}
         {data.template.name === 'Image' && <Image widgetId={widgetId} />}

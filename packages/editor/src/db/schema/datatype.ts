@@ -20,7 +20,9 @@ export const dataType = sqliteTable(
       .$onUpdate(() => sql`CURRENT_TIMESTAMP`),
     name: text('name'),
     description: text('description'),
-    typescriptType: text('typescriptType', { enum: ['string', 'number', 'date', 'boolean'] })
+    typescriptType: text('typescriptType', {
+      enum: ['string', 'number', 'Date', 'boolean']
+    }).notNull()
   },
   (table) => ({
     nameIndex: index('nameIndex').on(table.name)

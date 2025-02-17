@@ -7,6 +7,7 @@ import windowStateKeeper from 'electron-window-state'
 import { startNodeRed } from './nodeRedService'
 import env from '@/env'
 import { seedDb } from '@/db/seed'
+import { createConnection } from '@fixtech/hmi-websocket'
 
 function createWindow(): void {
   const windowState = windowStateKeeper({
@@ -33,6 +34,8 @@ function createWindow(): void {
       // sandbox: false
     }
   })
+
+  windowState.manage(mainWindow)
 
   mainWindow.webContents.openDevTools()
 
@@ -74,13 +77,18 @@ app.whenReady().then(async () => {
 
   await initDb()
   console.log('db initialized')
+
   await runMigrate()
+
   if (env.DB_SEEDING) {
     console.log('seeding')
     await seedDb()
     app.quit()
     return
   }
+
+  // start websocket
+
   await startNodeRed()
   console.log('Node RED started')
 

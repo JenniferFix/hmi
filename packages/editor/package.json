@@ -1,5 +1,5 @@
 {
-  "name": "@fixtech/hmi-electron",
+  "name": "@fixtech/hmi-editor",
   "version": "0.0.1",
   "description": "Just Another HMI - Create HMI panels for use with Allen Bradley PLCs",
   "main": "./out/main/index.js",
@@ -30,6 +30,7 @@
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.1",
     "@electron-toolkit/utils": "^4.0.0",
+    "@fixtech/hmi-websocket": "workspace:*",
     "@fixtech/node-red-contrib-fixtech-hmi-websocket": "workspace:*",
     "@fontsource/noto-sans": "^5.1.1",
     "@hookform/resolvers": "^3.10.0",

@@ -6,9 +6,9 @@
   "homepage": "https://jenniferfix.ca",
   "main": "index.js",
   "scripts": {
-    "electron:dev": "pnpm -F @fixtech/hmi-electron run dev",
+    "editor:dev": "pnpm -F @fixtech/hmi-editor run dev",
     "node-red-hmi-websocket:dev": "pnpm -F @fixtech/node-red-contrib-fixtech-hmi-websocket run dev",
-    "dev": "concurrently \"pnpm run node-red-hmi-websocket:dev\" \"pnpm run electron:dev\"",
+    "dev": "concurrently \"pnpm run node-red-hmi-websocket:dev\" \"pnpm run editor:dev\"",
     "devr": "pnpm -r dev",
     "all:update": "pnpm -r update -i -L",
     "cleandist": "pnpm -r cleandist",

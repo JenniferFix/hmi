@@ -63,6 +63,9 @@ const ScreenPalette = () => {
           </Button>
         </DialogTrigger>
         <DialogContent>
+          <DialogHeader>
+            <DialogTitle hidden>Add Screen</DialogTitle>
+          </DialogHeader>
           <Form {...nameForm}>
             <form onSubmit={nameForm.handleSubmit(handleAddScreen)}>
               <DialogHeader>
