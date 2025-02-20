@@ -63,7 +63,6 @@ import {
   ChevronsRight
 } from 'lucide-react'
 import { cn } from '@renderer/lib/utils'
-import { SelectGroup } from '../ui/select'
 import { TagWithDatatype } from '@db/schema'
 
 interface DataTableColumnHeaderProps<TData, TValue> extends React.HTMLAttributes<HTMLDivElement> {
@@ -259,9 +258,10 @@ const ActionDropdown = ({ row }: { row: TagType }) => {
       <DropdownMenuContent>
         <DropdownMenuLabel hidden>Actions</DropdownMenuLabel>
         <DropdownMenuItem
-          onClick={async () =>
+          onClick={async () => {
+            if (!row.id) throw new Error(`tag doesn't have an id`)
             await deleteTag.mutateAsync({ tagId: row.id, controllerId: row.controllerId })
-          }
+          }}
         >
           Delete
         </DropdownMenuItem>
@@ -298,7 +298,7 @@ export function DataTable<TData, TValue>({ columns, data }: DatatableProps<TData
   })
 
   return (
-    <div className="flex-1 flex flex-col max-w-full">
+    <div className="flex flex-col flex-1">
       <div className="flex gap-1">
         <BasicTooltip content="Add tag to controller" asChild>
           <Button variant="outline" size="icon" asChild>
@@ -316,6 +316,7 @@ export function DataTable<TData, TValue>({ columns, data }: DatatableProps<TData
               // TODO: Try to figure out 'proper' way with the row.getValue('COLUMN_NAME_HERE') instead of the row.original
               table.getFilteredSelectedRowModel().rows.forEach(async (row) => {
                 const tag = row.original as TagWithDatatype
+                if (!tag.id) throw new Error(`Tag data doesn't contain an id so cannot delete`)
                 await deleteTag.mutateAsync({ tagId: tag.id, controllerId })
               })
               table.resetRowSelection()
@@ -363,8 +364,8 @@ export function DataTable<TData, TValue>({ columns, data }: DatatableProps<TData
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-      <ScrollArea className="h-[500px]">
-        <Table>
+      <ScrollArea className="">
+        <Table className="">
           <TableHeader className="">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>

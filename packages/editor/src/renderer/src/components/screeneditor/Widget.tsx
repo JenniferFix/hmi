@@ -7,6 +7,7 @@ import { cn } from '@renderer/lib/utils'
 import WidgetContextMenu from './WidgetContextMenu'
 import { EditDragData } from '@renderer/types'
 import { Keys } from '@renderer/consts'
+import { useWidgetProperties } from '@renderer/hooks/usewidgetproperties'
 
 const Widget = ({ widgetId }: { widgetId: string }) => {
   const { data, isLoading, isError, error } = useGetWidget({ id: widgetId })
@@ -15,6 +16,9 @@ const Widget = ({ widgetId }: { widgetId: string }) => {
   const addToSelected = useHMIEditorStore((state) => state.addToSelected)
   const removeFromSelected = useHMIEditorStore((state) => state.removeFromSelected)
   const updateWidget = useUpdateWidget()
+  const { props: wProps } = useWidgetProperties({ widgetId })
+
+  console.log(wProps)
 
   const handleClick: React.MouseEventHandler<HTMLElement> = React.useCallback(
     (e) => {

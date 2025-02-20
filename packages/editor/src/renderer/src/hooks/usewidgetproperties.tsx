@@ -42,6 +42,10 @@ type Prop<T> = {
   currentValue: T | null
 }
 
+type Props = {
+  [propId: string]: Prop
+}
+
 function createProp<T extends keyof TypeMap>(
   dataType: T,
   defaultValue: string,
@@ -61,22 +65,24 @@ function createProp<T extends keyof TypeMap>(
 
 export function useWidgetProperties({ widgetId }: { widgetId: string }) {
   const { data, isLoading, isError, error } = useGetWidget({ id: widgetId })
-  const [props, setProps] = React.useState<Prop<string | number | boolean>[] | null>(null)
+  const [props, setProps] = React.useState<Prop<string | number | boolean | Date>[] | null>(null)
 
   React.useEffect(() => {
     if (isLoading) return
     if (isError) return
     if (!data) return
+
     setProps(
       data.template.properties.map((templateProp) => {
-        return createProp(
-          templateProp.dataType.typescriptType as keyof TypeMap,
-          templateProp.default,
-          templateProp.id
-        )
+        const d = String(templateProp.default)
+        return createProp(templateProp.dataType.typescriptType as keyof TypeMap, d, templateProp.id)
       })
     )
   }, [data, isLoading, isError, error])
+
+  const getProp = (propName: string) => {
+    //
+  }
 
   return { props }
 }
