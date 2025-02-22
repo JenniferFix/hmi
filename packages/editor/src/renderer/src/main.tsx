@@ -24,11 +24,11 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <QueryClientProvider client={queryClient}>
       <ThemeProvider defaultTheme="dark" storageKey="jahmi-ui-theme">
         <TooltipProvider>
-          <SidebarProvider className="fixed inset-0">
-            <RouterProvider router={router} />
-            <ReactQueryDevtools initialIsOpen={false} />
-            <Toaster />
-          </SidebarProvider>
+          {/* <SidebarProvider className="h-dvh"> */}
+          <RouterProvider router={router} />
+          <ReactQueryDevtools initialIsOpen={false} />
+          <Toaster />
+          {/* </SidebarProvider> */}
         </TooltipProvider>
       </ThemeProvider>
     </QueryClientProvider>

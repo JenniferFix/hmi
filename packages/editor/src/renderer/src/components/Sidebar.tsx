@@ -1,18 +1,18 @@
 import * as React from 'react'
 import { ChevronRight } from 'lucide-react'
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarHeader,
-  SidebarFooter,
-  SidebarGroup,
-  SidebarGroupLabel,
-  SidebarGroupContent,
-  SidebarGroupAction,
-  SidebarMenu,
-  SidebarMenuItem,
-  SidebarMenuButton
-} from '@renderer/components/ui/sidebar'
+// import {
+//   Sidebar,
+//   SidebarContent,
+//   SidebarHeader,
+//   SidebarFooter,
+//   SidebarGroup,
+//   SidebarGroupLabel,
+//   SidebarGroupContent,
+//   SidebarGroupAction,
+//   SidebarMenu,
+//   SidebarMenuItem,
+//   SidebarMenuButton
+// } from '@renderer/components/ui/sidebar'
 import {
   Collapsible,
   CollapsibleContent,
@@ -31,38 +31,31 @@ const ControllerList = React.memo(() => {
   if (isError) throw new Error('Error in ControllerList')
   if (data && data.length === 0)
     return (
-      <SidebarMenu>
-        <SidebarMenuItem>
-          <SidebarMenuButton asChild>
-            <Link
-              to={'/controllers/add'}
-              activeProps={{ className: 'bg-sidebar-accent text-sidebar-accent-foreground' }}
-            >
-              Add Controller
-            </Link>
-          </SidebarMenuButton>
-        </SidebarMenuItem>
-      </SidebarMenu>
+      <Button asChild>
+        <Link
+          to={'/controllers/add'}
+          activeProps={{ className: 'bg-sidebar-accent text-sidebar-accent-foreground' }}
+        >
+          Add Controller
+        </Link>
+      </Button>
     )
 
   return (
-    <SidebarMenu>
+    <>
       {data?.map((controller, idx) => {
         return (
-          <SidebarMenuItem key={idx}>
-            <SidebarMenuButton asChild>
-              <Link
-                to="/controllers/$controllerId"
-                params={{ controllerId: controller.id }}
-                activeProps={{ className: 'bg-sidebar-accent text-sidebar-accent-foreground' }}
-              >
-                {controller.ip}
-              </Link>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
+          <Link
+            key={idx}
+            to="/controllers/$controllerId"
+            params={{ controllerId: controller.id }}
+            activeProps={{ className: 'bg-sidebar-accent text-sidebar-accent-foreground' }}
+          >
+            {controller.ip}
+          </Link>
         )
       })}
-    </SidebarMenu>
+    </>
   )
 })
 
@@ -70,34 +63,33 @@ const ScreensList = React.memo(() => {
   const { data, isLoading, isError, error } = useGetScreens()
   if (isLoading) return null
   if (isError) return null
-  if (data && data.length === 0) return <SidebarMenu>Add screen</SidebarMenu>
+  if (data && data.length === 0) return <div>Add screen</div>
   return (
-    <SidebarMenu>
+    <>
       {data?.map((screen, i) => (
-        <SidebarMenuItem key={i}>
-          <SidebarMenuButton asChild>
-            <Link
-              to={`/screens/$screenId`}
-              params={{ screenId: screen.id.toString() }}
-              activeProps={{ className: 'bg-sidebar-accent text-sidebar-accent-foreground' }}
-            >
-              {screen.name}
-            </Link>
-          </SidebarMenuButton>
-        </SidebarMenuItem>
+        <Link
+          key={i}
+          to={`/screens/$screenId`}
+          params={{ screenId: screen.id.toString() }}
+          activeProps={{ className: 'bg-sidebar-accent text-sidebar-accent-foreground' }}
+        >
+          {screen.name}
+        </Link>
       ))}
-    </SidebarMenu>
+    </>
   )
 })
 
 const CollapsibleSection = React.memo(
   ({
     children,
+    className,
     title,
     link,
     defaultOpen = false
   }: {
     children: React.ReactNode
+    className?: string
     title: string
     link?: string
     defaultOpen?: boolean
@@ -108,32 +100,22 @@ const CollapsibleSection = React.memo(
         open={open}
         onOpenChange={(open) => setOpen(open)}
         defaultOpen={defaultOpen}
-        className="group/collapsible"
+        className={cn('group/collapsible pl-2', className)}
       >
-        <SidebarGroup>
-          <SidebarGroupLabel
-            asChild
-            className={`group/label text-sm text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground`}
+        <CollapsibleTrigger asChild>
+          <Link
+            className="flex justify-between"
+            to={link}
+            //TODO: Fix this so if any children are selected this is not, it looks silly otherwise
+            // activeProps={{ className: 'bg-sidebar-accent text-sidebar-accent-foreground' }}
           >
-            <CollapsibleTrigger asChild>
-              <SidebarMenuButton asChild className="w-full">
-                <Link
-                  to={link}
-                  //TODO: Fix this so if any children are selected this is not, it looks silly otherwise
-                  // activeProps={{ className: 'bg-sidebar-accent text-sidebar-accent-foreground' }}
-                >
-                  {title}
-                  <ChevronRight
-                    className={cn('ml-auto transition-transform', open ? 'rotate-90' : '')}
-                  />
-                </Link>
-              </SidebarMenuButton>
-            </CollapsibleTrigger>
-          </SidebarGroupLabel>
-          <CollapsibleContent>
-            <SidebarGroupContent>{children}</SidebarGroupContent>
-          </CollapsibleContent>
-        </SidebarGroup>
+            {title}
+            <ChevronRight
+              className={cn('inline-block ml-auto transition-transform', open ? 'rotate-90' : '')}
+            />
+          </Link>
+        </CollapsibleTrigger>
+        <CollapsibleContent>{children}</CollapsibleContent>
       </Collapsible>
     )
   }
@@ -141,51 +123,41 @@ const CollapsibleSection = React.memo(
 
 const AppSidebar = () => {
   return (
-    <Sidebar
-      variant="floating"
-      className="top-[--header-height] !h-[calc(100svh-var(--header-height))]"
+    <div
+      // variant="floating"
+      className="h-full w-[20rem] px-2 pb-2 rounded-xl"
+      // className="top-[--header-height] !h-[calc(100svh-var(--header-height))]"
     >
-      <SidebarHeader>Header</SidebarHeader>
-      <CollapsibleSection title="App name here" defaultOpen>
-        <SidebarContent>
-          <SidebarGroup>
-            <CollapsibleSection title="Controllers" link="/controllers">
-              <ControllerList />
-            </CollapsibleSection>
-            <CollapsibleSection title="Screens" link="/screens">
-              <ScreensList />
-            </CollapsibleSection>
-            <SidebarMenu>
-              <SidebarMenuItem>
-                <SidebarMenuButton asChild>
-                  <Link
-                    to="/nodered"
-                    activeProps={{ className: 'bg-sidebar-accent text-sidebar-accent-foreground' }}
-                  >
-                    Node-RED
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            </SidebarMenu>
-          </SidebarGroup>
-        </SidebarContent>
-      </CollapsibleSection>
-      <SidebarFooter className="mt-auto">
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton asChild>
-              <Link
-                to="/config"
-                activeProps={{ className: 'bg-sidebar-accent text-sidebar-accent-foreground' }}
-              >
-                <Settings />
-                <span>Settings</span>
-              </Link>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        </SidebarMenu>
-      </SidebarFooter>
-    </Sidebar>
+      <div className="h-full flex flex-col gap-2 bg-sidebar-accent text-sidebar-accent-foreground p-2">
+        {/* <SidebarHeader>Header</SidebarHeader> */}
+        <CollapsibleSection className="flex flex-col gap-2" title="App name here" defaultOpen>
+          <CollapsibleSection
+            className="flex flex-col gap-2"
+            title="Controllers"
+            link="/controllers"
+          >
+            <ControllerList />
+          </CollapsibleSection>
+          <CollapsibleSection title="Screens" link="/screens">
+            <ScreensList />
+          </CollapsibleSection>
+          <Link
+            to="/nodered"
+            activeProps={{ className: 'bg-sidebar-accent text-sidebar-accent-foreground' }}
+          >
+            Node-RED
+          </Link>
+        </CollapsibleSection>
+        <Link
+          className="flex"
+          to="/config"
+          activeProps={{ className: 'bg-sidebar-accent text-sidebar-accent-foreground' }}
+        >
+          <Settings className={cn('inline-block')} />
+          <span className="pl-2">Settings</span>
+        </Link>
+      </div>
+    </div>
   )
 }
 

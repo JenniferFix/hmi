@@ -12,14 +12,14 @@ export const Route = createRootRoute({
 function RootComponent() {
   return (
     <React.Fragment>
-      <div className={`w-full flex flex-col font-noto [--header-height:calc(theme(spacing.12))]`}>
+      <div className={`h-dvh flex flex-col font-noto [--header-height:calc(theme(spacing.12))]`}>
         {/* <div className="w-full flex flex-col"> */}
         <AppHeader />
-        <div className="flex">
+        <div className="flex flex-1">
           <Sidebar />
-          <SidebarInset className="flex flex-col">
-            <Outlet />
-          </SidebarInset>
+          {/* <SidebarInset className="flex flex-col"> */}
+          <Outlet />
+          {/* </SidebarInset> */}
         </div>
       </div>
     </React.Fragment>

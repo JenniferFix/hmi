@@ -298,7 +298,7 @@ export function DataTable<TData, TValue>({ columns, data }: DatatableProps<TData
   })
 
   return (
-    <div className="flex flex-col flex-1">
+    <div className="flex-1 flex flex-col">
       <div className="flex gap-1">
         <BasicTooltip content="Add tag to controller" asChild>
           <Button variant="outline" size="icon" asChild>
@@ -331,7 +331,7 @@ export function DataTable<TData, TValue>({ columns, data }: DatatableProps<TData
           </Button>
         </BasicTooltip>
       </div>
-      <div className="flex items-center py-4">
+      <div className="flex items-center py-4 shrink-0">
         <Input
           variant="property"
           className="max-w-sm"
@@ -364,7 +364,7 @@ export function DataTable<TData, TValue>({ columns, data }: DatatableProps<TData
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-      <ScrollArea className="">
+      <ScrollArea className="h-full">
         <Table className="">
           <TableHeader className="">
             {table.getHeaderGroups().map((headerGroup) => (
